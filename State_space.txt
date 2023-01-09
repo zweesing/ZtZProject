@@ -1,0 +1,47 @@
+1. Volgorde is niet belangrijk (als elk vak maar een plek krijgt), herhaling mag niet want je wil elk vak maar een keer volgen,
+dus formule is n! / (r! (n-r)!) met n = 4 * 5 = 20 en r = 12, dus dat is 20! / (12! * 8!) = 125970 roosters.
+
+2. Volgorde is wel belangrijk omdat elke route een bepaalde volgorde heeft. Je mag meerdere keren dezelfde kant op dus herhaling mag wel.
+De formule is dan dus n^r = 3^20 = 3486784401.
+
+3. Volgorde is niet belangrijk (er moeten gewoon 25 dozen inladen), je mag ook meerdere keren dezelfde soort lading kiezen dus herhaling mag wel.
+De formule is dan dus (r+n-1)!/(r!(n-1)!) = (25 +3 - 1)!/(25! * (3-1)!) = 351 ladingen.
+
+4. Volgorde maakt niet uit omdat je alle vakken op een willekeurige volgorde mag volgen. Herhaling mag niet omdat je een vak maar 1 keer mag volgen. Dit is dan de formule: n!/(r!(n-r)!) =
+110! / 30! * (110 - 30)! = 8.366230917739425e+26
+ 110! / 30! * (110 - 31)! = 2.159027333610174e+27
+110! / 30! * (110 - 32)! = 5.330098729850117e+27
+
+5. Volgorde is belangrijk omdat de balletjes op een bepaalde volgorde uit de ton gehaald worden.
+Herhaling mag niet omdat je een balletje maar 1 keer uit de ton mag halen. n! / (n-r)! = 26! / (26-7)! = 3315312000.
+
+6. Volgorde maakt niet uit en herhaling is ook niet belangrijk, maar de n is verschillend aangezien er als er 30 dozen broodjes
+in de bus zitten er nog maar twee keuzes zijn om in de bus te stoppen. Namelijk water en fruit.
+De formule moet dan opgesplitst worden in twee, eerst voor 30 keuzes en drie mogelijkheden per keuze.
+Daarna voor 15 keuzes en twee mogelijkheden per keuze. Dit doe je daarna keer elkaar om de totale hoeveelheid kans te berekenen.
+De formule is n!/(r!(n-r)!).
+((30 + 2)! / 30! * 2!) * ((15 +1)! / 15! * 1!)  = 7936
+
+7.
+Chips & Circuits
+
+Connecties, grootte van het grid en gates.
+
+De versimpelde aanname is dat er over elk grid segment meerdere wires mogen lopen. De laatste aanname is dat we voor elke connectie elk deel van het grid gebruiken,
+dat is ook niet waar.
+Dit mag allemaal in werkelijkheid niet waardoor onze berekende state space groter is dan die in de werkelijkheid.
+
+De state space zouden we berekenen door aantal connecties keer de hoeveelheid mogelijkheden per connectie: n^r.
+N^r hebben we opgedeeld in drie verschillende delen, hoekpunten, zijpunten en middenpunten van het grid.
+Voor hoekpunten: 2^4. Voor zijpunten: 3^(2*x + 2*y - 8). Voor middenpunten: 4^(x*y - 2x - 2y + 4). X en y staan voor
+lengte en breedte van het grid. Elke N is gebaseerd op de hoeveelheid keuze per punt en de r volgt uit de hoeveelheid
+van dit soort punten per grid.
+Binnen x * y - 1 zetten kan je elk punt in het grid bereiken.
+
+In de foto zie je vier van de 16 opties voor een 2 bij 2 grid. Deze vier opties kunnen vanuit elk punt gestart worden
+door dezelfde lijnen te tekenen maar dan met het grid een kwart slag gekanteld. Zo kom je op 16 routes.
+
+Eerste berekening is voor chip_0 met netlist_1. Dit heeft een grid van 6 bij 6 en 5 connecties. Dit geeft 1,47 * 10^19.
+Tweede berekening is voor chip_1 met netlist_1. Dit heeft een grid van 16 bij 16 en 30 connecties. Dit geeft
+2,53 * 10^147.
+
