@@ -81,6 +81,8 @@ class Pathfinder:
     def __repr__(self):
         return '\n'.join([' '.join(row) for row in self.board])
 
+# Make a dictionary at the end were net list(route) is linked to the actual found route.
+
 
 if __name__ == '__main__':
     # g = Grid(10, 10)
