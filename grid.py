@@ -32,6 +32,19 @@ def read_gates(path):
     return gatesdict, max_coord
 
 
+def read_netlist(path):
+    netlist = []
+    with open(path) as gatesfile:
+        header = gatesfile.readline()
+        lines = gatesfile.readlines()
+
+        for line in lines:
+            line = line.strip().split(",")
+            netlist.append(tuple(line))
+
+    return netlist
+
+
 # now only squares. need to test x and y seperatly to also make rectangles if needed.
 
 
@@ -77,14 +90,24 @@ if __name__ == "__main__":
     # print()
     # g.place_gate(4, 4)
     # print(g)
+
+    # make the grid in a size that fits all the gates
     gatesfilepath = "gates_and_netlists/print_0.csv"
     dict, max_coord = read_gates(gatesfilepath)
     size = max_coord + 1
-    p = Grid(size, size, dict)
-    print(p)
+    board_obj = Grid(size, size, dict)
+    print(board_obj)
 
-    b = p.get_board()
-    g = Pathfinder((0, 0), (4, 4), b)
+    # read out all connections that need to be made
+    netlitpath = "gates_and_netlists/netlist_1.csv"
+    netlist = read_netlist(netlitpath)
+    print(netlist)
+
+    # now we can use both netlist and gates dict to get all the start and end points
+    # and have pathfinder solve those
+
+    board = board_obj.get_board()
+    g = Pathfinder((0, 0), (4, 4), board)
     print()
     route, wire_count, board = g.find()
     print(g)
