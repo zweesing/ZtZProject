@@ -84,7 +84,7 @@ if __name__ == "__main__":
     print(p)
 
     b = p.get_board()
-    g = Pathfinder(0, 0, 4, 4, b)
+    g = Pathfinder((0, 0), (4, 4), b)
     print()
     route, wire_count, board = g.find()
     print(g)
