@@ -1,3 +1,14 @@
+gatesdict = {}
+gatesfilepath = "gates_and_netlists/print_0.csv"
+with open(gatesfilepath) as gatesfile:
+    header = gatesfile.readline()
+    lines = gatesfile.readlines()
+
+    for line in lines:
+        line = line.strip().split(",")
+        gatesdict[line[0]] = (int(line[1]), int(line[2]))
+
+
 class Grid:
     def __init__(self, column, row):
         self.column = column
@@ -10,17 +21,18 @@ class Grid:
         for row in range(self.row):
             self.board.append([])
             for width in range(self.column):
-                self.board[row].append('0')
+                self.board[row].append("0")
 
     def get_board(self):
         return self.board
 
-    def place_gate(self, column, row):
+    def place_gate(self, coords):
         # Places a gate at the coordinates given by the user
-        self.board[column][row] = 'X'
+        column, row = coords
+        self.board[column][row] = "X"
 
     def __repr__(self):
-        return '\n'.join([' '.join(row) for row in self.board])
+        return "\n".join([" ".join(row) for row in self.board])
 
 
 class Pathfinder:
@@ -45,53 +57,57 @@ class Pathfinder:
             current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
-            self.board[current_gate_x][current_gate_y] = '1'
+            self.board[current_gate_x][current_gate_y] = "1"
             if current_position == end_gate:
-                self.board[current_gate_x][current_gate_y] = 'X'
+                self.board[current_gate_x][current_gate_y] = "X"
 
         while current_gate_x > self.end_gate_x:
             current_gate_x += 1
             current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
-            self.board[current_gate_x][current_gate_y] = '1'
+            self.board[current_gate_x][current_gate_y] = "1"
             if current_position == end_gate:
-                self.board[current_gate_x][current_gate_y] = 'X'
+                self.board[current_gate_x][current_gate_y] = "X"
 
         while current_gate_y < self.end_gate_y:
             current_gate_y += 1
             current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
-            self.board[current_gate_x][current_gate_y] = '1'
+            self.board[current_gate_x][current_gate_y] = "1"
             if current_position == end_gate:
-                self.board[current_gate_x][current_gate_y] = 'X'
+                self.board[current_gate_x][current_gate_y] = "X"
 
         while current_gate_y > self.end_gate_y:
             current_gate_y += 1
             current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
-            self.board[current_gate_x][current_gate_y] = '1'
+            self.board[current_gate_x][current_gate_y] = "1"
             if current_position == end_gate:
-                self.board[current_gate_x][current_gate_y] = 'X'
+                self.board[current_gate_x][current_gate_y] = "X"
 
         return route, wire_count, self.board
 
     def __repr__(self):
-        return '\n'.join([' '.join(row) for row in self.board])
+        return "\n".join([" ".join(row) for row in self.board])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+
     # g = Grid(10, 10)
     # g.get_board()
     # print(g)
     # print()
     # g.place_gate(4, 4)
     # print(g)
-    p = Grid(5, 5)
-    p.place_gate(0, 0)
-    p.place_gate(4, 4)
+    p = Grid(7, 7)
+
+    for gate in gatesdict:
+        print(gatesdict[gate])
+        p.place_gate(gatesdict[gate])
+
     b = p.get_board()
     g = Pathfinder(0, 0, 4, 4, b)
     print(p)
