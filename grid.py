@@ -55,7 +55,7 @@ if __name__ == "__main__":
         p.place_gate(gatesdict[gate])
 
     b = p.get_board()
-    g = Pathfinder(0, 0, 4, 4, b)
+    g = Pathfinder((0, 0), (4, 4), b)
     print(p)
     print()
     route, wire_count, board = g.find()

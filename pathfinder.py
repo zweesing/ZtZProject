@@ -1,9 +1,7 @@
 class Pathfinder:
-    def __init__(self, start_gate_x, start_gate_y, end_gate_x, end_gate_y, board):
-        self.start_gate_x = start_gate_x
-        self.start_gate_y = start_gate_y
-        self.end_gate_x = end_gate_x
-        self.end_gate_y = end_gate_y
+    def __init__(self, start, end, board):
+        self.start_gate_x, self.start_gate_y = start
+        self.end_gate_x, self.end_gate_y = end
         self.board = board
 
     def find(self):
