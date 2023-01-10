@@ -99,15 +99,21 @@ if __name__ == "__main__":
     print(board_obj)
 
     # read out all connections that need to be made
-    netlitpath = "gates_and_netlists/netlist_1.csv"
-    netlist = read_netlist(netlitpath)
+    netlistpath = "gates_and_netlists/netlist_1.csv"
+    netlist = read_netlist(netlistpath)
     print(netlist)
 
     # now we can use both netlist and gates dict to get all the start and end points
     # and have pathfinder solve those
 
+    # for first path:
+    start, stop = netlist[1]
+
+    start_coord = dict[start]
+    stop_coord = dict[stop]
     board = board_obj.get_board()
-    g = Pathfinder((0, 0), (4, 4), board)
+    print(board)
+    g = Pathfinder(start_coord, stop_coord, board)
     print()
     route, wire_count, board = g.find()
     print(g)

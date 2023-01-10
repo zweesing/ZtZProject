@@ -45,6 +45,8 @@ class Pathfinder:
             current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
+            print(self.board)
+            print(current_gate_x, current_gate_y)
             self.board[current_gate_x][current_gate_y] = "1"
             if current_position == end_gate:
                 self.board[current_gate_x][current_gate_y] = "X"
