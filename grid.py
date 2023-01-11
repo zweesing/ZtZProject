@@ -1,5 +1,5 @@
 from pathfinder import Pathfinder
-
+import csv
 
 gatesfilepath = "gates_and_netlists/print_0.csv"
 
@@ -82,6 +82,18 @@ class Grid:
 # Make a dictionary at the end were net list(route) is linked to the actual found route.
 
 
+def writetofile(netlist, routes, wirecount):
+    with open("output.csv", "w", newline="") as file:
+        writer = csv.writer(file)
+
+        writer.writerow(("net", "wires"))
+
+        for i in range(len(routes)):
+            writer.writerow((netlist[i], routes[i]))
+
+        writer.writerow(("wirecount", wirecount))
+
+
 if __name__ == "__main__":
 
     # g = Grid(10, 10)
@@ -97,6 +109,7 @@ if __name__ == "__main__":
     size = max_coord + 1
     board_obj = Grid(size, size, dict)
     print(board_obj)
+    board = board_obj.get_board()
 
     # read out all connections that need to be made
     netlistpath = "gates_and_netlists/netlist_1.csv"
@@ -105,17 +118,38 @@ if __name__ == "__main__":
 
     # now we can use both netlist and gates dict to get all the start and end points
     # and have pathfinder solve those
+    routes = []
+    totalwirecount = 0
 
     # for first path:
-    start, stop = netlist[2]
+    for net in netlist:
+        start, stop = net
 
-    start_coord = dict[start]
-    stop_coord = dict[stop]
-    board = board_obj.get_board()
-    print(board)
-    g = Pathfinder(start_coord, stop_coord, board)
-    print()
-    route, wire_count, board = g.find()
-    print(g)
-    print(route)
-    print(wire_count)
+        start_coord = dict[start]
+        stop_coord = dict[stop]
+
+        print(board)
+        g = Pathfinder(start_coord, stop_coord, board)
+        print()
+        route, wire_count, board = g.find()
+        routes.append(route)
+        totalwirecount += wire_count
+        print(g)
+        print(route)
+        print(wire_count)
+
+    # for second path:
+    # start, stop = netlist[1]
+
+    # start_coord = dict[start]
+    # stop_coord = dict[stop]
+    # g = Pathfinder(start_coord, stop_coord, board)
+    # print()
+    # route, wire_count, board = g.find()
+    # routes.append(route)
+    # totalwirecount += wire_count
+    # print(g)
+    # print(route)
+    # print(wire_count)
+
+    writetofile(netlist, routes, totalwirecount)
