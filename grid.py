@@ -1,11 +1,10 @@
 from pathfinder import Pathfinder
 import csv
 
-gatesfilepath = "gates_and_netlists/print_0.csv"
-
 
 def read_gates(path):
-    """summary
+    """read in the gates from a csv file, and save to dictionary. Also checks what the biggest position is
+    where a gate is placed, to later determine the board size. currently returns one maxcoord, for a square board.
 
     Args:
         path (string): path to csv file containing the gate positions
@@ -22,7 +21,10 @@ def read_gates(path):
 
         for line in lines:
             line = line.strip().split(",")
+            # csv contains name of gate, then x then y coordinate
             gatesdict[line[0]] = (int(line[1]), int(line[2]))
+
+            # check for max coordinate
             if int(line[1]) > max_coord:
                 max_coord = int(line[1])
 
@@ -33,6 +35,14 @@ def read_gates(path):
 
 
 def read_netlist(path):
+    """read a csv file containing the netlists, the connections that need to be made between gates.
+
+    Args:
+        path (str): path to the csv file
+
+    Returns:
+        list: list containing tuples (startgate, endgate)
+    """
     netlist = []
     with open(path) as gatesfile:
         header = gatesfile.readline()
@@ -83,6 +93,14 @@ class Grid:
 
 
 def writetofile(netlist, routes, wirecount):
+    """write the results to a csv file (currently "output.csv"). The file contains netlist and corresponding route,
+    as well as the total wire count to calculate costs.
+
+    Args:
+        netlist (list): the netlist with tuples of the gate connections
+        routes (list): list containing the routes taken for every connection
+        wirecount (int): total number of wires used
+    """
     with open("output.csv", "w", newline="") as file:
         writer = csv.writer(file)
 
@@ -96,14 +114,7 @@ def writetofile(netlist, routes, wirecount):
 
 if __name__ == "__main__":
 
-    # g = Grid(10, 10)
-    # g.get_board()
-    # print(g)
-    # print()
-    # g.place_gate(4, 4)
-    # print(g)
-
-    # make the grid in a size that fits all the gates
+    # make the grid in a size that fits all the gates, and add the gates
     gatesfilepath = "gates_and_netlists/print_0.csv"
     dict, max_coord = read_gates(gatesfilepath)
     size = max_coord + 1
@@ -114,6 +125,7 @@ if __name__ == "__main__":
     # read out all connections that need to be made
     netlistpath = "gates_and_netlists/netlist_1.csv"
     netlist = read_netlist(netlistpath)
+    print("netlist:")
     print(netlist)
 
     # now we can use both netlist and gates dict to get all the start and end points
@@ -121,20 +133,21 @@ if __name__ == "__main__":
     routes = []
     totalwirecount = 0
 
-    # for first path:
-    for net in netlist:
-        start, stop = net
+    # solve every connection with pathfinder
+    for connection in netlist:
+        start, stop = connection
 
         start_coord = dict[start]
         stop_coord = dict[stop]
 
-        print(board)
-        g = Pathfinder(start_coord, stop_coord, board)
+        path = Pathfinder(start_coord, stop_coord, board)
         print()
-        route, wire_count, board = g.find()
+
+        route, wire_count, board = path.find()
         routes.append(route)
         totalwirecount += wire_count
-        print(g)
+
+        print(path)
         print(route)
         print(wire_count)
 
