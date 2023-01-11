@@ -60,6 +60,13 @@ def read_netlist(path):
 
 class Grid:
     def __init__(self, column, row, gates):
+        """create a board (nested list) of size row x column.
+
+        Args:
+            column (int): width of board
+            row (int): height of board
+            gates (dict): name and coordinates of the gates on the board
+        """
         self.column = column
         self.row = row
         self.board = []
@@ -67,6 +74,9 @@ class Grid:
         self.make_board()
 
     def make_board(self):
+        """make the board based on input giving to instance.
+        Also calls place_gate to fill the board.
+        """
         # Function makes a board based on the column and row input of the user
         for row in range(self.row):
             self.board.append([])
@@ -78,14 +88,31 @@ class Grid:
             self.place_gate(self.gates_dict[gate])
 
     def get_board(self):
+        """get the board created.
+
+        Returns:
+            list: nested list of the board
+        """
         return self.board
 
     def place_gate(self, coords):
-        # Places a gate at the coordinates given by the user. Because of nested lists it is important to ask first row then column.
+        """Places a gate at the coordinates given by the user.
+        Because of nested lists it is important to ask first row then column.
+
+        Args:
+            coords (tuple): x,y position of the gate
+        """
+
+        #
         column, row = coords
         self.board[row][column] = "X"
 
     def __repr__(self):
+        """representation of the board for visualising.
+
+        Returns:
+            str: printable representation
+        """
         return "\n".join([" ".join(row) for row in self.board])
 
 
