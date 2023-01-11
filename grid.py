@@ -138,18 +138,4 @@ if __name__ == "__main__":
         print(route)
         print(wire_count)
 
-    # for second path:
-    # start, stop = netlist[1]
-
-    # start_coord = dict[start]
-    # stop_coord = dict[stop]
-    # g = Pathfinder(start_coord, stop_coord, board)
-    # print()
-    # route, wire_count, board = g.find()
-    # routes.append(route)
-    # totalwirecount += wire_count
-    # print(g)
-    # print(route)
-    # print(wire_count)
-
     writetofile(netlist, routes, totalwirecount)

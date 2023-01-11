@@ -97,14 +97,12 @@ class Pathfinder:
         return route, wire_count, self.board
 
     def is_valid(self, next_position):
-        if next_position == '0':
+        if next_position == "0":
             return True
 
     def end_point(self, next_position_x, next_position_y):
         if next_position_x == self.end_gate_x and next_position_y == self.end_gate_y:
             return True
-
-
 
     def __repr__(self):
         return "\n".join([" ".join(row) for row in self.board])

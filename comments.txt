@@ -3,3 +3,5 @@ hoe moet de visualisatie? we hebben nu tabel en het grid. Moeten we ook een graf
 
 pathfinder moet nog een bij if not is_valid rekening gehouden worden als de x en y al goed is en niet alleen kleiner of
 groter is.
+
+is het goed om als boardsize, max gates posities + 1 te kiezen?
