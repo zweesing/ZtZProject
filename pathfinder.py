@@ -1,8 +1,8 @@
 class Pathfinder:
     def __init__(self, start, end, board):
         # Switched y and x to make sure the coordinates are read right.
-        self.start_gate_y, self.start_gate_x = start
-        self.end_gate_y, self.end_gate_x = end
+        self.start_gate_x, self.start_gate_y = start
+        self.end_gate_x, self.end_gate_y = end
         self.board = board
 
     def find(self):
@@ -32,7 +32,7 @@ class Pathfinder:
                     current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
-            self.board[current_gate_x][current_gate_y] = "1"
+            self.board[current_gate_y][current_gate_x] = "1"
 
         while current_gate_x > self.end_gate_x:
             current_gate_x -= 1
@@ -52,7 +52,7 @@ class Pathfinder:
                     current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
-            self.board[current_gate_x][current_gate_y] = "1"
+            self.board[current_gate_y][current_gate_x] = "1"
 
         while current_gate_y < self.end_gate_y:
             current_gate_y += 1
@@ -72,7 +72,7 @@ class Pathfinder:
                     current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
-            self.board[current_gate_x][current_gate_y] = "1"
+            self.board[current_gate_y][current_gate_x] = "1"
 
         while current_gate_y > self.end_gate_y:
             current_gate_y -= 1
@@ -92,7 +92,7 @@ class Pathfinder:
                     current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
-            self.board[current_gate_x][current_gate_y] = "1"
+            self.board[current_gate_y][current_gate_x] = "1"
 
         return route, wire_count, self.board
 
