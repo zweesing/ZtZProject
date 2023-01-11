@@ -107,7 +107,7 @@ if __name__ == "__main__":
     # and have pathfinder solve those
 
     # for first path:
-    start, stop = netlist[1]
+    start, stop = netlist[2]
 
     start_coord = dict[start]
     stop_coord = dict[stop]
@@ -118,3 +118,4 @@ if __name__ == "__main__":
     route, wire_count, board = g.find()
     print(g)
     print(route)
+    print(wire_count)

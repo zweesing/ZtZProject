@@ -17,42 +17,82 @@ class Pathfinder:
         while current_gate_x < self.end_gate_x:
             current_gate_x += 1
             current_position = (current_gate_x, current_gate_y)
+            if self.end_point(current_gate_x, current_gate_y):
+                route.append(current_position)
+                wire_count += 1
+                break
+            if not self.is_valid(current_position):
+                if current_gate_y < self.end_gate_y:
+                    current_gate_x -= 1
+                    current_gate_y += 1
+                    current_position = (current_gate_x, current_gate_y)
+                elif current_gate_y > self.end_gate_y:
+                    current_gate_x -= 1
+                    current_gate_y -= 1
+                    current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
             self.board[current_gate_x][current_gate_y] = "1"
-            if current_position == end_gate:
-                self.board[current_gate_x][current_gate_y] = "X"
 
         while current_gate_x > self.end_gate_x:
             current_gate_x -= 1
             current_position = (current_gate_x, current_gate_y)
+            if self.end_point(current_gate_x, current_gate_y):
+                route.append(current_position)
+                wire_count += 1
+                break
+            if not self.is_valid(current_position):
+                if current_gate_y < self.end_gate_y:
+                    current_gate_x += 1
+                    current_gate_y += 1
+                    current_position = (current_gate_x, current_gate_y)
+                elif current_gate_y > self.end_gate_y:
+                    current_gate_x += 1
+                    current_gate_y -= 1
+                    current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
             self.board[current_gate_x][current_gate_y] = "1"
-            if current_position == end_gate:
-                self.board[current_gate_x][current_gate_y] = "X"
 
         while current_gate_y < self.end_gate_y:
             current_gate_y += 1
             current_position = (current_gate_x, current_gate_y)
+            if self.end_point(current_gate_x, current_gate_y):
+                route.append(current_position)
+                wire_count += 1
+                break
+            if not self.is_valid(current_position):
+                if current_gate_x < self.end_gate_x:
+                    current_gate_y -= 1
+                    current_gate_x += 1
+                    current_position = (current_gate_x, current_gate_y)
+                elif current_gate_x > self.end_gate_x:
+                    current_gate_y -= 1
+                    current_gate_x -= 1
+                    current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
             self.board[current_gate_x][current_gate_y] = "1"
-            if current_position == end_gate:
-                self.board[current_gate_x][current_gate_y] = "X"
 
         while current_gate_y > self.end_gate_y:
             current_gate_y -= 1
             current_position = (current_gate_x, current_gate_y)
+            if self.end_point(current_gate_x, current_gate_y):
+                route.append(current_position)
+                wire_count += 1
+                break
+            if not self.is_valid(current_position):
+                if current_gate_x < self.end_gate_x:
+                    current_gate_y += 1
+                    current_gate_x += 1
+                    current_position = (current_gate_x, current_gate_y)
+                elif current_gate_x > self.end_gate_x:
+                    current_gate_y += 1
+                    current_gate_x -= 1
+                    current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
-            print(self.board)
-            print(current_gate_x, current_gate_y)
             self.board[current_gate_x][current_gate_y] = "1"
-            if current_position == end_gate:
-                self.board[current_gate_x][current_gate_y] = "X"
-
-        self.board[current_gate_y][current_gate_x] == "X"
 
         return route, wire_count, self.board
 
