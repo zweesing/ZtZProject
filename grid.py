@@ -71,9 +71,9 @@ class Grid:
         return self.board
 
     def place_gate(self, coords):
-        # Places a gate at the coordinates given by the user
+        # Places a gate at the coordinates given by the user. Because of nested lists it is important to ask first row then column.
         column, row = coords
-        self.board[column][row] = "X"
+        self.board[row][column] = "X"
 
     def __repr__(self):
         return "\n".join([" ".join(row) for row in self.board])

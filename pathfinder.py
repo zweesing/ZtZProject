@@ -1,7 +1,8 @@
 class Pathfinder:
     def __init__(self, start, end, board):
-        self.start_gate_x, self.start_gate_y = start
-        self.end_gate_x, self.end_gate_y = end
+        # Switched y and x to make sure the coordinates are read right.
+        self.start_gate_y, self.start_gate_x = start
+        self.end_gate_y, self.end_gate_x = end
         self.board = board
 
     def find(self):
@@ -23,7 +24,7 @@ class Pathfinder:
                 self.board[current_gate_x][current_gate_y] = "X"
 
         while current_gate_x > self.end_gate_x:
-            current_gate_x += 1
+            current_gate_x -= 1
             current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
@@ -41,7 +42,7 @@ class Pathfinder:
                 self.board[current_gate_x][current_gate_y] = "X"
 
         while current_gate_y > self.end_gate_y:
-            current_gate_y += 1
+            current_gate_y -= 1
             current_position = (current_gate_x, current_gate_y)
             route.append(current_position)
             wire_count += 1
@@ -51,7 +52,19 @@ class Pathfinder:
             if current_position == end_gate:
                 self.board[current_gate_x][current_gate_y] = "X"
 
+        self.board[current_gate_y][current_gate_x] == "X"
+
         return route, wire_count, self.board
+
+    def is_valid(self, next_position):
+        if next_position == '0':
+            return True
+
+    def end_point(self, next_position_x, next_position_y):
+        if next_position_x == self.end_gate_x and next_position_y == self.end_gate_y:
+            return True
+
+
 
     def __repr__(self):
         return "\n".join([" ".join(row) for row in self.board])
