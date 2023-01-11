@@ -1,0 +1,5 @@
+hoe moet de visualisatie? we hebben nu tabel en het grid. Moeten we ook een grafiek maken met mathplotlib?
+
+
+pathfinder moet nog een bij if not is_valid rekening gehouden worden als de x en y al goed is en niet alleen kleiner of
+groter is.
