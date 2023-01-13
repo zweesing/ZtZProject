@@ -1,5 +1,15 @@
 hoe moet de visualisatie? we hebben nu tabel en het grid. Moeten we ook een grafiek maken met mathplotlib?
+verschillende algorithmes met tijdslijn en vergelijken via mathplotlib. En het maken van een betere representatie
+met mathplotlib.
 
+eerst overlappen en daarna de overlappingen oplossen.
+
+find overriden, subclass maken voor de pathfinder class. grid autonoom maken, met csv file importeren in class.
+folders toepassen uit college, om representatie af te maken.
+
+elke gate kan 6 ingangen hebben.
+
+allemaal in main en eigen functies werken.
 
 pathfinder moet nog een bij if not is_valid rekening gehouden worden als de x en y al goed is en niet alleen kleiner of
 groter is.
