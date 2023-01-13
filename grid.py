@@ -10,7 +10,7 @@ def read_gates(path):
         path (string): path to csv file containing the gate positions
 
     Returns:
-        dictionary, maxcoord: the dictioinary with the gate name and coordinates, and the max coordinate to determine grid size
+        dictionary, int: the dictioinary with the gate name and coordinates, and the max coordinate to determine grid size
     """
     gatesdict = {}
     max_coord = 0
