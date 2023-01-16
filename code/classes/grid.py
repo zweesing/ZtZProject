@@ -1,64 +1,11 @@
 import csv
 
 
-def read_gates(path):
-    """read in the gates from a csv file, and save to dictionary. Also checks what the biggest position is
-    where a gate is placed, to later determine the board size. currently returns one maxcoord, for a square board.
-
-    Args:
-        path (string): path to csv file containing the gate positions
-
-    Returns:
-        dictionary, int: the dictioinary with the gate name and coordinates, and the max coordinate to determine grid size
-    """
-    gatesdict = {}
-    max_coord = 0
-
-    with open(path) as gatesfile:
-        header = gatesfile.readline()
-        lines = gatesfile.readlines()
-
-        for line in lines:
-            line = line.strip().split(",")
-            # csv contains name of gate, then x then y coordinate
-            gatesdict[line[0]] = (int(line[1]), int(line[2]))
-
-            # check for max coordinate
-            if int(line[1]) > max_coord:
-                max_coord = int(line[1])
-
-            if int(line[2]) > max_coord:
-                max_coord = int(line[2])
-
-    return gatesdict, max_coord
-
-
-def read_netlist(path):
-    """read a csv file containing the netlists, the connections that need to be made between gates.
-
-    Args:
-        path (str): path to the csv file
-
-    Returns:
-        list: list containing tuples (startgate, endgate)
-    """
-    netlist = []
-    with open(path) as gatesfile:
-        header = gatesfile.readline()
-        lines = gatesfile.readlines()
-
-        for line in lines:
-            line = line.strip().split(",")
-            netlist.append(tuple(line))
-
-    return netlist
-
-
 # now only squares. need to test x and y seperatly to also make rectangles if needed.
 
 
 class Grid:
-    def __init__(self, column, row, gates):
+    def __init__(self, gatesfile, netlistfile):
         """create a board (nested list) of size row x column.
 
         Args:
@@ -66,20 +13,76 @@ class Grid:
             row (int): height of board
             gates (dict): name and coordinates of the gates on the board
         """
-        self.column = column
-        self.row = row
+        # gates is now file path
         self.board = []
-        self.gates_dict = gates
-        self.make_board()
 
-    def make_board(self):
+        self.gates_dict, max_coord = self.read_gates(gatesfile)
+
+        self.netlist = self.read_netlist(netlistfile)
+
+        self.make_board(max_coord)
+
+    def read_gates(self, path):
+        """read in the gates from a csv file, and save to dictionary. Also checks what the biggest position is
+        where a gate is placed, to later determine the board size. currently returns one maxcoord, for a square board.
+
+        Args:
+            path (string): path to csv file containing the gate positions
+
+        Returns:
+            dictionary, int: the dictioinary with the gate name and coordinates, and the max coordinate to determine grid size
+        """
+        gatesdict = {}
+        max_coord = 0
+
+        with open(path) as gatesfile:
+            header = gatesfile.readline()
+            lines = gatesfile.readlines()
+
+            for line in lines:
+                line = line.strip().split(",")
+                # csv contains name of gate, then x then y coordinate
+                gatesdict[line[0]] = (int(line[1]), int(line[2]))
+
+                # check for max coordinate
+                if int(line[1]) > max_coord:
+                    max_coord = int(line[1])
+
+                if int(line[2]) > max_coord:
+                    max_coord = int(line[2])
+
+        return gatesdict, max_coord
+
+    def read_netlist(self, path):
+        """read a csv file containing the netlists, the connections that need to be made between gates.
+
+        Args:
+            path (str): path to the csv file
+
+        Returns:
+            list: list containing tuples (startgate, endgate)
+        """
+        netlist = []
+        with open(path) as gatesfile:
+            header = gatesfile.readline()
+            lines = gatesfile.readlines()
+
+            for line in lines:
+                line = line.strip().split(",")
+                netlist.append(tuple(line))
+
+        return netlist
+
+    def make_board(self, size):
         """make the board based on input giving to instance.
         Also calls place_gate to fill the board.
         """
+        row = size + 1
+        column = size + 1
         # Function makes a board based on the column and row input of the user
-        for row in range(self.row):
+        for row in range(row):
             self.board.append([])
-            for width in range(self.column):
+            for width in range(column):
                 self.board[row].append("0")
 
         # add gates
