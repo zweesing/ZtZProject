@@ -15,3 +15,9 @@ pathfinder moet nog een bij if not is_valid rekening gehouden worden als de x en
 groter is.
 
 is het goed om als boardsize, max gates posities + 1 te kiezen?
+
+
+
+Week 2:
+Eerste oplossing met gefixte eerste algoritme. Vervolgens visualisatie fixen om de resulaten baseline te laten zien.
+Inidividueel deel elk eigen algortime?
