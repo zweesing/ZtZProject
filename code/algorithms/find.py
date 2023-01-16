@@ -2,8 +2,8 @@ from ..classes.pathfinder import Pathfinder
 
 
 class Pathfind(Pathfinder):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, start, end, board):
+        super().__init__(start, end, board)
 
     def find(self):
         route = [(self.start_gate_x, self.start_gate_y)]

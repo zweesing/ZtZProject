@@ -1,4 +1,3 @@
-from pathfinder import Pathfinder
 import csv
 
 
@@ -15,7 +14,7 @@ def read_gates(path):
     gatesdict = {}
     max_coord = 0
 
-    with open(gatesfilepath) as gatesfile:
+    with open(path) as gatesfile:
         header = gatesfile.readline()
         lines = gatesfile.readlines()
 

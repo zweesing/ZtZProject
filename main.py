@@ -1,5 +1,8 @@
+from code.classes.grid import Grid, read_gates, read_netlist, writetofile
+from code.algorithms.find import Pathfind
+
 # make the grid in a size that fits all the gates, and add the gates
-gatesfilepath = "gates_and_netlists/print_0.csv"
+gatesfilepath = "data/gates_and_netlists1/print_0.csv"
 dict, max_coord = read_gates(gatesfilepath)
 size = max_coord + 1
 board_obj = Grid(size, size, dict)
@@ -7,7 +10,7 @@ print(board_obj)
 board = board_obj.get_board()
 
 # read out all connections that need to be made
-netlistpath = "gates_and_netlists/netlist_1.csv"
+netlistpath = "data/gates_and_netlists1/netlist_1.csv"
 netlist = read_netlist(netlistpath)
 print("netlist:")
 print(netlist)
@@ -24,7 +27,7 @@ for connection in netlist:
     start_coord = dict[start]
     stop_coord = dict[stop]
 
-    path = Pathfinder(start_coord, stop_coord, board)
+    path = Pathfind(start_coord, stop_coord, board)
     print()
 
     route, wire_count, board = path.find()
