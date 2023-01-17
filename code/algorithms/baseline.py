@@ -42,7 +42,8 @@ class Pathfind(Pathfinder):
                 wire_count += 1
                 break
 
-            # Als de kant die hij kiest niet valid is moet hij wel nog een andere kant op. Deze nieuwe kant moet dan ook random zijn.
+            # Als de kant die hij kiest niet valid is moet hij wel nog een andere kant op. 
+            # Deze nieuwe kant moet dan ook random zijn.
             # Dit moet hij blijven doen tot hij een positie vindt die wel valid is. Daarom dus een while loop.
             while not self.is_valid(current_position):
 
