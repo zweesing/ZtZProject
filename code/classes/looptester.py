@@ -3,6 +3,17 @@ from code.classes.grid import writetofile, Grid
 
 
 def looptest(algoritme, gatesfilepath, netlistpath):
+    """tests a chosen algoritme until it has a solution to the problem.
+
+            Args:
+                algoritme: the algoritme that needs to be tested and is called upon to run.
+                gatesfile: path to csv file with gate positions
+                netlistfile: path to csv file with connections to be made
+
+            Returns:
+                pathfinder object, list, int: list of tuples containing the route taken and the total wire count needed
+                to make the connections.
+    """
     crash_counter = 0
 
     print("LOOPTEST")
