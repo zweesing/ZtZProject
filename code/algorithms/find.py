@@ -2,10 +2,27 @@ from ..classes.pathfinder import Pathfinder
 
 
 class Pathfind(Pathfinder):
+    """subclass of pathfinder class. This contains our first pathfinder algorithm,
+    and uses a sort of greedy algorithm to find the shortest route. doesnt always work for multiple paths.
+    """
+
     def __init__(self, start, end, board):
+        """runs the init of pathfinder, which creates the nessecary class atributes.
+
+        Args:
+            start (tuple): tuple with start gate x and y
+            end (tuple): tuple with end gate x and y
+            board (list): nested list which contains the board with the gates
+        """
         super().__init__(start, end, board)
 
     def find(self):
+        """the algoritm. finds the shortest path between two gates by checking the relative position.
+        If the path is blocked in one direction, it tries to go around. Does not work yet if the path is blocked in one direction and the other direction is already correct.
+
+        Returns:
+            list with tuples of path taken, total wire count and the board, in that order.
+        """
         route = [(self.start_gate_x, self.start_gate_y)]
         wire_count = 0
         current_gate_x = self.start_gate_x
