@@ -12,7 +12,7 @@ board = board_obj.get_board()
 
 # read out all connections that need to be made
 
-print("netlist:")
+""" print("netlist:")
 print(board_obj.netlist)
 
 # now we can use both netlist and gates dict to get all the start and end points
@@ -30,12 +30,55 @@ for connection in board_obj.netlist:
     path = Pathfindrandom(start_coord, stop_coord, board)
     print()
 
-    route, wire_count, board = path.find()
+    returns = path.find()
+    route, wire_count, board = returns
     routes.append(route)
     totalwirecount += wire_count
 
     print(path)
     print(route)
-    print(wire_count)
+    print(wire_count) """
 
-writetofile(board_obj.netlist, routes, totalwirecount)
+# writetofile(board_obj.netlist, routes, totalwirecount)
+
+#  loop for random
+def looptest():
+    crash_counter = 0
+
+    print("LOOPTEST")
+    while True:
+        routes = []
+        totalwirecount = 0
+
+        board_obj = Grid(gatesfilepath, netlistpath)
+        board = board_obj.get_board()
+
+        for connection in board_obj.netlist:
+            start, stop = connection
+
+            start_coord = board_obj.gates_dict[start]
+            stop_coord = board_obj.gates_dict[stop]
+
+            path = Pathfindrandom(start_coord, stop_coord, board)
+            print()
+
+            returns = path.find()
+            if returns == "crashed":
+                crash_counter += 1
+                print(crash_counter)
+
+                break
+
+            route, wire_count, board = returns
+            routes.append(route)
+            totalwirecount += wire_count
+
+        if returns != "crashed":
+            print(path)
+            print(route)
+            print(wire_count)
+            writetofile(board_obj.netlist, routes, totalwirecount)
+            return
+
+
+looptest()

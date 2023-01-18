@@ -63,8 +63,6 @@ class Pathfindrandom(Pathfinder):
                 current_position = (current_gate_x, current_gate_y)
 
                 crash_counter += 1
-                print(crash_counter)
-
             else:
                 route.append(current_position)
                 wire_count += 1
@@ -73,7 +71,6 @@ class Pathfindrandom(Pathfinder):
                 crash_counter == 0
 
             if crash_counter > 20:
-                print("crashed")
-                break
+                return "crashed"
 
         return route, wire_count, self.board
