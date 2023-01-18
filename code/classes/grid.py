@@ -6,12 +6,12 @@ import csv
 
 class Grid:
     def __init__(self, gatesfile, netlistfile):
-        """create a board (nested list) of size row x column.
+        """create a board and places the gates specified in gatesfile (csv) on it,
+        such that there is a border of size one around the gates on the edge.
 
         Args:
-            column (int): width of board
-            row (int): height of board
-            gates (dict): name and coordinates of the gates on the board
+            gatesfile: path to csv file with gate positions
+            netlistfile: path to csv file with connections to be made
         """
         # gates is now file path
         self.board = []
@@ -57,7 +57,7 @@ class Grid:
         """read a csv file containing the netlists, the connections that need to be made between gates.
 
         Args:
-            path (str): path to the csv file
+            path (str): path to the csv file with connections
 
         Returns:
             list: list containing tuples (startgate, endgate)
