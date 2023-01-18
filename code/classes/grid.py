@@ -77,8 +77,8 @@ class Grid:
         """make the board based on input giving to instance.
         Also calls place_gate to fill the board.
         """
-        row = size + 1
-        column = size + 1
+        row = size + 2
+        column = size + 2
         # Function makes a board based on the column and row input of the user
         for row in range(row):
             self.board.append([])

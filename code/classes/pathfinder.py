@@ -5,9 +5,11 @@ class Pathfinder:
         self.end_gate_x, self.end_gate_y = end
         self.board = board
 
-    def is_valid(self, next_position):
-        if next_position == "0":
-            return True
+    def is_valid(self, next_position_x, next_position_y):
+        if (0 <= next_position_x < len(self.board)) and (0 <= next_position_y < len(self.board)):
+            if self.board[next_position_y][next_position_x] == "0":
+                return True
+
 
     def end_point(self, next_position_x, next_position_y):
         if next_position_x == self.end_gate_x and next_position_y == self.end_gate_y:

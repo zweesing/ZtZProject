@@ -2,6 +2,7 @@ from code.classes.grid import Grid, writetofile
 from code.algorithms.find import Pathfind
 from code.algorithms.baseline import Pathfindrandom
 
+
 # make the grid in a size that fits all the gates, and add the gates
 gatesfilepath = "data/gates_and_netlists1/print_0.csv"
 netlistpath = "data/gates_and_netlists1/netlist_1.csv"
