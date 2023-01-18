@@ -3,8 +3,13 @@ from code.algorithms.find import Pathfind
 from code.algorithms.baseline import Pathfindrandom
 from code.classes.looptester import looptest
 
+"""
+Runs the tests of an chosen algoritme. With the chosen netlist and gate csv files. 
 
-# make the grid in a size that fits all the gates, and add the gates
+It returns the last board, last route and the total wire count. In looptest an output file is also created showing the 
+data in a csv file.
+"""
+
 gatesfilepath = "data/gates_and_netlists1/print_0.csv"
 netlistpath = "data/gates_and_netlists1/netlist_1.csv"
 
