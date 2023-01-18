@@ -1,5 +1,6 @@
 from code.classes.grid import Grid, writetofile
 from code.algorithms.find import Pathfind
+from code.algorithms.baseline import Pathfindrandom
 
 # make the grid in a size that fits all the gates, and add the gates
 gatesfilepath = "data/gates_and_netlists1/print_0.csv"
@@ -25,7 +26,7 @@ for connection in board_obj.netlist:
     start_coord = board_obj.gates_dict[start]
     stop_coord = board_obj.gates_dict[stop]
 
-    path = Pathfind(start_coord, stop_coord, board)
+    path = Pathfindrandom(start_coord, stop_coord, board)
     print()
 
     route, wire_count, board = path.find()
