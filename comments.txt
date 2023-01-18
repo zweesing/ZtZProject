@@ -21,3 +21,8 @@ is het goed om als boardsize, max gates posities + 1 te kiezen?
 Week 2:
 Eerste oplossing met gefixte eerste algoritme. Vervolgens visualisatie fixen om de resulaten baseline te laten zien.
 Inidividueel deel elk eigen algortime?
+
+TODOO 19/01 : 3D toevoegen aan randomize pathfinder en baseline document schrijven.
+
+in main dictionary wire count en routes bijhouden van alle oplsosingen van de talloze runs. En hierop dan sorteren op wirecount
+om te kiezen welke we willen visualizen. ipv output csv in de visualistion.py te doen als input.
