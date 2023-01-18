@@ -2,6 +2,7 @@ from code.classes.grid import Grid
 from code.algorithms.find import Pathfind
 from code.algorithms.baseline import Pathfindrandom
 from code.classes.looptester import looptest
+from code.visualisation.visualisation import visualize
 
 """
 Runs the tests of an chosen algoritme. With the chosen netlist and gate csv files. 
@@ -14,8 +15,10 @@ gatesfilepath = "data/gates_and_netlists1/print_0.csv"
 netlistpath = "data/gates_and_netlists1/netlist_1.csv"
 
 results = looptest(Pathfindrandom, gatesfilepath, netlistpath)
-path, route, totalwirecount = results
+path, routes, totalwirecount = results
 
 print(path)
-print(route)
+print(routes)
 print(totalwirecount)
+
+visualize(routes, gatesfilepath)
