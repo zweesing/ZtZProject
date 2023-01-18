@@ -1,5 +1,3 @@
-from code.classes.grid import Grid
-from code.algorithms.find import Pathfind
 from code.algorithms.baseline import Pathfindrandom
 from code.classes.looptester import looptest
 from code.visualisation.visualisation import visualize

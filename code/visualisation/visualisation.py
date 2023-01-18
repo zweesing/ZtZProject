@@ -6,14 +6,14 @@ from code.classes.grid import Grid
 
 def visualize(routes, gatesfilepath):
 
-    colours = ['green', 'yellow', 'red', 'blue', 'black']
+    colours = ["green", "yellow", "red", "blue", "black"]
     route_counter = 0
 
     gatesdict, _ = Grid.read_gates(1, gatesfilepath)
 
     fig, ax = plt.subplots()
     ax.invert_yaxis()
-    ax.set_title('Chips and Circuits')
+    ax.set_title("Chips and Circuits")
 
     for route in routes:
         codes = [Path.MOVETO] + [Path.LINETO] * (len(route) - 1)
@@ -21,7 +21,9 @@ def visualize(routes, gatesfilepath):
 
         path = Path(vertices, codes)
 
-        pathpatch = PathPatch(path, facecolor='none', edgecolor=colours[route_counter], linewidth=5)
+        pathpatch = PathPatch(
+            path, facecolor="none", edgecolor=colours[route_counter], linewidth=5
+        )
         route_counter += 1
 
         ax.add_patch(pathpatch)
@@ -29,7 +31,7 @@ def visualize(routes, gatesfilepath):
     keys = gatesdict.keys()
     for key in keys:
         x, y = gatesdict[key]
-        ax.text(x, y, key, backgroundcolor='black', color='white', fontweight='bold')
+        ax.text(x, y, key, backgroundcolor="black", color="white", fontweight="bold")
 
     ax.autoscale_view()
 
