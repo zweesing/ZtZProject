@@ -9,8 +9,8 @@ It returns the last board, last route and the total wire count. In looptest an o
 data in a csv file.
 """
 
-gatesfilepath = "data/gates_and_netlists1/print_0.csv"
-netlistpath = "data/gates_and_netlists1/netlist_2.csv"
+gatesfilepath = "data/chip_0/print_0.csv"
+netlistpath = "data/chip_0/netlist_1.csv"
 
 results = looptest(Pathfindrandom, gatesfilepath, netlistpath)
 path, routes, totalwirecount = results
