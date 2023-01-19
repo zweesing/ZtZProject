@@ -1,6 +1,6 @@
 #  loop for random
 from code.classes.grid import writetofile, Grid
-
+import random
 
 def looptest(algoritme, gatesfilepath, netlistpath):
     """tests a chosen algoritme until it has a solution to the problem.
@@ -24,6 +24,8 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         board_obj = Grid(gatesfilepath, netlistpath)
         board = board_obj.get_board()
 
+        random.shuffle(board_obj.netlist)
+
         for connection in board_obj.netlist:
             start, stop = connection
 
@@ -44,6 +46,6 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             routes.append(route)
             totalwirecount += wire_count
 
-        if returns != "crashed":
+        if returns != "crashed" and totalwirecount <= 25:
             writetofile(board_obj.netlist, routes, totalwirecount)
             return path, routes, totalwirecount
