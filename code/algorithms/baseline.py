@@ -30,14 +30,14 @@ class Pathfindrandom(Pathfinder):
 
         crash_counter = 0
 
+        # maak een lijst aan met x en y
+        random_direction = ["x", "y"]
+
+        # maak een lijst aan met 1 en -1 (of hij naar links, rechts of boven of beneden moet)
+        random_direction2 = [1, -1]
+
         while True:
             # hier moet hij dus een random kant kiezen om op te gaan
-
-            # maak een lijst aan met x en y
-            random_direction = ["x", "y"]
-
-            # maak een lijst aan met 1 en -1 (of hij naar links, rechts of boven of beneden moet)
-            random_direction2 = [1, -1]
 
             # kies random uit x of y
             current_gate_x_or_y = random.choice(random_direction)

@@ -1,28 +1,31 @@
 #  loop for random
 from code.classes.grid import writetofile, Grid
 import random
+import copy
+
 
 def looptest(algoritme, gatesfilepath, netlistpath):
     """tests a chosen algoritme until it has a solution to the problem.
 
-            Args:
-                algoritme: the algoritme that needs to be tested and is called upon to run.
-                gatesfile: path to csv file with gate positions
-                netlistfile: path to csv file with connections to be made
+    Args:
+        algoritme: the algoritme that needs to be tested and is called upon to run.
+        gatesfile: path to csv file with gate positions
+        netlistfile: path to csv file with connections to be made
 
-            Returns:
-                pathfinder object, list, int: list of tuples containing the route taken and the total wire count needed
-                to make the connections.
+    Returns:
+        pathfinder object, list, int: list of tuples containing the route taken and the total wire count needed
+        to make the connections.
     """
     crash_counter = 0
+    board_obj = Grid(gatesfilepath, netlistpath)
+    board_og = board_obj.get_board()
 
     print("LOOPTEST")
     while True:
         routes = []
         totalwirecount = 0
 
-        board_obj = Grid(gatesfilepath, netlistpath)
-        board = board_obj.get_board()
+        board = copy.deepcopy(board_og)
 
         random.shuffle(board_obj.netlist)
 

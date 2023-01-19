@@ -6,7 +6,16 @@ from code.classes.grid import Grid
 
 def visualize(routes, gatesfilepath):
 
-    colours = ["green", "yellow", "red", "blue", "black"]
+    colours = [
+        "green",
+        "yellow",
+        "red",
+        "blue",
+        "black",
+        "orange",
+        "purple",
+        "pink",
+    ]
     route_counter = 0
 
     gatesdict, _ = Grid.read_gates(1, gatesfilepath)

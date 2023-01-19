@@ -10,7 +10,7 @@ data in a csv file.
 """
 
 gatesfilepath = "data/gates_and_netlists1/print_0.csv"
-netlistpath = "data/gates_and_netlists1/netlist_1.csv"
+netlistpath = "data/gates_and_netlists1/netlist_2.csv"
 
 results = looptest(Pathfindrandom, gatesfilepath, netlistpath)
 path, routes, totalwirecount = results
