@@ -26,3 +26,7 @@ TODOO 19/01 : 3D toevoegen aan randomize pathfinder en baseline document schrijv
 
 in main dictionary wire count en routes bijhouden van alle oplsosingen van de talloze runs. En hierop dan sorteren op wirecount
 om te kiezen welke we willen visualizen. ipv output csv in de visualistion.py te doen als input.
+
+
+score 22 in 101225.
+score 24 in 1454269.

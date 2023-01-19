@@ -46,6 +46,6 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             routes.append(route)
             totalwirecount += wire_count
 
-        if returns != "crashed" and totalwirecount <= 25:
+        if returns != "crashed":
             writetofile(board_obj.netlist, routes, totalwirecount)
             return path, routes, totalwirecount
