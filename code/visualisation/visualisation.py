@@ -31,7 +31,7 @@ def visualize(routes, gatesfilepath):
         path = Path(vertices, codes)
 
         pathpatch = PathPatch(
-            path, facecolor="none", edgecolor=colours[route_counter], linewidth=5
+            path, facecolor="none", edgecolor='black', linewidth=5
         )
         route_counter += 1
 

@@ -16,6 +16,7 @@ class Pathfind(Pathfinder):
         """
         super().__init__(start, end, board)
 
+
     def find(self):
         """the algoritm. finds the shortest path between two gates by checking the relative position.
         If the path is blocked in one direction, it tries to go around. Does not work yet if the path is blocked in one direction and the other direction is already correct.
