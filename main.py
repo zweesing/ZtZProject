@@ -1,4 +1,4 @@
-from code.algorithms.baseline import Pathfindrandom
+from code.algorithms.random import Pathfindrandom
 from code.classes.looptester import looptest
 from code.visualisation.visualisation import visualize
 
