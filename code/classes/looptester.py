@@ -4,13 +4,14 @@ import random
 import copy
 
 
-def looptest(algoritme, gatesfilepath, netlistpath):
+def looptest(algoritme, gatesfilepath, netlistpath, solution_nr):
     """tests a chosen algoritme until it has a solution to the problem.
 
     Args:
         algoritme: the algoritme that needs to be tested and is called upon to run.
         gatesfile: path to csv file with gate positions
         netlistfile: path to csv file with connections to be made
+        solution_nr (int): number of the solution, for output file writing
 
     Returns:
         pathfinder object, list, int: list of tuples containing the route taken and the total wire count needed
@@ -50,5 +51,6 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             totalwirecount += wire_count
 
         if returns != "crashed":
-            writetofile(board_obj.netlist, routes, totalwirecount)
-            return path, routes, totalwirecount
+            writetofile(board_obj.netlist, routes, totalwirecount, solution_nr)
+
+            return path, routes, totalwirecount, crash_counter

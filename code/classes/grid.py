@@ -121,7 +121,7 @@ class Grid:
 # Make a dictionary at the end were net list(route) is linked to the actual found route.
 
 
-def writetofile(netlist, routes, wirecount):
+def writetofile(netlist, routes, wirecount, number):
     """write the results to a csv file (currently "output.csv"). The file contains netlist and corresponding route,
     as well as the total wire count to calculate costs.
 
@@ -130,7 +130,7 @@ def writetofile(netlist, routes, wirecount):
         routes (list): list containing the routes taken for every connection
         wirecount (int): total number of wires used
     """
-    with open("output.csv", "w", newline="") as file:
+    with open(f"solutions/output_{number}.csv", "w", newline="") as file:
         writer = csv.writer(file)
 
         writer.writerow(("net", "wires"))
