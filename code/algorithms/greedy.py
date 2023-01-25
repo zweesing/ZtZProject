@@ -1,4 +1,5 @@
-from ..classes.pathfinder import Pathfinder
+from classes.pathfinder import Pathfinder
+from classes.looptester import looptest
 
 
 class Pathfind(Pathfinder):
@@ -113,3 +114,19 @@ class Pathfind(Pathfinder):
             self.board[current_gate_y][current_gate_x] = "1"
 
         return route, wire_count, self.board
+
+if __name__ == "__main__":
+    gatesfilepath = "data/chip_0/print_0.csv"
+    netlistpath = "data/chip_0/netlist_1.csv"
+    total_counter = 0
+
+    for solution in range(50):
+        results = looptest(Pathfind, gatesfilepath, netlistpath, solution)
+
+        path, routes, totalwirecount, crash_counter = results
+        total_counter += crash_counter
+
+    print(path)
+    print(routes)
+    print(totalwirecount)
+    print(total_counter)
