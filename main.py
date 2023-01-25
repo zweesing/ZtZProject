@@ -3,7 +3,7 @@ from code.classes.looptester import looptest
 from code.visualisation.visualisation import visualize
 
 """
-Runs the tests of an chosen algoritme. With the chosen netlist and gate csv files. 
+Runs the tests of a chosen algoritme. With the chosen netlist and gate csv files. 
 
 It returns the last board, last route and the total wire count. In looptest an output file is also created showing the 
 data in a csv file.
