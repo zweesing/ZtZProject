@@ -114,5 +114,3 @@ class Pathfind(Pathfinder):
 
         return route, wire_count, self.board
 
-if __name__ == "__main__":
-    p = Pathfind()
