@@ -35,7 +35,7 @@ class Pathfind(Pathfinder):
         current_gate_y = self.start_gate_y
         current_gate_z = 0
 
-        end_gate = [(self.end_gate_x, self.end_gate_y, 0)]
+        end_gate = [(self.end_gate_x, self.end_gate_y)]
 
         random_direction = ["x", "y", "z"]
         random_direction2 = [1, -1]
@@ -81,7 +81,7 @@ class Pathfind(Pathfinder):
             wire_count += 1
 
             # vraag hoe dit moet met een 3d array
-            self.board[current_gate_y][current_gate_x] = "1"
+            self.board[current_gate_y][current_gate_x][current_gate_z] = "1"
 
 
         # second x direction
