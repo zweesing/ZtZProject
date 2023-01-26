@@ -43,4 +43,20 @@ class Constructive(Pathfinder):
                 explored.append(node)
         return route
 
+    def find_neighbours(self, node):
+        x, y = node[0]
 
+        neighbours = [
+            (x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)
+        ]
+
+        for i, j in neighbours:
+            if j[0] < 0 or j[1] < 0 or j[0] >= len(self.board) or j[1] >= len(self.board):
+                neighbours[i] = None
+            return[i for i in neighbours if i is not None]
+
+
+if __name__ == '__main__':
+    gatesfilepath = "data/chip_0/print_0.csv"
+    netlistpath = "data/chip_0/netlist_1.csv"
+    results = looptest(Constructive, gatesfilepath, netlistpath)
