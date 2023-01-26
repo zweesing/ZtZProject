@@ -33,6 +33,7 @@ class Pathfind(Pathfinder):
         wire_count = 0
         current_gate_x = self.start_gate_x
         current_gate_y = self.start_gate_y
+        current_gate_z = 0
 
         end_gate = [(self.end_gate_x, self.end_gate_y)]
 
@@ -49,13 +50,13 @@ class Pathfind(Pathfinder):
             current_position = (current_gate_x, current_gate_y)
 
             # if the wire has found the end gate, the loop breaks
-            if self.end_point(current_gate_x, current_gate_y):
+            if self.end_point(current_gate_x, current_gate_y, current_gate_z):
                 route.append(current_position)
                 wire_count += 1
                 break
 
             # if the wire goes the wrong way it should choose the next direction randomly
-            if not self.is_valid(current_gate_x, current_gate_y):
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                 current_gate_x -= 1
 
                 current_gate_x_or_y = random.choice(random_direction)
@@ -66,7 +67,7 @@ class Pathfind(Pathfinder):
                 else:
                     current_gate_y += left_or_right
 
-                if not self.is_valid(current_gate_x, current_gate_y):
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     if current_gate_x_or_y == "x":
                         current_gate_x += -1 * left_or_right
                         current_gate_y += left_or_right
@@ -74,7 +75,7 @@ class Pathfind(Pathfinder):
                         current_gate_y += -1 * left_or_right
                         current_gate_x += left_or_right
                 
-                if not self.is_valid(current_gate_x, current_gate_y):
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     return "crashed"
                 else:
                     current_position = (current_gate_x, current_gate_y)
@@ -84,7 +85,7 @@ class Pathfind(Pathfinder):
             wire_count += 1
 
             # vraag hoe dit moet met een 3d array
-            self.board[current_gate_y][current_gate_x] = "1"
+            self.board[current_gate_z][current_gate_y][current_gate_x] = "1"
 
 
         # second x direction
@@ -96,13 +97,13 @@ class Pathfind(Pathfinder):
             current_position = (current_gate_x, current_gate_y)
 
             # if the wire has found the end gate, the loop breaks
-            if self.end_point(current_gate_x, current_gate_y):
+            if self.end_point(current_gate_x, current_gate_y, current_gate_z):
                 route.append(current_position)
                 wire_count += 1
                 break
 
             # if the wire goes the wrong way it should choose the next direction randomly
-            if not self.is_valid(current_gate_x, current_gate_y):
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                 current_gate_x += 1
 
                 current_gate_x_or_y = random.choice(random_direction)
@@ -113,7 +114,7 @@ class Pathfind(Pathfinder):
                 else:
                     current_gate_y += left_or_right
                 
-                if not self.is_valid(current_gate_x, current_gate_y):
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     if current_gate_x_or_y == "x":
                         current_gate_x += -1 * left_or_right
                         current_gate_y += left_or_right
@@ -121,7 +122,7 @@ class Pathfind(Pathfinder):
                         current_gate_y += -1 * left_or_right
                         current_gate_x += left_or_right
                 
-                if not self.is_valid(current_gate_x, current_gate_y):
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     return "crashed"
                 else:
                     current_position = (current_gate_x, current_gate_y)
@@ -131,7 +132,7 @@ class Pathfind(Pathfinder):
             wire_count += 1
 
             # vraag hoe dit moet met een 3d array
-            self.board[current_gate_y][current_gate_x] = "1"
+            self.board[current_gate_z][current_gate_y][current_gate_x] = "1"
 
 
         # y direction
@@ -143,13 +144,13 @@ class Pathfind(Pathfinder):
             current_position = (current_gate_x, current_gate_y)
 
             # if the wire has found the end gate, the loop breaks
-            if self.end_point(current_gate_x, current_gate_y):
+            if self.end_point(current_gate_x, current_gate_y, current_gate_z):
                 route.append(current_position)
                 wire_count += 1
                 break
 
             # if the wire goes the wrong way it should choose the next direction randomly
-            if not self.is_valid(current_gate_x, current_gate_y):
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                 current_gate_y -= 1
 
                 current_gate_x_or_y = random.choice(random_direction)
@@ -160,7 +161,7 @@ class Pathfind(Pathfinder):
                 else:
                     current_gate_y += left_or_right
 
-                if not self.is_valid(current_gate_x, current_gate_y):
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     if current_gate_x_or_y == "x":
                         current_gate_x += -1 * left_or_right
                         current_gate_y += left_or_right
@@ -168,7 +169,7 @@ class Pathfind(Pathfinder):
                         current_gate_y += -1 * left_or_right
                         current_gate_x += left_or_right
                 
-                if not self.is_valid(current_gate_x, current_gate_y):
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     return "crashed"
                 else:
                     current_position = (current_gate_x, current_gate_y)
@@ -178,7 +179,7 @@ class Pathfind(Pathfinder):
             wire_count += 1
 
             # vraag hoe dit moet met een 3d array
-            self.board[current_gate_y][current_gate_x] = "1"
+            self.board[current_gate_z][current_gate_y][current_gate_x] = "1"
 
 
         # second y direction
@@ -190,13 +191,13 @@ class Pathfind(Pathfinder):
             current_position = (current_gate_x, current_gate_y)
 
             # if the wire has found the end gate, the loop breaks
-            if self.end_point(current_gate_x, current_gate_y):
+            if self.end_point(current_gate_x, current_gate_y, current_gate_z):
                 route.append(current_position)
                 wire_count += 1
                 break
 
             # if the wire goes the wrong way it should choose the next direction randomly
-            if not self.is_valid(current_gate_x, current_gate_y):
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                 current_gate_y += 1
 
                 current_gate_x_or_y = random.choice(random_direction)
@@ -207,7 +208,7 @@ class Pathfind(Pathfinder):
                 else:
                     current_gate_y += left_or_right
                 
-                if not self.is_valid(current_gate_x, current_gate_y):
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     if current_gate_x_or_y == "x":
                         current_gate_x += -1 * left_or_right
                         current_gate_y += left_or_right
@@ -215,7 +216,7 @@ class Pathfind(Pathfinder):
                         current_gate_y += -1 * left_or_right
                         current_gate_x += left_or_right
                 
-                if not self.is_valid(current_gate_x, current_gate_y):
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     return "crashed"
                 else:
                     current_position = (current_gate_x, current_gate_y)
@@ -225,6 +226,6 @@ class Pathfind(Pathfinder):
             wire_count += 1
 
             # vraag hoe dit moet met een 3d array
-            self.board[current_gate_y][current_gate_x] = "1"
+            self.board[current_gate_z][current_gate_y][current_gate_x] = "1"
 
         return route, wire_count, self.board
