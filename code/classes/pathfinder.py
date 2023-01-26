@@ -26,7 +26,7 @@ class Pathfinder:
         if (0 <= next_position_x < len(self.board)) and (
             0 <= next_position_y < len(self.board)
         ):
-            if self.board[next_position_y][next_position_x][next_position_z] == "0":
+            if self.board[next_position_z][next_position_y][next_position_x] == "0":
                 return True
 
     def end_point(self, next_position_x, next_position_y, next_position_z):
@@ -35,13 +35,18 @@ class Pathfinder:
         Args:
             next_position_x (int): x position on board
             next_position_y (int): y position on board
+            next_position_z (int): z position on board
 
         Returns:
             bool: gate reached or not
         """
-        if next_position_x == self.end_gate_x and next_position_y == self.end_gate_y and next_position_z == 0:
+        if (
+            next_position_x == self.end_gate_x
+            and next_position_y == self.end_gate_y
+            and next_position_z == 0
+        ):
             return True
 
     def __repr__(self):
         """representation of the board"""
-        return "\n".join([" ".join(row) for row in self.board])
+        return "\n".join([" ".join(row) for row in self.board[0]])
