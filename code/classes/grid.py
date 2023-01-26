@@ -77,13 +77,16 @@ class Grid:
         """make the board based on input giving to instance.
         Also calls place_gate to fill the board.
         """
-        row = size + 2
-        column = size + 2
+        rows = size + 2
+        columns = size + 2
+        levels = row / 2
         # Function makes a board based on the column and row input of the user
-        for row in range(row):
+        for level in range(levels):
             self.board.append([])
-            for width in range(column):
-                self.board[row].append("0")
+            for row in range(rows):
+                self.board[level].append([])
+                for width in range(columns):
+                    self.board[level][row].append("0")
 
         # add gates
         for gate in self.gates_dict:
@@ -107,7 +110,7 @@ class Grid:
 
         #
         column, row = coords
-        self.board[row][column] = "X"
+        self.board[0][row][column] = "X"
 
     def __repr__(self):
         """representation of the board for visualising.
