@@ -40,10 +40,10 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             print()
 
             returns = path.find()
-            print(returns)
+    
             if returns == "crashed":
                 crash_counter += 1
-                print(crash_counter)
+                print(f"crash counter: {crash_counter}")
 
                 break
 
