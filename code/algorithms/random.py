@@ -56,7 +56,7 @@ class Pathfindrandom(Pathfinder):
             current_position = (current_gate_x, current_gate_y)
 
             # als hij bij de gate is moet hij wel nog stoppen
-            if self.end_point(current_gate_x, current_gate_y):
+            if self.end_point(current_gate_x, current_gate_y, 0):
                 route.append(current_position)
                 wire_count += 1
                 break
@@ -64,7 +64,7 @@ class Pathfindrandom(Pathfinder):
             # Als de kant die hij kiest niet valid is moet hij wel nog een andere kant op.
             # Deze nieuwe kant moet dan ook random zijn.
             # Dit moet hij blijven doen tot hij een positie vindt die wel valid is. Daarom dus een while loop.
-            if not self.is_valid(current_gate_x, current_gate_y):
+            if not self.is_valid(current_gate_x, current_gate_y, 0):
 
                 # Als hij niet de juiste kant op is gegaan moet hij dus terug op de juiste random as.
                 # We weten welke as dit is omdat we het hebben opgeslagen in current_gate_x_or_y.
@@ -80,7 +80,7 @@ class Pathfindrandom(Pathfinder):
             else:
                 route.append(current_position)
                 wire_count += 1
-                self.board[current_gate_y][current_gate_x] = "1"
+                self.board[0][current_gate_y][current_gate_x] = "1"
 
                 crash_counter == 0
 
