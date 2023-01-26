@@ -12,7 +12,7 @@ class Pathfinder:
         self.end_gate_x, self.end_gate_y = end
         self.board = board
 
-    def is_valid(self, next_position_x, next_position_y):
+    def is_valid(self, next_position_x, next_position_y, next_position_z):
         """checks if a position is valid to move to,
         so not out of bounds, and not already visited, not another gate
 
@@ -26,10 +26,10 @@ class Pathfinder:
         if (0 <= next_position_x < len(self.board)) and (
             0 <= next_position_y < len(self.board)
         ):
-            if self.board[next_position_y][next_position_x][next_position_z] == "0":
+            if self.board[next_position_z][next_position_y][next_position_x] == "0":
                 return True
 
-    def end_point(self, next_position_x, next_position_y):
+    def end_point(self, next_position_x, next_position_y, next_position_z):
         """checks if the goal gate is reached
 
         Args:
@@ -40,7 +40,11 @@ class Pathfinder:
         Returns:
             bool: gate reached or not
         """
-        if next_position_x == self.end_gate_x and next_position_y == self.end_gate_y and next_position_z == 0:
+        if (
+            next_position_x == self.end_gate_x
+            and next_position_y == self.end_gate_y
+            and next_position_z == 0
+        ):
             return True
 
     def __repr__(self):

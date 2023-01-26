@@ -15,6 +15,8 @@ class Pathfind(Pathfinder):
         super().__init__(start, end, board)
 
     def find(self):
+        # a greedy algorithm dat does not take conflict into account.
+
         # list to save route in. a gate is always at z=0
         self.route = [(self.start_gate_x, self.start_gate_y, 0)]
         self.wire_count = 0
