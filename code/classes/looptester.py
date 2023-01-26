@@ -31,7 +31,6 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         random.shuffle(board_obj.netlist)
 
         for connection in board_obj.netlist:
-            print(board)
             start, stop = connection
 
             start_coord = board_obj.gates_dict[start]

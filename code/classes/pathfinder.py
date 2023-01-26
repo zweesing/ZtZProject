@@ -23,8 +23,8 @@ class Pathfinder:
         Returns:
             bool: valid or not
         """
-        if (0 <= next_position_x < len(self.board)) and (
-            0 <= next_position_y < len(self.board)
+        if (0 <= next_position_x < len(self.board[next_position_z])) and (
+            0 <= next_position_y < len(self.board[next_position_z])
         ):
             if self.board[next_position_z][next_position_y][next_position_x] == "0":
                 return True
@@ -40,7 +40,11 @@ class Pathfinder:
         Returns:
             bool: gate reached or not
         """
-        if next_position_x == self.end_gate_x and next_position_y == self.end_gate_y and next_position_z == 0:
+        if (
+            next_position_x == self.end_gate_x
+            and next_position_y == self.end_gate_y
+            and next_position_z == 0
+        ):
             return True
 
     def __repr__(self):
