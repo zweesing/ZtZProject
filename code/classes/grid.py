@@ -103,7 +103,7 @@ class Grid:
 
     def place_gate(self, coords):
         """Places a gate at the coordinates given by the user.
-        Because of nested lists it is important to ask first row then column.
+        Because of nested lists it is important to ask first row then column, the gates go on z level 0.
 
         Args:
             coords (tuple): x,y position of the gate
@@ -114,12 +114,12 @@ class Grid:
         self.board[0][row][column] = "X"
 
     def __repr__(self):
-        """representation of the board for visualising.
+        """representation of the board for visualising, only does level 0
 
         Returns:
             str: printable representation
         """
-        return "\n".join([" ".join(row) for row in self.board])
+        return "\n".join([" ".join(row) for row in self.board[0]])
 
 
 # Make a dictionary at the end were net list(route) is linked to the actual found route.
