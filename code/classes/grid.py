@@ -75,11 +75,12 @@ class Grid:
 
     def make_board(self, size):
         """make the board based on input giving to instance.
+        The length and width are so that the gates fit in with an edge around them, and the height is for now just half of that.
         Also calls place_gate to fill the board.
         """
         rows = size + 2
         columns = size + 2
-        levels = row / 2
+        levels = size / 2
         # Function makes a board based on the column and row input of the user
         for level in range(levels):
             self.board.append([])
