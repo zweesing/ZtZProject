@@ -40,17 +40,18 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             print()
 
             returns = path.find()
-            if returns == "crashed":
-                crash_counter += 1
-                print(crash_counter)
+            print(returns)
+            # if returns == "crashed":
+            #     crash_counter += 1
+            #     print(crash_counter)
 
-                break
+            #     break
 
             route, wire_count, board = returns
             routes.append(route)
             totalwirecount += wire_count
 
-        if returns != "crashed":
-            writetofile(board_obj.netlist, routes, totalwirecount)
+        # if returns != "crashed":
+        writetofile(board_obj.netlist, routes, totalwirecount)
 
-            return path, routes, totalwirecount, crash_counter
+        return path, routes, totalwirecount, crash_counter

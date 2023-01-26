@@ -49,6 +49,9 @@ class Pathfind(Pathfinder):
 
             current_position = (current_gate_x, current_gate_y)
 
+            print(current_gate_x)
+            print(current_gate_y)
+            print(current_gate_z)
             # if the wire has found the end gate, the loop breaks
             if self.end_point(current_gate_x, current_gate_y, current_gate_z):
                 route.append(current_position)
@@ -69,13 +72,16 @@ class Pathfind(Pathfinder):
 
                 if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     if current_gate_x_or_y == "x":
+                        #maak de tweede ook random ipv altijd van foute x richting gelijk naar de andere richting overstappen
                         current_gate_x += -1 * left_or_right
                         current_gate_y += left_or_right
                     else:
                         current_gate_y += -1 * left_or_right
                         current_gate_x += left_or_right
+
                 
                 if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                    print('crashed')
                     return "crashed"
                 else:
                     current_position = (current_gate_x, current_gate_y)
@@ -95,6 +101,9 @@ class Pathfind(Pathfinder):
             # if the new current position has a z coordinate, it should be updated in the route list
             
             current_position = (current_gate_x, current_gate_y)
+            print(current_gate_x)
+            print(current_gate_y)
+            print(current_gate_z)
 
             # if the wire has found the end gate, the loop breaks
             if self.end_point(current_gate_x, current_gate_y, current_gate_z):
@@ -123,6 +132,7 @@ class Pathfind(Pathfinder):
                         current_gate_x += left_or_right
                 
                 if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                    print('crashed')
                     return "crashed"
                 else:
                     current_position = (current_gate_x, current_gate_y)
@@ -142,6 +152,9 @@ class Pathfind(Pathfinder):
             # if the new current position has a z coordinate, it should be updated in the route list
             
             current_position = (current_gate_x, current_gate_y)
+            print(current_gate_x)
+            print(current_gate_y)
+            print(current_gate_z)
 
             # if the wire has found the end gate, the loop breaks
             if self.end_point(current_gate_x, current_gate_y, current_gate_z):
@@ -170,6 +183,7 @@ class Pathfind(Pathfinder):
                         current_gate_x += left_or_right
                 
                 if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                    print('crashed')
                     return "crashed"
                 else:
                     current_position = (current_gate_x, current_gate_y)
@@ -189,6 +203,9 @@ class Pathfind(Pathfinder):
             # if the new current position has a z coordinate, it should be updated in the route list
             
             current_position = (current_gate_x, current_gate_y)
+            print(current_gate_x)
+            print(current_gate_y)
+            print(current_gate_z)
 
             # if the wire has found the end gate, the loop breaks
             if self.end_point(current_gate_x, current_gate_y, current_gate_z):
@@ -217,6 +234,7 @@ class Pathfind(Pathfinder):
                         current_gate_x += left_or_right
                 
                 if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                    print('crashed')
                     return "crashed"
                 else:
                     current_position = (current_gate_x, current_gate_y)
@@ -227,5 +245,7 @@ class Pathfind(Pathfinder):
 
             # vraag hoe dit moet met een 3d array
             self.board[current_gate_z][current_gate_y][current_gate_x] = "1"
+
+        print(route)    
 
         return route, wire_count, self.board

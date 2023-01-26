@@ -40,11 +40,7 @@ class Pathfinder:
         Returns:
             bool: gate reached or not
         """
-        if (
-            next_position_x == self.end_gate_x
-            and next_position_y == self.end_gate_y
-            and next_position_z == 0
-        ):
+        if next_position_x == self.end_gate_x and next_position_y == self.end_gate_y and next_position_z == 0:
             return True
 
     def __repr__(self):
