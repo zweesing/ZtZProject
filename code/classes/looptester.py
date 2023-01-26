@@ -4,7 +4,7 @@ import random
 import copy
 
 
-def looptest(algoritme, gatesfilepath, netlistpath, solution_nr):
+def looptest(algoritme, gatesfilepath, netlistpath):
     """tests a chosen algoritme until it has a solution to the problem.
 
     Args:
@@ -51,6 +51,6 @@ def looptest(algoritme, gatesfilepath, netlistpath, solution_nr):
             totalwirecount += wire_count
 
         if returns != "crashed":
-            writetofile(board_obj.netlist, routes, totalwirecount, solution_nr)
+            writetofile(board_obj.netlist, routes, totalwirecount)
 
             return path, routes, totalwirecount, crash_counter
