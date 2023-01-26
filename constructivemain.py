@@ -13,11 +13,10 @@ gatesfilepath = "data/chip_0/print_0.csv"
 netlistpath = "data/chip_0/netlist_1.csv"
 total_counter = 0
 # get 50 results and see how long that took
-for solution in range(50):
-    results = looptest(Constructive, gatesfilepath, netlistpath, solution)
+results = looptest(Constructive, gatesfilepath, netlistpath)
 
-    path, routes, totalwirecount, crash_counter = results
-    total_counter += crash_counter
+path, routes, totalwirecount, crash_counter = results
+total_counter += crash_counter
 
 
 print(path)

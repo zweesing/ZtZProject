@@ -21,12 +21,19 @@ class Constructive(Pathfinder):
         start = [(self.start_gate_x, self.start_gate_y)]
         explored = []
         queue = [[start]]
+        counter = 0
+
         # implementations of depth and or breth search for determining route. Implement 3D part.
         while queue:
             route = queue.pop(0)
-            node = route[-1]
-            print(node)
-            print(22)
+            print(route)
+            if counter > 0:
+                node = [route[-1]]
+            else:
+                node = route[-1]
+
+            counter += 1
+            # print(node)
 
             if node not in explored:
                 neighbours = self.find_neighbours(node)
@@ -37,23 +44,46 @@ class Constructive(Pathfinder):
                     new_route.append(neighbour)
                     queue.append(new_route)
 
-                    # if neighbour is self.end_point(neighbour_x, neighbour_y):
-                    #     return new_route
+                    neighbour_x = neighbour[0]
+                    neighbour_y = neighbour[1]
+                    print(neighbour_y, neighbour_x)
+                    print(self.end_gate_y, self.end_gate_x)
+
+                    #check if it is end_point does not work
+                    if neighbour is self.end_point(neighbour_x, neighbour_y, 0):
+                        print('hier')
+                        print('moet je zijn')
+                        print(new_route)
+                        return new_route
 
                 explored.append(node)
+        print("hier niet")
         return route
 
     def find_neighbours(self, node):
         x, y = node[0]
+        print(x, y)
 
         neighbours = [
             (x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)
         ]
+        counter = 0
+        while counter < len(neighbours):
 
-        for i, j in neighbours:
-            if j[0] < 0 or j[1] < 0 or j[0] >= len(self.board) or j[1] >= len(self.board):
-                neighbours[i] = None
-            return[i for i in neighbours if i is not None]
+            for i, j, in neighbours:
+                # print(i)
+                # print(j)
+                # print(counter)
+                # get size from grid board instead of static 7.
+                if (7 < j or j < 0) or (7 < i or i < 0):
+                    neighbours[counter] = None
+                    # print(neighbours)
+                    counter += 1
+                else:
+                    counter += 1
+                    continue
+
+        return[i for i in neighbours if i is not None]
 
 
 if __name__ == '__main__':
