@@ -40,6 +40,8 @@ class Constructive(Pathfinder):
                 print(neighbours)
 
                 for neighbour in neighbours:
+
+
                     new_route = list(route)
                     new_route.append(neighbour)
                     queue.append(new_route)
@@ -47,10 +49,11 @@ class Constructive(Pathfinder):
                     neighbour_x = neighbour[0]
                     neighbour_y = neighbour[1]
                     print(neighbour_y, neighbour_x)
+                    print("hierna eind coords")
                     print(self.end_gate_y, self.end_gate_x)
 
                     #check if it is end_point does not work
-                    if neighbour is self.end_point(neighbour_x, neighbour_y, 0):
+                    if neighbour_x == self.end_gate_x and neighbour_y == self.end_gate_y:
                         print('hier')
                         print('moet je zijn')
                         print(new_route)
@@ -58,7 +61,7 @@ class Constructive(Pathfinder):
 
                 explored.append(node)
         print("hier niet")
-        return route
+        return "crashed"
 
     def find_neighbours(self, node):
         x, y = node[0]
