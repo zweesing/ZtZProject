@@ -75,15 +75,19 @@ class Grid:
 
     def make_board(self, size):
         """make the board based on input giving to instance.
+        The length and width are so that the gates fit in with an edge around them, and the height is for now just half of that.
         Also calls place_gate to fill the board.
         """
-        row = size + 2
-        column = size + 2
+        rows = size + 2
+        columns = size + 2
+        levels = size / 2
         # Function makes a board based on the column and row input of the user
-        for row in range(row):
+        for level in range(levels):
             self.board.append([])
-            for width in range(column):
-                self.board[row].append("0")
+            for row in range(rows):
+                self.board[level].append([])
+                for width in range(columns):
+                    self.board[level][row].append("0")
 
         # add gates
         for gate in self.gates_dict:
@@ -99,7 +103,7 @@ class Grid:
 
     def place_gate(self, coords):
         """Places a gate at the coordinates given by the user.
-        Because of nested lists it is important to ask first row then column.
+        Because of nested lists it is important to ask first row then column, the gates go on z level 0.
 
         Args:
             coords (tuple): x,y position of the gate
@@ -107,15 +111,15 @@ class Grid:
 
         #
         column, row = coords
-        self.board[row][column] = "X"
+        self.board[0][row][column] = "X"
 
     def __repr__(self):
-        """representation of the board for visualising.
+        """representation of the board for visualising, only does level 0
 
         Returns:
             str: printable representation
         """
-        return "\n".join([" ".join(row) for row in self.board])
+        return "\n".join([" ".join(row) for row in self.board[0]])
 
 
 # Make a dictionary at the end were net list(route) is linked to the actual found route.
