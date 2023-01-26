@@ -31,6 +31,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         random.shuffle(board_obj.netlist)
 
         for connection in board_obj.netlist:
+
             start, stop = connection
 
             start_coord = board_obj.gates_dict[start]
@@ -40,10 +41,10 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             print()
 
             returns = path.find()
-    
+            print(returns)
             if returns == "crashed":
                 crash_counter += 1
-                print(f"crash counter: {crash_counter}")
+                print(crash_counter)
 
                 break
 
@@ -54,4 +55,4 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         if returns != "crashed":
             writetofile(board_obj.netlist, routes, totalwirecount)
 
-        return path, routes, totalwirecount, crash_counter
+            return path, routes, totalwirecount, crash_counter
