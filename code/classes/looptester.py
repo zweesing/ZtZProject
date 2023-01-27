@@ -37,7 +37,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             start_coord = board_obj.gates_dict[start]
             stop_coord = board_obj.gates_dict[stop]
 
-            path = algoritme(start_coord, stop_coord, board)
+            path = algoritme(start_coord, stop_coord, board, board_obj.size)
             print()
 
             returns = path.find()
