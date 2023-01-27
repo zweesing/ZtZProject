@@ -35,9 +35,7 @@ class Pathfind(Pathfinder):
         current_gate_y = self.start_gate_y
         current_gate_z = 0
 
-        end_gate = [(self.end_gate_x, self.end_gate_y)]
-
-        random_direction = ["x", "y"]
+        random_direction = ["x", "y", "z"]
         random_direction2 = [1, -1]
 
         while True:
@@ -47,7 +45,7 @@ class Pathfind(Pathfinder):
 
                 # if the new current position has a z coordinate, it should be updated in the route list
 
-                current_position = (current_gate_x, current_gate_y)
+                current_position = (current_gate_x, current_gate_y, current_gate_z)
 
                 # if the wire has found the end gate, the loop breaks
                 if self.end_point(current_gate_x, current_gate_y, current_gate_z):
@@ -64,6 +62,8 @@ class Pathfind(Pathfinder):
 
                     if current_gate_x_or_y == "x":
                         current_gate_x += left_or_right
+                    elif current_gate_x_or_y == "z":
+                        current_gate_z += left_or_right
                     else:
                         current_gate_y += left_or_right
 
@@ -72,6 +72,8 @@ class Pathfind(Pathfinder):
                         # maak de tweede ook random ipv altijd van foute x richting gelijk naar de andere richting overstappen
                         current_gate_x += -1 * left_or_right
                         current_gate_y += left_or_right
+                    elif current_gate_x_or_y == "z":
+                        current_gate_z += -1 * left_or_right
                     else:
                         current_gate_y += -1 * left_or_right
                         current_gate_x += left_or_right

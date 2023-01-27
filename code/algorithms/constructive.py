@@ -22,6 +22,7 @@ class Constructive(Pathfinder):
         start = [(self.start_gate_x, self.start_gate_y, 0)]
         explored = []
         queue = [start]
+        intersections = 0
 
         # implementations of depth and or breth search for determining route. Implement 3D part.
         while queue:
@@ -39,13 +40,61 @@ class Constructive(Pathfinder):
 
                 # The neighbours are checked and added to the route
                 for neighbour in neighbours:
-                    #print(neighbour)
+                    # print(node)
+                    # print(neighbour)
                     neighbour_x = neighbour[0]
                     neighbour_y = neighbour[1]
                     neighbour_z = neighbour[2]
+                    node_x, node_y, node_z = node[0]
+
 
                     if self.board[neighbour_z][neighbour_y][neighbour_x] != "0" and self.board[neighbour_z][neighbour_y][neighbour_x] != "X":
-                        explored.append(node)
+                        if node_x - 1 == neighbour_x and node_y == neighbour_y and node_z == neighbour_z:
+                            if self.is_valid((neighbour_x - 1), neighbour_y, neighbour_z):
+                                after_intersection = ([neighbour_x - 1], [neighbour_y], [neighbour_z])
+                                new_route = list(route)
+                                new_route.append(neighbour)
+                                new_route.append(after_intersection)
+                                intersections += 1
+                        if node_x + 1 == neighbour_x and node_y == neighbour_y and node_z == neighbour_z:
+                            if self.is_valid((neighbour_x + 1), neighbour_y, neighbour_z):
+                                after_intersection = ([neighbour_x + 1], [neighbour_y], [neighbour_z])
+                                new_route = list(route)
+                                new_route.append(neighbour)
+                                new_route.append(after_intersection)
+                                intersections += 1
+
+                        if node_x == neighbour_x and node_y - 1 == neighbour_y and node_z == neighbour_z:
+                            if self.is_valid(neighbour_x, (neighbour_y - 1), neighbour_z):
+                                after_intersection = ([neighbour_x], [neighbour_y - 1], [neighbour_z-1])
+                                new_route = list(route)
+                                new_route.append(neighbour)
+                                new_route.append(after_intersection)
+                                intersections += 1
+                        if node_x == neighbour_x and node_y + 1 == neighbour_y and node_z == neighbour_z:
+                            if self.is_valid(neighbour_x, (neighbour_y + 1), neighbour_z):
+                                after_intersection = ([neighbour_x], [neighbour_y + 1], [neighbour_z])
+                                new_route = list(route)
+                                new_route.append(neighbour)
+                                new_route.append(after_intersection)
+                                intersections += 1
+
+                        if node_x == neighbour_x and node_y == neighbour_y and node_z - 1 == neighbour_z:
+                            if self.is_valid(neighbour_x, neighbour_y, (neighbour_z - 1)):
+                                after_intersection = ([neighbour_x], [neighbour_y], [neighbour_z-1])
+                                new_route = list(route)
+                                new_route.append(neighbour)
+                                new_route.append(after_intersection)
+                                intersections += 1
+                        if node_x == neighbour_x and node_y == neighbour_y and node_z + 1 == neighbour_z:
+                            if self.is_valid(neighbour_x, neighbour_y, (neighbour_z - 1)):
+                                after_intersection = ([neighbour_x], [neighbour_y], [neighbour_z+1])
+                                new_route = list(route)
+                                new_route.append(neighbour)
+                                new_route.append(after_intersection)
+                                intersections += 1
+                        else:
+                            explored.append(node)
 
                     else:
 
