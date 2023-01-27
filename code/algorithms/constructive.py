@@ -19,6 +19,12 @@ class Constructive(Pathfinder):
         super().__init__(start, end, board)
 
     def find(self):
+        """
+                Runs the constructive algoritme.
+
+                Returns:
+                    list with tuples of path taken, total wire count and the board, in that order.
+        """
         start = [(self.start_gate_x, self.start_gate_y, 0)]
         explored = []
         queue = [start]
@@ -127,6 +133,16 @@ class Constructive(Pathfinder):
         return "crashed"
 
     def find_neighbours(self, node):
+        """
+                checks for the neighbours of a node and if they are inside the board.
+
+                Args:
+                    node (tuple): tuple with coordinates x, y and z
+
+                Returns:
+                    list of tuples, where the tuples are the coordinates of the neighbours of the node
+
+        """
         x, y, z = node[0]
         # print(x, y)
 

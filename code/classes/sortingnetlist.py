@@ -3,6 +3,15 @@ from code.classes.grid import Grid
 
 
 def sorting(netlist, gates_dict):
+    """sorts a given netlist, based on the distance between the gates.
+
+        Args:
+            gates_dict: list with gate positions
+            netlist: list with connections to be made
+
+        Returns:
+            list of sorted connections, where the connections are represented in a tuple of start and end gate.
+    """
     netlist_distance = {}
 
     for connection in netlist:
