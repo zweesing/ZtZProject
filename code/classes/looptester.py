@@ -23,7 +23,6 @@ def looptest(algoritme, gatesfilepath, netlistpath):
     board_og = board_obj.get_board()
 
     netlist = sorting(board_obj.netlist, board_obj.gates_dict)
-    print(netlist)
     print("LOOPTEST")
     while True:
         routes = []
@@ -41,7 +40,6 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             stop_coord = board_obj.gates_dict[stop]
 
             path = algoritme(start_coord, stop_coord, board, board_obj.size)
-            print()
 
             returns = path.find()
 
@@ -59,6 +57,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             writetofile(board_obj.netlist, routes, totalwirecount)
 
             return path, routes, totalwirecount, crash_counter
+
 
 def looptestgreedy(algoritme, gatesfilepath, netlistpath):
     """tests a chosen algoritme until it has a solution to the problem.

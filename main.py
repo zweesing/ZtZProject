@@ -1,6 +1,7 @@
 from code.algorithms.random import Pathfindrandom
 from code.classes.looptester import looptest
 from code.visualisation.visualisation import visualize
+from code.classes.helper_funcs import intersect_count
 
 """
 Runs the tests of a chosen algoritme. With the chosen netlist and gate csv files. 
@@ -24,5 +25,11 @@ print(path)
 print(routes)
 print(totalwirecount)
 print(total_counter)
+
+
+# calculate intersections
+intersections = intersect_count(routes)
+
+cost = totalwirecount + 300 * intersections
 
 visualize(routes, gatesfilepath)
