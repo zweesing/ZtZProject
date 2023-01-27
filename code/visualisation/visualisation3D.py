@@ -15,7 +15,8 @@ def visualize(outputfile):
             splits = line.strip().split("\"")
             route = splits[3]  
             route = route.split(',')
-            
+
+
             route_list = []
             x = []
             y = []
@@ -24,11 +25,15 @@ def visualize(outputfile):
             for element in route:
                 number = int(element.strip('( )[]'))
                 route_list.append(number)
-         
+
+
+
             for i in range(0, len(route_list), 3):
                 x.append(route_list[i])
                 y.append(route_list[i+1])
                 z.append(route_list[i+2])
+
+
 
             ax.plot(x,y,z)
 
