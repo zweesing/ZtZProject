@@ -20,7 +20,8 @@ class Grid:
 
         self.netlist = self.read_netlist(netlistfile)
 
-        self.make_board(max_coord)
+        self.size = max_coord + 2
+        self.make_board()
 
     def read_gates(self, path):
         """read in the gates from a csv file, and save to dictionary. Also checks what the biggest position is
@@ -73,14 +74,14 @@ class Grid:
 
         return netlist
 
-    def make_board(self, size):
+    def make_board(self):
         """make the board based on input giving to instance.
         The length and width are so that the gates fit in with an edge around them, and the height is for now just half of that.
         Also calls place_gate to fill the board.
         """
-        rows = size + 2
-        columns = size + 2
-        levels = round(size / 2)
+        rows = self.size
+        columns = self.size
+        levels = self.size
         # Function makes a board based on the column and row input of the user
         for level in range(levels):
             self.board.append([])
