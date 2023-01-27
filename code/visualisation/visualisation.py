@@ -26,12 +26,26 @@ def visualize(routes, gatesfilepath):
 
     for route in routes:
         codes = [Path.MOVETO] + [Path.LINETO] * (len(route) - 1)
+
+        # make it 2d if 3d
+        if len(route[0]) == 3:
+            new_route = []
+            for coord in route:
+                x, y, z = coord
+                new_route.append((x, y))
+
+            route = new_route
+
         vertices = route
 
         path = Path(vertices, codes)
 
         pathpatch = PathPatch(
-            path, facecolor="none", edgecolor='black', linewidth=5
+            path,
+            facecolor="none",
+            edgecolor=colours[route_counter],
+            linewidth=5,
+            alpha=0.5,
         )
         route_counter += 1
 

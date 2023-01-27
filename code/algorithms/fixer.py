@@ -6,11 +6,11 @@
 # a left right connection a l, a up down connection is u, and a corner connection is c? then we can see if we can cross
 # not checking if a step is valid, but for the fixer we need to check if the routes overlap regardless.
 # maybe reading them in from the output?
-from ..classes.pathfinder import Pathfinder
+from code.classes.pathfinder import Pathfinder
 import random
 
 
-class Pathfind(Pathfinder):
+class Pathfind_w_conflicts(Pathfinder):
     def __init__(self, start, end, board):
         super().__init__(start, end, board)
 
@@ -35,41 +35,42 @@ class Pathfind(Pathfinder):
             if self.current_x < self.end_gate_x:
                 self.current_x += 1
                 self.update_route()
-                if not self.end_point(self.current_x, self.current_y):
+                if not self.end_point(self.current_x, self.current_y, self.current_z):
                     self.update_board()
                 else:
-                    return
+                    return self.route, self.wire_count, self.board
 
             # left
             if self.current_x > self.end_gate_x:
                 self.current_x -= 1
                 self.update_route()
-                if not self.end_point(self.current_x, self.current_y):
+                if not self.end_point(self.current_x, self.current_y, self.current_z):
                     self.update_board()
                 else:
-                    return
+                    return self.route, self.wire_count, self.board
             # up
             if self.current_y < self.end_gate_y:
                 self.current_y += 1
                 self.update_route()
-                if not self.end_point(self.current_x, self.current_y):
+                if not self.end_point(self.current_x, self.current_y, self.current_z):
                     self.update_board()
                 else:
-                    return
+                    return self.route, self.wire_count, self.board
             # down
             if self.current_y > self.end_gate_y:
-                self.current_y += 1
+                self.current_y -= 1
                 self.update_route()
-                if not self.end_point(self.current_x, self.current_y):
+                if not self.end_point(self.current_x, self.current_y, self.current_z):
                     self.update_board()
                 else:
-                    return
+                    return self.route, self.wire_count, self.board
 
     def update_board(self):
-        self.board[self.current_z][self.current_y][self.current_x] = 1
+        print(f"x: {self.current_x}, y: {self.current_y}")
+        self.board[self.current_z][self.current_y][self.current_x] = "1"
 
     def update_route(self):
-        self.route.append((self.current_x, self.current_y, 0))
+        self.route.append((self.current_x, self.current_y, self.current_z))
         self.wire_count += 1
 
 
