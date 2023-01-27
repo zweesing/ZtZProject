@@ -81,7 +81,7 @@ class Grid:
         """
         rows = self.size
         columns = self.size
-        levels = self.size
+        levels = self.size * 2
         # Function makes a board based on the column and row input of the user
         for level in range(levels):
             self.board.append([])
