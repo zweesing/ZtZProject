@@ -19,17 +19,16 @@ def visualize(outputfile):
             route_list = []
             x = []
             y = []
+            z = []
+
             for element in route:
                 number = int(element.strip('( )[]'))
                 route_list.append(number)
          
-            for i in range(0, len(route_list), 2):
+            for i in range(0, len(route_list), 3):
                 x.append(route_list[i])
                 y.append(route_list[i+1])
-        
-            z = []
-            for i in range(len(x)):
-                z.append(0)
+                z.append(route_list[i+2])
 
             ax.plot(x,y,z)
 
