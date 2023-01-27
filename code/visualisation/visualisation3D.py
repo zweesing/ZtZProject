@@ -7,24 +7,39 @@ def visualize(outputfile):
         header = outputfile.readline()
         lines = outputfile.readlines()
 
+        x = []
+        y = []
+
         for i in range(len(lines) - 1):
             line = lines[i]
             splits = line.strip().split("\"")
             route = splits[3]  
+            route = route.split(',')
             
-            list(route)
+            route_list = []
 
-            # hij geeft met route wel goed aan dat het een lijst is maar hij denkt dat het een lijst is met 1 string erin
-            # ik moet dus erachter zien te komen hoe ik die string naar wel een lijst met tuples zie te krijgen
+            for element in route:
+                number = int(element.strip('( )[]'))
+                route_list.append(number)
+
+         
+            for i in range(0, len(route_list), 2):
+                x.append(route_list[i])
+                y.append(route_list[i+1])
+        
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        
+        z = []
+        for i in range(len(x)):
+            z.append(0)
+        print(z)
+
+        ax.plot(x,y,z)
+
+        plt.show()
 
 if __name__ == "__main__":
     blip = visualize("output.csv")
 
-    # fig = plt.figure()
-    # ax = fig.add_subplot(111, projection='3d')
-    # x = [2,3,3,3,5,7,9,11,9,10]
-    # y = [3,5,7,1,2,4,5,9,4,2]
-    # z = [1,2,3,4,5,6,7,8,9,10]
-    # ax.plot(x,y,z)
-
-    # plt.show()
+   
