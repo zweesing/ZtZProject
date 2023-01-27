@@ -7,8 +7,8 @@ def visualize(outputfile):
         header = outputfile.readline()
         lines = outputfile.readlines()
 
-        x = []
-        y = []
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
 
         for i in range(len(lines) - 1):
             line = lines[i]
@@ -17,25 +17,22 @@ def visualize(outputfile):
             route = route.split(',')
             
             route_list = []
-
+            x = []
+            y = []
             for element in route:
                 number = int(element.strip('( )[]'))
                 route_list.append(number)
-
          
             for i in range(0, len(route_list), 2):
                 x.append(route_list[i])
                 y.append(route_list[i+1])
         
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
-        
-        z = []
-        for i in range(len(x)):
-            z.append(0)
-        print(z)
+            z = []
+            for i in range(len(x)):
+                z.append(0)
 
-        ax.plot(x,y,z)
+            ax.plot(x,y,z)
+
 
         plt.show()
 
