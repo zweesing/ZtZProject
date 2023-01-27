@@ -1,5 +1,5 @@
 from code.algorithms.greedy import Pathfind
-from code.classes.looptester import looptest
+from code.classes.looptester import looptestgreedy
 from code.visualisation.visualisation import visualize
 
 """
@@ -14,7 +14,7 @@ netlistpath = "data/chip_0/netlist_1.csv"
 total_counter = 0
 # get 50 results and see how long that took
 
-results = looptest(Pathfind, gatesfilepath, netlistpath)
+results = looptestgreedy(Pathfind, gatesfilepath, netlistpath)
 
 path, routes, totalwirecount, crash_counter = results
 total_counter += crash_counter
