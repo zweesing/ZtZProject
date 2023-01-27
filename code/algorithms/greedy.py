@@ -67,20 +67,19 @@ class Pathfind(Pathfinder):
                 else:
                     current_gate_y += left_or_right
 
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    if current_gate_x_or_y == "x":
-                        # maak de tweede ook random ipv altijd van foute x richting gelijk naar de andere richting overstappen
-                        current_gate_x += -1 * left_or_right
-                        current_gate_y += left_or_right
-                    else:
-                        current_gate_y += -1 * left_or_right
-                        current_gate_x += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    print("crashed")
-                    return "crashed"
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                if current_gate_x_or_y == "x":
+                    # maak de tweede ook random ipv altijd van foute x richting gelijk naar de andere richting overstappen
+                    current_gate_x += -1 * left_or_right
+                    current_gate_y += left_or_right
                 else:
-                    current_position = (current_gate_x, current_gate_y)
+                    current_gate_y += -1 * left_or_right
+                    current_gate_x += left_or_right
+
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                return "crashed"
+            else:
+                current_position = (current_gate_x, current_gate_y)
 
             # append the new current position and update the wire count
             route.append(current_position)
@@ -116,19 +115,19 @@ class Pathfind(Pathfinder):
                 else:
                     current_gate_y += left_or_right
 
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += -1 * left_or_right
-                        current_gate_y += left_or_right
-                    else:
-                        current_gate_y += -1 * left_or_right
-                        current_gate_x += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    print("crashed")
-                    return "crashed"
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                if current_gate_x_or_y == "x":
+                    current_gate_x += -1 * left_or_right
+                    current_gate_y += left_or_right
                 else:
-                    current_position = (current_gate_x, current_gate_y)
+                    current_gate_y += -1 * left_or_right
+                    current_gate_x += left_or_right
+
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                print("crashed")
+                return "crashed"
+            else:
+                current_position = (current_gate_x, current_gate_y)
 
             # append the new current position and update the wire count
             route.append(current_position)
@@ -164,19 +163,19 @@ class Pathfind(Pathfinder):
                 else:
                     current_gate_y += left_or_right
 
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += -1 * left_or_right
-                        current_gate_y += left_or_right
-                    else:
-                        current_gate_y += -1 * left_or_right
-                        current_gate_x += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    print("crashed")
-                    return "crashed"
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                if current_gate_x_or_y == "x":
+                    current_gate_x += -1 * left_or_right
+                    current_gate_y += left_or_right
                 else:
-                    current_position = (current_gate_x, current_gate_y)
+                    current_gate_y += -1 * left_or_right
+                    current_gate_x += left_or_right
+
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                print("crashed")
+                return "crashed"
+            else:
+                current_position = (current_gate_x, current_gate_y)
 
             # append the new current position and update the wire count
             route.append(current_position)
@@ -212,19 +211,19 @@ class Pathfind(Pathfinder):
                 else:
                     current_gate_y += left_or_right
 
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += -1 * left_or_right
-                        current_gate_y += left_or_right
-                    else:
-                        current_gate_y += -1 * left_or_right
-                        current_gate_x += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    print("crashed")
-                    return "crashed"
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                if current_gate_x_or_y == "x":
+                    current_gate_x += -1 * left_or_right
+                    current_gate_y += left_or_right
                 else:
-                    current_position = (current_gate_x, current_gate_y)
+                    current_gate_y += -1 * left_or_right
+                    current_gate_x += left_or_right
+
+            if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                print("crashed")
+                return "crashed"
+            else:
+                current_position = (current_gate_x, current_gate_y)
 
             # append the new current position and update the wire count
             route.append(current_position)
