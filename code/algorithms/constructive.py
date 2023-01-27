@@ -5,7 +5,7 @@ from code.classes.looptester import looptest
 class Constructive(Pathfinder):
     """ Subclass for the pathfinder class. This Algoritme determines the shortest path using depth and breth search."""
 
-    def __init__(self, start, end, board):
+    def __init__(self, start, end, board, size):
         """
         runs the init of pathfinder, which creates the nessecary class atributes.
 
@@ -15,57 +15,69 @@ class Constructive(Pathfinder):
             board (list): nested list which contains the board with the gates
             level (int): z coordinate
         """
+        self.size = size
         super().__init__(start, end, board)
 
     def find(self):
         start = [(self.start_gate_x, self.start_gate_y)]
         explored = []
-        queue = [[start]]
-        counter = 0
+        queue = [start]
 
         # implementations of depth and or breth search for determining route. Implement 3D part.
         while queue:
+            # Next cell in the route is taken and a temporary node is made
             route = queue.pop(0)
             print(route)
-            if counter > 0:
-                node = [route[-1]]
-            else:
-                node = route[-1]
 
-            counter += 1
-            # print(node)
+            node = [route[-1]]
 
+
+            # Check if node has been explored already
             if node not in explored:
                 neighbours = self.find_neighbours(node)
-                print(neighbours)
+                # print(neighbours)
 
+                # The neighbours are checked and added to the route
                 for neighbour in neighbours:
-
-
-                    new_route = list(route)
-                    new_route.append(neighbour)
-                    queue.append(new_route)
-
+                    print(neighbour)
                     neighbour_x = neighbour[0]
                     neighbour_y = neighbour[1]
-                    print(neighbour_y, neighbour_x)
-                    print("hierna eind coords")
-                    print(self.end_gate_y, self.end_gate_x)
 
-                    #check if it is end_point does not work
-                    if neighbour_x == self.end_gate_x and neighbour_y == self.end_gate_y:
-                        print('hier')
-                        print('moet je zijn')
-                        print(new_route)
-                        return new_route
+                    if self.board[0][neighbour_y][neighbour_x] != "0" and self.board[0][neighbour_y][neighbour_x] != "X":
+                        explored.append(node)
+
+                    else:
+
+                        new_route = list(route)
+                        new_route.append(neighbour)
+                        queue.append(new_route)
+                        wire_count = len(new_route) - 1
+
+                        # Check if the end point has been reached
+                        if neighbour_x == self.end_gate_x and neighbour_y == self.end_gate_y:
+
+                            # Write down the route with "1" expect the gates, that must stay X.
+                            for coord in new_route:
+                                coord_x = coord[0]
+                                coord_y = coord[1]
+                                if coord_x == self.end_gate_x and coord_y == self.end_gate_y:
+                                    continue
+                                elif coord_x == self.start_gate_x and coord_y == self.start_gate_y:
+                                    continue
+                                else:
+                                    self.board[0][coord_y][coord_x] = "1"
+
+                            print(new_route)
+                            return new_route, wire_count, self.board
 
                 explored.append(node)
-        print("hier niet")
+
+        # If no node can be explored the connection can't be made and crashed is returned
         return "crashed"
 
     def find_neighbours(self, node):
         x, y = node[0]
-        print(x, y)
+        # print(x, y)
 
         neighbours = [
             (x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)
@@ -78,7 +90,7 @@ class Constructive(Pathfinder):
                 # print(j)
                 # print(counter)
                 # get size from grid board instead of static 7.
-                if (7 < j or j < 0) or (7 < i or i < 0):
+                if (self.size <= j or j < 0) or (self.size <= i or i < 0):
                     neighbours[counter] = None
                     # print(neighbours)
                     counter += 1
@@ -87,9 +99,3 @@ class Constructive(Pathfinder):
                     continue
 
         return[i for i in neighbours if i is not None]
-
-
-if __name__ == '__main__':
-    gatesfilepath = "data/chip_0/print_0.csv"
-    netlistpath = "data/chip_0/netlist_1.csv"
-    results = looptest(Constructive, gatesfilepath, netlistpath)
