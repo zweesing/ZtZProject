@@ -16,7 +16,8 @@ def visualize(outputfile, gatesfilepath):
         ax.set_zlabel('Z')
         ax.set_title("Chips and Circuits")
 
-        maxz = [] 
+        maxz = []
+        minz = []
         array_z = []
 
         for i in range(len(lines) - 1):
@@ -40,13 +41,13 @@ def visualize(outputfile, gatesfilepath):
                 z.append(route_list[i+2])
 
             maxz.append(max(z))
+            minz.append(min(z))
         
             ax.plot(x,y,z)
        
-        for i in range(max(maxz) + 1):
+        for i in range(min(minz), max(maxz) + 1):
             array_z.append(i) 
 
-        ax.set_zlim(0, max(maxz))
         ax.set_zticks(array_z)
 
     gatesdict, _ = Grid.read_gates(1, gatesfilepath)
