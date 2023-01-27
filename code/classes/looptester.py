@@ -28,12 +28,13 @@ def looptest(algoritme, gatesfilepath, netlistpath):
     while True:
         routes = []
         totalwirecount = 0
+        total_intersections = 0
 
         board = copy.deepcopy(board_og)
 
         random.shuffle(board_obj.netlist)
 
-        for connection in netlist:
+        for connection in board_obj.netlist:
 
             start, stop = connection
 
@@ -41,7 +42,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             stop_coord = board_obj.gates_dict[stop]
 
             path = algoritme(start_coord, stop_coord, board, board_obj.size)
-            print()
+            #print()
 
             returns = path.find()
 
@@ -55,10 +56,11 @@ def looptest(algoritme, gatesfilepath, netlistpath):
             routes.append(route)
             totalwirecount += wire_count
 
+
         if returns != "crashed":
             writetofile(board_obj.netlist, routes, totalwirecount)
 
-            return path, routes, totalwirecount, crash_counter
+            return path, routes, totalwirecount, crash_counter, total_intersections
 
 def looptestgreedy(algoritme, gatesfilepath, netlistpath):
     """tests a chosen algoritme until it has a solution to the problem.
