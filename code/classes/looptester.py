@@ -1,5 +1,6 @@
 #  loop for random
 from code.classes.grid import writetofile, Grid
+from code.classes.sortingnetlist import sorting
 import random
 import copy
 
@@ -21,6 +22,8 @@ def looptest(algoritme, gatesfilepath, netlistpath):
     board_obj = Grid(gatesfilepath, netlistpath)
     board_og = board_obj.get_board()
 
+    netlist = sorting(board_obj.netlist, board_obj.gates_dict)
+    print(netlist)
     print("LOOPTEST")
     while True:
         routes = []
@@ -30,7 +33,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
 
         random.shuffle(board_obj.netlist)
 
-        for connection in board_obj.netlist:
+        for connection in netlist:
 
             start, stop = connection
 
