@@ -1,4 +1,5 @@
 from code.algorithms.random import Pathfindrandom
+from code.algorithms.fixer import Pathfind_GR
 from code.algorithms.constructive import Constructive
 from code.classes.looptester import looptest
 from code.visualisation.visualisation3D import visualize
@@ -13,11 +14,11 @@ data in a csv file.
 """
 
 gatesfilepath = "data/chip_0/print_0.csv"
-netlistpath = "data/chip_0/netlist_3.csv"
+netlistpath = "data/chip_0/netlist_1.csv"
 total_counter = 0
 # get 50 results and see how long that took
 
-results = looptest(Constructive, gatesfilepath, netlistpath)
+results = looptest(Pathfind_GR, gatesfilepath, netlistpath)
 
 path, routes, totalwirecount, crash_counter = results
 total_counter += crash_counter

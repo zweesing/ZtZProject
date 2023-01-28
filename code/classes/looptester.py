@@ -57,7 +57,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         if returns != "crashed":
             writetofile(board_obj.netlist, routes, totalwirecount)
 
-            return path, routes, totalwirecount, crash_counter, total_intersections
+            return path, routes, totalwirecount, crash_counter
 
 
 def looptestgreedy(algoritme, gatesfilepath, netlistpath):
