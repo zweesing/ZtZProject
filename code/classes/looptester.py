@@ -19,6 +19,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         to make the connections.
     """
     crash_counter = 0
+    connection_counter = 0
     board_obj = Grid(gatesfilepath, netlistpath)
     board_og = board_obj.get_board()
 
@@ -44,9 +45,12 @@ def looptest(algoritme, gatesfilepath, netlistpath):
 
             returns = path.find()
 
+            connection_counter += 1
+
             if returns == "crashed":
                 crash_counter += 1
-                print(crash_counter)
+                print(crash_counter, connection_counter)
+                connection_counter = 0
 
                 break
 
@@ -88,7 +92,7 @@ def looptestgreedy(algoritme, gatesfilepath, netlistpath):
 
         random.shuffle(board_obj.netlist)
 
-        for connection in board_obj.netlist:
+        for connection in netlist:
 
             start, stop = connection
 
@@ -105,7 +109,7 @@ def looptestgreedy(algoritme, gatesfilepath, netlistpath):
                 print(crash_counter)
 
                 break
-
+            print(returns)
             route, wire_count, board = returns
             routes.append(route)
             totalwirecount += wire_count
