@@ -1,7 +1,7 @@
-# ZtZProject
-## Chips & Circuits
+# ZtZProject - Chips & Circuits
 Project door Ziggy, Thomas en Zoe
 ___
+
 
 
 
