@@ -175,7 +175,7 @@ class Constructive(Pathfinder):
                 # print(j)
                 # print(counter)
                 # get size from grid board instead of static 7.
-                if (self.size <= j or j < 0) or (self.size <= i or i < 0) or (self.size < k or k < -self.size):
+                if (self.size <= j or j <= 0) or (self.size <= i or i <= 0) or (self.size < k or k < -self.size):
                     neighbours[counter] = None
                     # print(neighbours)
                     counter += 1
