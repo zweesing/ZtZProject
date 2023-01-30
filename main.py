@@ -14,12 +14,11 @@ It returns the last board, last route and the total wire count. In looptest an o
 data in a csv file.
 """
 
-chip = 0
-netlist = 1
+chip = 1
+netlist = 2
 gatesfilepath = f"data/chip_{chip}/print_{chip}.csv"
 netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlist}.csv"
 total_counter = 0
-# get 50 results and see how long that took
 
 results = looptestgreedy(Pathfind, gatesfilepath, netlistpath)
 
@@ -27,10 +26,10 @@ path, routes, totalwirecount, crash_counter = results
 total_counter += crash_counter
 
 
-print(path)
-print(routes)
-print(totalwirecount)
-print(total_counter)
+# print(path)
+# print(routes)
+# print(totalwirecount)
+# print(total_counter)
 
 # stupid way of reading gates in, needed for calculation
 gates, _ = Grid.read_gates(1, gatesfilepath)
