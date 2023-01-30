@@ -1,5 +1,5 @@
 class Pathfinder:
-    def __init__(self, start, end, board):
+    def __init__(self, start, end, board, size):
         """Create class attributes needed for the different pathfind algorithms.
 
         Args:
@@ -11,6 +11,7 @@ class Pathfinder:
         self.start_gate_x, self.start_gate_y = start
         self.end_gate_x, self.end_gate_y = end
         self.board = board
+        self.size = size
 
     def is_valid(self, next_position_x, next_position_y, next_position_z):
         """checks if a position is valid to move to,
@@ -23,11 +24,15 @@ class Pathfinder:
         Returns:
             bool: valid or not
         """
-        if (0 <= next_position_x < len(self.board[next_position_z])) and (
-            0 <= next_position_y < len(self.board[next_position_z])
+
+        if (
+            (0 <= next_position_x < self.size)
+            and (0 <= next_position_y < self.size)
+            and (self.board[next_position_z][next_position_y][next_position_x] == "0")
+            and (-self.size < next_position_z < self.size)
         ):
-            if self.board[next_position_z][next_position_y][next_position_x] == "0":
-                return True
+
+            return True
 
     def end_point(self, next_position_x, next_position_y, next_position_z):
         """checks if the goal gate is reached

@@ -7,7 +7,7 @@ class Pathfind(Pathfinder):
     subclass of pathfinder class. This algorithm uses a sort of greedy algorithm to find the shortest route.
     """
 
-    def __init__(self, start, end, board):
+    def __init__(self, start, end, board, size):
         """
         runs the init of pathfinder, which creates the nessecary class atributes.
 
@@ -17,7 +17,7 @@ class Pathfind(Pathfinder):
             board (list): nested list which contains the board with the gates
             level (int): z coordinate
         """
-        super().__init__(start, end, board)
+        super().__init__(start, end, board, size)
 
     def find(self):
         """
@@ -28,7 +28,7 @@ class Pathfind(Pathfinder):
         Returns:
             list with tuples of path taken, total wire count and the board, in that order.
         """
-        route = [(self.start_gate_x, self.start_gate_y)]
+        route = [(self.start_gate_x, self.start_gate_y, 0)]
 
         wire_count = 0
         current_gate_x = self.start_gate_x
@@ -53,35 +53,54 @@ class Pathfind(Pathfinder):
                     wire_count += 1
                     return route, wire_count, self.board
 
-                # if the wire goes the wrong way it should choose the next direction randomly
+                # if the wire goes the wrong way it should choose the other directions randomly
                 if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     current_gate_x -= 1
 
-                    current_gate_x_or_y = random.choice(random_direction)
-                    left_or_right = random.choice(random_direction2)
+                    # shuffle lists and check if a random astep can be made
+                    random.shuffle(random_direction)
+                    random.shuffle(random_direction2)
+                    made_step = False
+                    for xyz in random_direction:
+                        for left_right in random_direction2:
+                            if xyz == "x" and self.is_valid(
+                                current_gate_x + left_right,
+                                current_gate_y,
+                                current_gate_z,
+                            ):
+                                current_gate_x += left_right
+                                made_step = True
 
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += left_or_right
-                    elif current_gate_x_or_y == "z":
-                        current_gate_z += left_or_right
+                            if xyz == "y" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y + left_right,
+                                current_gate_z,
+                            ):
+                                current_gate_y += left_right
+                                made_step = True
+
+                            if xyz == "z" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y,
+                                current_gate_z + left_right,
+                            ):
+                                current_gate_z += left_right
+                                made_step = True
+
+                            if made_step:
+                                break
+                        if made_step:
+                            break
+
+                    # if random failed too, it has nowhere to go, and crashes and starts over
+                    if not made_step:
+                        return "crashed"
                     else:
-                        current_gate_y += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    if current_gate_x_or_y == "x":
-                        # maak de tweede ook random ipv altijd van foute x richting gelijk naar de andere richting overstappen
-                        current_gate_x += -1 * left_or_right
-                        current_gate_y += left_or_right
-                    elif current_gate_x_or_y == "z":
-                        current_gate_z += -1 * left_or_right
-                    else:
-                        current_gate_y += -1 * left_or_right
-                        current_gate_x += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    return "crashed"
-                else:
-                    current_position = (current_gate_x, current_gate_y)
+                        current_position = (
+                            current_gate_x,
+                            current_gate_y,
+                            current_gate_z,
+                        )
 
                 # append the new current position and update the wire count
                 route.append(current_position)
@@ -96,8 +115,7 @@ class Pathfind(Pathfinder):
 
                 # if the new current position has a z coordinate, it should be updated in the route list
 
-                current_position = (current_gate_x, current_gate_y)
-                
+                current_position = (current_gate_x, current_gate_y, current_gate_z)
 
                 # if the wire has found the end gate, the loop breaks
                 if self.end_point(current_gate_x, current_gate_y, current_gate_z):
@@ -105,30 +123,54 @@ class Pathfind(Pathfinder):
                     wire_count += 1
                     return route, wire_count, self.board
 
-                # if the wire goes the wrong way it should choose the next direction randomly
+                # if the wire goes the wrong way it should choose the other directions randomly
                 if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     current_gate_x += 1
 
-                    current_gate_x_or_y = random.choice(random_direction)
-                    left_or_right = random.choice(random_direction2)
+                    # shuffle lists and check if a random astep can be made
+                    random.shuffle(random_direction)
+                    random.shuffle(random_direction2)
+                    made_step = False
+                    for xyz in random_direction:
+                        for left_right in random_direction2:
+                            if xyz == "x" and self.is_valid(
+                                current_gate_x + left_right,
+                                current_gate_y,
+                                current_gate_z,
+                            ):
+                                current_gate_x += left_right
+                                made_step = True
 
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += left_or_right
+                            elif xyz == "y" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y + left_right,
+                                current_gate_z,
+                            ):
+                                current_gate_y += left_right
+                                made_step = True
+
+                            elif xyz == "z" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y,
+                                current_gate_z + left_right,
+                            ):
+                                current_gate_z += left_right
+                                made_step = True
+
+                            if made_step:
+                                break
+                        if made_step:
+                            break
+
+                    # if random failed too, it has nowhere to go, and crashes and starts over
+                    if not made_step:
+                        return "crashed"
                     else:
-                        current_gate_y += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += -1 * left_or_right
-                        current_gate_y += left_or_right
-                    else:
-                        current_gate_y += -1 * left_or_right
-                        current_gate_x += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):   
-                    return "crashed"
-                else:
-                    current_position = (current_gate_x, current_gate_y)
+                        current_position = (
+                            current_gate_x,
+                            current_gate_y,
+                            current_gate_z,
+                        )
 
                 # append the new current position and update the wire count
                 route.append(current_position)
@@ -143,8 +185,7 @@ class Pathfind(Pathfinder):
 
                 # if the new current position has a z coordinate, it should be updated in the route list
 
-                current_position = (current_gate_x, current_gate_y)
-                
+                current_position = (current_gate_x, current_gate_y, current_gate_z)
 
                 # if the wire has found the end gate, the loop breaks
                 if self.end_point(current_gate_x, current_gate_y, current_gate_z):
@@ -152,31 +193,53 @@ class Pathfind(Pathfinder):
                     wire_count += 1
                     return route, wire_count, self.board
 
-                # if the wire goes the wrong way it should choose the next direction randomly
+                # if the wire goes the wrong way it should choose the other directions randomly
                 if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     current_gate_y -= 1
 
-                    current_gate_x_or_y = random.choice(random_direction)
-                    left_or_right = random.choice(random_direction2)
+                    # shuffle lists and check if a random astep can be made
+                    random.shuffle(random_direction)
+                    random.shuffle(random_direction2)
+                    made_step = False
+                    for xyz in random_direction:
+                        for left_right in random_direction2:
+                            if xyz == "x" and self.is_valid(
+                                current_gate_x + left_right,
+                                current_gate_y,
+                                current_gate_z,
+                            ):
+                                current_gate_x += left_right
+                                made_step = True
 
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += left_or_right
+                            if xyz == "y" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y + left_right,
+                                current_gate_z,
+                            ):
+                                current_gate_y += left_right
+                                made_step = True
+
+                            if xyz == "z" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y,
+                                current_gate_z + left_right,
+                            ):
+                                current_gate_z += left_right
+                                made_step = True
+
+                            if made_step:
+                                break
+                        if made_step:
+                            break
+                    # if random failed too, it has nowhere to go, and crashes and starts over
+                    if not made_step:
+                        return "crashed"
                     else:
-                        current_gate_y += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += -1 * left_or_right
-                        current_gate_y += left_or_right
-                    else:
-                        current_gate_y += -1 * left_or_right
-                        current_gate_x += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    
-                    return "crashed"
-                else:
-                    current_position = (current_gate_x, current_gate_y)
+                        current_position = (
+                            current_gate_x,
+                            current_gate_y,
+                            current_gate_z,
+                        )
 
                 # append the new current position and update the wire count
                 route.append(current_position)
@@ -191,8 +254,7 @@ class Pathfind(Pathfinder):
 
                 # if the new current position has a z coordinate, it should be updated in the route list
 
-                current_position = (current_gate_x, current_gate_y)
-                
+                current_position = (current_gate_x, current_gate_y, current_gate_z)
 
                 # if the wire has found the end gate, the loop breaks
                 if self.end_point(current_gate_x, current_gate_y, current_gate_z):
@@ -200,31 +262,54 @@ class Pathfind(Pathfinder):
                     wire_count += 1
                     return route, wire_count, self.board
 
-                # if the wire goes the wrong way it should choose the next direction randomly
+                # if the wire goes the wrong way it should choose the other directions randomly
                 if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
                     current_gate_y += 1
 
-                    current_gate_x_or_y = random.choice(random_direction)
-                    left_or_right = random.choice(random_direction2)
+                    # shuffle lists and check if a random astep can be made
+                    random.shuffle(random_direction)
+                    random.shuffle(random_direction2)
+                    made_step = False
+                    for xyz in random_direction:
+                        for left_right in random_direction2:
+                            if xyz == "x" and self.is_valid(
+                                current_gate_x + left_right,
+                                current_gate_y,
+                                current_gate_z,
+                            ):
+                                current_gate_x += left_right
+                                made_step = True
 
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += left_or_right
+                            if xyz == "y" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y + left_right,
+                                current_gate_z,
+                            ):
+                                current_gate_y += left_right
+                                made_step = True
+
+                            if xyz == "z" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y,
+                                current_gate_z + left_right,
+                            ):
+                                current_gate_z += left_right
+                                made_step = True
+
+                            if made_step:
+                                break
+                        if made_step:
+                            break
+
+                    # if random failed too, it has nowhere to go, and crashes and starts over
+                    if not made_step:
+                        return "crashed"
                     else:
-                        current_gate_y += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    if current_gate_x_or_y == "x":
-                        current_gate_x += -1 * left_or_right
-                        current_gate_y += left_or_right
-                    else:
-                        current_gate_y += -1 * left_or_right
-                        current_gate_x += left_or_right
-
-                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
-                    
-                    return "crashed"
-                else:
-                    current_position = (current_gate_x, current_gate_y)
+                        current_position = (
+                            current_gate_x,
+                            current_gate_y,
+                            current_gate_z,
+                        )
 
                 # append the new current position and update the wire count
                 route.append(current_position)
@@ -233,6 +318,143 @@ class Pathfind(Pathfinder):
                 # vraag hoe dit moet met een 3d array
                 self.board[current_gate_z][current_gate_y][current_gate_x] = "1"
 
-        
+            # z positive
+            while current_gate_z < 0:
+                current_gate_z += 1
 
-        
+                # if the new current position has a z coordinate, it should be updated in the route list
+
+                current_position = (current_gate_x, current_gate_y, current_gate_z)
+
+                # if the wire has found the end gate, the loop breaks
+                if self.end_point(current_gate_x, current_gate_y, current_gate_z):
+                    route.append(current_position)
+                    wire_count += 1
+                    return route, wire_count, self.board
+
+                # if the wire goes the wrong way it should choose the other directions randomly
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                    current_gate_z -= 1
+
+                    # shuffle lists and check if a random astep can be made
+                    random.shuffle(random_direction)
+                    random.shuffle(random_direction2)
+                    made_step = False
+                    for xyz in random_direction:
+                        for left_right in random_direction2:
+                            if xyz == "x" and self.is_valid(
+                                current_gate_x + left_right,
+                                current_gate_y,
+                                current_gate_z,
+                            ):
+                                current_gate_x += left_right
+                                made_step = True
+
+                            if xyz == "y" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y + left_right,
+                                current_gate_z,
+                            ):
+                                current_gate_y += left_right
+                                made_step = True
+
+                            if xyz == "z" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y,
+                                current_gate_z + left_right,
+                            ):
+                                current_gate_z += left_right
+                                made_step = True
+
+                            if made_step:
+                                break
+
+                        if made_step:
+                            break
+
+                    # if random failed too, it has nowhere to go, and crashes and starts over
+                    if not made_step:
+                        return "crashed"
+                    else:
+                        current_position = (
+                            current_gate_x,
+                            current_gate_y,
+                            current_gate_z,
+                        )
+
+                # append the new current position and update the wire count
+                route.append(current_position)
+                wire_count += 1
+
+                # vraag hoe dit moet met een 3d array
+                self.board[current_gate_z][current_gate_y][current_gate_x] = "1"
+
+            # z negative
+            while current_gate_z > 0:
+                current_gate_z -= 1
+
+                # if the new current position has a z coordinate, it should be updated in the route list
+
+                current_position = (current_gate_x, current_gate_y, current_gate_z)
+
+                # if the wire has found the end gate, the loop breaks
+                if self.end_point(current_gate_x, current_gate_y, current_gate_z):
+                    route.append(current_position)
+                    wire_count += 1
+                    return route, wire_count, self.board
+
+                # if the wire goes the wrong way it should choose the other directions randomly
+                if not self.is_valid(current_gate_x, current_gate_y, current_gate_z):
+                    current_gate_z += 1
+
+                    # shuffle lists and check if a random astep can be made
+                    random.shuffle(random_direction)
+                    random.shuffle(random_direction2)
+                    made_step = False
+                    for xyz in random_direction:
+                        for left_right in random_direction2:
+                            if xyz == "x" and self.is_valid(
+                                current_gate_x + left_right,
+                                current_gate_y,
+                                current_gate_z,
+                            ):
+                                current_gate_x += left_right
+                                made_step = True
+
+                            if xyz == "y" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y + left_right,
+                                current_gate_z,
+                            ):
+                                current_gate_y += left_right
+                                made_step = True
+
+                            if xyz == "z" and self.is_valid(
+                                current_gate_x,
+                                current_gate_y,
+                                current_gate_z + left_right,
+                            ):
+                                current_gate_z += left_right
+                                made_step = True
+
+                            if made_step:
+                                break
+                        if made_step:
+                            break
+
+                    # if random failed too, it has nowhere to go, and crashes and starts over
+                    if not made_step:
+                        return "crashed"
+                    else:
+                        current_position = (
+                            current_gate_x,
+                            current_gate_y,
+                            current_gate_z,
+                        )
+
+                # append the new current position and update the wire count
+                route.append(current_position)
+                wire_count += 1
+
+                # vraag hoe dit moet met een 3d array
+                self.board[current_gate_z][current_gate_y][current_gate_x] = "1"
