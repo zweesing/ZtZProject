@@ -23,7 +23,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
     board_obj = Grid(gatesfilepath, netlistpath)
     board_og = board_obj.get_board()
 
-    netlist = sorting(board_obj.netlist, board_obj.gates_dict)
+    #board_obj.netlist = sorting(board_obj.netlist, board_obj.gates_dict)
     print("LOOPTEST")
     while True:
         routes = []
@@ -35,7 +35,6 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         random.shuffle(board_obj.netlist)
 
         for connection in board_obj.netlist:
-
             start, stop = connection
 
             start_coord = board_obj.gates_dict[start]
@@ -54,6 +53,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
 
                 break
 
+
             route, wire_count, board = returns
             routes.append(route)
             totalwirecount += wire_count
@@ -61,7 +61,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         if returns != "crashed":
             writetofile(board_obj.netlist, routes, totalwirecount)
 
-            return path, routes, totalwirecount, crash_counter
+            return path, routes, totalwirecount, crash_counter, board_obj.netlist
 
 
 def looptestgreedy(algoritme, gatesfilepath, netlistpath):

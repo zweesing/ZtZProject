@@ -16,7 +16,7 @@ class Constructive(Pathfinder):
             level (int): z coordinate
         """
         self.size = size
-        super().__init__(start, end, board)
+        super().__init__(start, end, board, size)
 
     def find(self):
         """
@@ -28,19 +28,19 @@ class Constructive(Pathfinder):
         start = [(self.start_gate_x, self.start_gate_y, 0)]
         explored = []
         queue = [start]
-        #print(queue)
-        intersections = 0
         counter = 0
+        score_best_solution = 1000000
+        solutions_counter = 0
+        intersections = 0
 
         # implementations of depth and or breth search for determining route. Implement 3D part.
         while queue:
             # Next cell in the route is taken and a temporary node is made
-            #print(queue)
+
             route = queue.pop(0)
-            #print(route)
 
             node = [route[-1]]
-            #print(node)
+
             counter += 1
 
 
@@ -71,6 +71,7 @@ class Constructive(Pathfinder):
                                 new_route.append(after_intersection)
                                 queue.append(new_route)
                                 intersections += 1
+
                         if node_x + 1 == neighbour_x and node_y == neighbour_y and node_z == neighbour_z and counter > 1:
                             if self.is_valid((neighbour_x + 1), neighbour_y, neighbour_z):
                                 after_intersection = ((neighbour_x + 1), neighbour_y, neighbour_z)
@@ -80,6 +81,7 @@ class Constructive(Pathfinder):
                                 queue.append(new_route)
                                 intersections += 1
 
+
                         if node_x == neighbour_x and node_y - 1 == neighbour_y and node_z == neighbour_z and counter > 1:
                             if self.is_valid(neighbour_x, (neighbour_y - 1), neighbour_z):
                                 after_intersection = (neighbour_x, (neighbour_y - 1), neighbour_z)
@@ -88,6 +90,7 @@ class Constructive(Pathfinder):
                                 new_route.append(after_intersection)
                                 queue.append(new_route)
                                 intersections += 1
+
                         if node_x == neighbour_x and node_y + 1 == neighbour_y and node_z == neighbour_z and counter > 1:
                             if self.is_valid(neighbour_x, (neighbour_y + 1), neighbour_z):
                                 after_intersection = (neighbour_x, (neighbour_y + 1), neighbour_z)
@@ -97,6 +100,7 @@ class Constructive(Pathfinder):
                                 queue.append(new_route)
                                 intersections += 1
 
+
                         if node_x == neighbour_x and node_y == neighbour_y and node_z - 1 == neighbour_z and counter > 1:
                             if self.is_valid(neighbour_x, neighbour_y, (neighbour_z - 1)):
                                 after_intersection = (neighbour_x, neighbour_y, (neighbour_z - 1))
@@ -105,6 +109,7 @@ class Constructive(Pathfinder):
                                 new_route.append(after_intersection)
                                 queue.append(new_route)
                                 intersections += 1
+
                         if node_x == neighbour_x and node_y == neighbour_y and node_z + 1 == neighbour_z and counter > 1:
                             if self.is_valid(neighbour_x, neighbour_y, (neighbour_z - 1)):
                                 after_intersection = (neighbour_x, neighbour_y, (neighbour_z + 1))
@@ -113,42 +118,58 @@ class Constructive(Pathfinder):
                                 new_route.append(after_intersection)
                                 queue.append(new_route)
                                 intersections += 1
+
                         else:
                             explored.append(node)
 
                     else:
-                        #print('hi hier ben ik nu')
                         new_route = list(route)
                         new_route.append(neighbour)
                         queue.append(new_route)
-                        wire_count = len(new_route) - 1
-                        #print(new_route)
+
 
                     # Check if the end point has been reached
-                    if neighbour_x == self.end_gate_x and neighbour_y == self.end_gate_y and neighbour_z == 0:
+                    if self.end_point(neighbour_x, neighbour_y, neighbour_z):
+                        wire_count = len(new_route) - 1
+                        intersection_count = intersections
+                        score_new_route = wire_count + (300 * intersection_count)
+                        solutions_counter += 1
 
-                        # Write down the route with "1" expect the gates, that must stay X.
-                        for coord in new_route:
-                            #print(coord)
-                            coord_x = coord[0]
-                            coord_y = coord[1]
-                            coord_z = coord[2]
-                            if coord_x == self.end_gate_x and coord_y == self.end_gate_y and coord_z == 0:
-                                continue
-                            elif coord_x == self.start_gate_x and coord_y == self.start_gate_y and coord_z == 0:
-                                continue
-                            else:
-                                self.board[coord_z][coord_y][coord_x] = "1"
+                        if score_new_route < score_best_solution:
+                            best_solution_route = new_route
 
+                            score_best_solution = score_new_route
 
-
-                            #print(new_route)
-                        return new_route, wire_count, self.board
-
+                intersections = 0
                 explored.append(node)
 
-        # If no node can be explored the connection can't be made and crashed is returned
-        return "crashed"
+            if solutions_counter == 5:
+                break
+            # If no node can be explored the connection can't be made and crashed is returned
+
+
+        # Write down the route with "1" expect the gates, that must stay X.
+        if solutions_counter >= 1:
+            for coord in best_solution_route:
+                coord_x = coord[0]
+                coord_y = coord[1]
+                coord_z = coord[2]
+                if coord_x == self.end_gate_x and coord_y == self.end_gate_y and coord_z == 0:
+                    continue
+                elif coord_x == self.start_gate_x and coord_y == self.start_gate_y and coord_z == 0:
+                    continue
+                else:
+                    self.board[coord_z][coord_y][coord_x] = "1"
+
+            return best_solution_route, wire_count, self.board
+
+        else:
+            return 'crashed'
+
+
+
+
+
 
     def find_neighbours(self, node):
         """
@@ -184,3 +205,8 @@ class Constructive(Pathfinder):
                     continue
 
         return[i for i in neighbours if i is not None]
+
+    def score_calculator(self, wire_count, intersections):
+        print('hi:', intersections)
+        cost = wire_count + 300 * intersections
+        return cost
