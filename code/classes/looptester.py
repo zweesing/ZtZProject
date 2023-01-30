@@ -33,7 +33,6 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         board = copy.deepcopy(board_og)
 
         random.shuffle(board_obj.netlist)
-        print(board_obj.gates_dict)
 
         for connection in board_obj.netlist:
 
@@ -41,8 +40,6 @@ def looptest(algoritme, gatesfilepath, netlistpath):
 
             start_coord = board_obj.gates_dict[start]
             stop_coord = board_obj.gates_dict[stop]
-            print(start_coord)
-            print(stop_coord)
 
             path = algoritme(start_coord, stop_coord, board, board_obj.size)
 
@@ -95,7 +92,7 @@ def looptestgreedy(algoritme, gatesfilepath, netlistpath):
 
         random.shuffle(board_obj.netlist)
 
-        for connection in board_obj.netlist:
+        for connection in netlist:
 
             start, stop = connection
 
@@ -112,7 +109,7 @@ def looptestgreedy(algoritme, gatesfilepath, netlistpath):
                 print(crash_counter)
 
                 break
-
+            print(returns)
             route, wire_count, board = returns
             routes.append(route)
             totalwirecount += wire_count
