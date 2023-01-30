@@ -15,7 +15,7 @@ data in a csv file.
 """
 
 chip = 1
-netlist = 2
+netlist = 1
 gatesfilepath = f"data/chip_{chip}/print_{chip}.csv"
 netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlist}.csv"
 total_counter = 0
