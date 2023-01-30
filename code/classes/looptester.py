@@ -92,7 +92,7 @@ def looptestgreedy(algoritme, gatesfilepath, netlistpath):
 
         random.shuffle(board_obj.netlist)
 
-        for connection in netlist:
+        for connection in board_obj.netlist:
 
             start, stop = connection
 
@@ -109,7 +109,6 @@ def looptestgreedy(algoritme, gatesfilepath, netlistpath):
                 print(crash_counter)
 
                 break
-            print(returns)
             route, wire_count, board = returns
             routes.append(route)
             totalwirecount += wire_count
