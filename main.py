@@ -4,7 +4,7 @@ from code.algorithms.constructive import Constructive
 from code.algorithms.greedy import Pathfind
 from code.classes.looptester import looptest, looptestgreedy
 from code.visualisation.visualisation3D import visualize
-from code.classes.helper_funcs import intersect_count
+from code.classes.helper_funcs import intersect_count, cost_calc
 from code.classes.grid import Grid
 
 """
@@ -14,7 +14,7 @@ It returns the last board, last route and the total wire count. In looptest an o
 data in a csv file.
 """
 
-chip = 1
+chip = 0
 netlist = 1
 gatesfilepath = f"data/chip_{chip}/print_{chip}.csv"
 netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlist}.csv"
@@ -38,6 +38,6 @@ gates, _ = Grid.read_gates(1, gatesfilepath)
 # calculate intersections
 intersections = intersect_count(routes, gates)
 
-cost = totalwirecount + 300 * intersections
+cost = cost_calc(routes, gates, totalwirecount)
 print(f"costs: {cost}, intersections: {intersections}")
 visualize("output.csv", gatesfilepath)

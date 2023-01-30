@@ -18,3 +18,9 @@ def intersect_count(routes, gates):
                 intersect_counter += 1
 
     return intersect_counter
+
+
+def cost_calc(routes, gates, wirecount):
+    intersections = intersect_count(routes, gates)
+    cost = wirecount + 300 * intersections
+    return cost
