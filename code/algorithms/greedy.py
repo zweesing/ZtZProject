@@ -91,6 +91,55 @@ class Pathfind(Pathfinder):
                                 break
                         if made_step:
                             break
+                    if not made_step:
+                        for xyz in random_direction:
+                            for left_right in random_direction2:
+                                if xyz == "x" and self.is_valid(
+                                    current_gate_x + 2 * left_right,
+                                    current_gate_y,
+                                    current_gate_z,
+                                ):
+                                    # make two steps, so add the intersection point manually
+
+                                    current_gate_x += left_right
+                                    current_position = (
+                                        current_gate_x,
+                                        current_gate_y,
+                                        current_gate_z,
+                                    )
+                                    route.append(current_position)
+                                    current_gate_x += left_right
+                                    made_step = True
+
+                                elif xyz == "y" and self.is_valid(
+                                    current_gate_x,
+                                    current_gate_y + 2 * left_right,
+                                    current_gate_z,
+                                ):
+                                    current_gate_y += left_right
+                                    current_position = (
+                                        current_gate_x,
+                                        current_gate_y,
+                                        current_gate_z,
+                                    )
+                                    route.append(current_position)
+                                    current_gate_y += left_right
+                                    made_step = True
+
+                                elif xyz == "z" and self.is_valid(
+                                    current_gate_x,
+                                    current_gate_y,
+                                    current_gate_z + 2 * left_right,
+                                ):
+                                    current_gate_z += left_right
+                                    current_position = (
+                                        current_gate_x,
+                                        current_gate_y,
+                                        current_gate_z,
+                                    )
+                                    route.append(current_position)
+                                    current_gate_z += left_right
+                                    made_step = True
 
                     # if random failed too, it has nowhere to go, and crashes and starts over
                     if not made_step:
@@ -286,6 +335,56 @@ class Pathfind(Pathfinder):
                                 break
                         if made_step:
                             break
+                    if not made_step:
+                        for xyz in random_direction:
+                            for left_right in random_direction2:
+                                if xyz == "x" and self.is_valid(
+                                    current_gate_x + 2 * left_right,
+                                    current_gate_y,
+                                    current_gate_z,
+                                ):
+                                    # make two steps, so add the intersection point manually
+
+                                    current_gate_x += left_right
+                                    current_position = (
+                                        current_gate_x,
+                                        current_gate_y,
+                                        current_gate_z,
+                                    )
+                                    route.append(current_position)
+                                    current_gate_x += left_right
+                                    made_step = True
+
+                                elif xyz == "y" and self.is_valid(
+                                    current_gate_x,
+                                    current_gate_y + 2 * left_right,
+                                    current_gate_z,
+                                ):
+                                    current_gate_y += left_right
+                                    current_position = (
+                                        current_gate_x,
+                                        current_gate_y,
+                                        current_gate_z,
+                                    )
+                                    route.append(current_position)
+                                    current_gate_y += left_right
+                                    made_step = True
+
+                                elif xyz == "z" and self.is_valid(
+                                    current_gate_x,
+                                    current_gate_y,
+                                    current_gate_z + 2 * left_right,
+                                ):
+                                    current_gate_z += left_right
+                                    current_position = (
+                                        current_gate_x,
+                                        current_gate_y,
+                                        current_gate_z,
+                                    )
+                                    route.append(current_position)
+                                    current_gate_z += left_right
+                                    made_step = True
+
                     # if random failed too, it has nowhere to go, and crashes and starts over
                     if not made_step:
                         return "crashed"
@@ -355,7 +454,55 @@ class Pathfind(Pathfinder):
                                 break
                         if made_step:
                             break
+                    if not made_step:
+                        for xyz in random_direction:
+                            for left_right in random_direction2:
+                                if xyz == "x" and self.is_valid(
+                                    current_gate_x + 2 * left_right,
+                                    current_gate_y,
+                                    current_gate_z,
+                                ):
+                                    # make two steps, so add the intersection point manually
 
+                                    current_gate_x += left_right
+                                    current_position = (
+                                        current_gate_x,
+                                        current_gate_y,
+                                        current_gate_z,
+                                    )
+                                    route.append(current_position)
+                                    current_gate_x += left_right
+                                    made_step = True
+
+                                elif xyz == "y" and self.is_valid(
+                                    current_gate_x,
+                                    current_gate_y + 2 * left_right,
+                                    current_gate_z,
+                                ):
+                                    current_gate_y += left_right
+                                    current_position = (
+                                        current_gate_x,
+                                        current_gate_y,
+                                        current_gate_z,
+                                    )
+                                    route.append(current_position)
+                                    current_gate_y += left_right
+                                    made_step = True
+
+                                elif xyz == "z" and self.is_valid(
+                                    current_gate_x,
+                                    current_gate_y,
+                                    current_gate_z + 2 * left_right,
+                                ):
+                                    current_gate_z += left_right
+                                    current_position = (
+                                        current_gate_x,
+                                        current_gate_y,
+                                        current_gate_z,
+                                    )
+                                    route.append(current_position)
+                                    current_gate_z += left_right
+                                    made_step = True
                     # if random failed too, it has nowhere to go, and crashes and starts over
                     if not made_step:
                         return "crashed"
