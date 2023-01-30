@@ -28,21 +28,24 @@ class Constructive(Pathfinder):
         start = [(self.start_gate_x, self.start_gate_y, 0)]
         explored = []
         queue = [start]
+        print(queue)
         intersections = 0
 
         # implementations of depth and or breth search for determining route. Implement 3D part.
         while queue:
             # Next cell in the route is taken and a temporary node is made
-            print(queue)
+            #print(queue)
             route = queue.pop(0)
+            #print(route)
 
             node = [route[-1]]
+            #print(node)
 
 
 
             # Check if node has been explored already
             if node not in explored:
-                print(node)
+                #print(node)
                 neighbours = self.find_neighbours(node)
                 #print(neighbours)
 
@@ -61,17 +64,21 @@ class Constructive(Pathfinder):
                             if self.is_valid((neighbour_x - 1), neighbour_y, neighbour_z):
                                 after_intersection = ((neighbour_x - 1), neighbour_y, neighbour_z)
                                 new_route = list(route)
+                                print(new_route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                print(new_route)
+                                queue.append(new_route)
                                 intersections += 1
                         if node_x + 1 == neighbour_x and node_y == neighbour_y and node_z == neighbour_z:
                             if self.is_valid((neighbour_x + 1), neighbour_y, neighbour_z):
                                 after_intersection = ((neighbour_x + 1), neighbour_y, neighbour_z)
                                 new_route = list(route)
+                                print(new_route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                print(new_route)
+                                queue.append(new_route)
                                 intersections += 1
 
                         if node_x == neighbour_x and node_y - 1 == neighbour_y and node_z == neighbour_z:
@@ -80,7 +87,7 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
                         if node_x == neighbour_x and node_y + 1 == neighbour_y and node_z == neighbour_z:
                             if self.is_valid(neighbour_x, (neighbour_y + 1), neighbour_z):
@@ -88,7 +95,7 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
 
                         if node_x == neighbour_x and node_y == neighbour_y and node_z - 1 == neighbour_z:
@@ -97,7 +104,7 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
                         if node_x == neighbour_x and node_y == neighbour_y and node_z + 1 == neighbour_z:
                             if self.is_valid(neighbour_x, neighbour_y, (neighbour_z - 1)):
@@ -105,7 +112,7 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
                         else:
                             explored.append(node)

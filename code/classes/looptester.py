@@ -33,13 +33,16 @@ def looptest(algoritme, gatesfilepath, netlistpath):
         board = copy.deepcopy(board_og)
 
         random.shuffle(board_obj.netlist)
+        print(board_obj.gates_dict)
 
-        for connection in netlist:
+        for connection in board_obj.netlist:
 
             start, stop = connection
 
             start_coord = board_obj.gates_dict[start]
             stop_coord = board_obj.gates_dict[stop]
+            print(start_coord)
+            print(stop_coord)
 
             path = algoritme(start_coord, stop_coord, board, board_obj.size)
 
