@@ -16,7 +16,7 @@ total_counter = 0
 results = looptest(Constructive, gatesfilepath, netlistpath)
 
 
-path, routes, totalwirecount, crash_counter, raar_getal = results
+path, routes, totalwirecount, crash_counter = results
 total_counter += crash_counter
 
 

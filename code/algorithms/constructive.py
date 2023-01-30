@@ -133,7 +133,7 @@ class Constructive(Pathfinder):
                                 self.board[coord_z][coord_y][coord_x] = "1"
 
                             #print(new_route)
-                            return new_route, wire_count, self.board
+                        return new_route, wire_count, self.board
 
                 explored.append(node)
 

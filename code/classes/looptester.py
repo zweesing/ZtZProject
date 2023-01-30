@@ -34,7 +34,7 @@ def looptest(algoritme, gatesfilepath, netlistpath):
 
         random.shuffle(board_obj.netlist)
 
-        for connection in board_obj.netlist:
+        for connection in netlist:
 
             start, stop = connection
 
