@@ -58,9 +58,10 @@ def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
 
                 if returns == "crashed":
                     crash_counter += 1
-                    print(
-                        f"crashcounter: {crash_counter}, crashed at: {connection_counter}"
-                    )
+                    if crash_counter % 20 == 0:
+                        print(
+                            f"crashcounter: {crash_counter}, crashed at: {connection_counter}"
+                        )
                     connection_counter = 0
 
                     break
@@ -93,9 +94,10 @@ def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
 
                     if returns == "crashed":
                         crash_counter += 1
-                        print(
-                            f"crashcounter: {crash_counter}, crashed at: {connection_counter}"
-                        )
+                        if crash_counter % 20 == 0:
+                            print(
+                                f"crashcounter: {crash_counter}, crashed at: {connection_counter}"
+                            )
                         connection_counter = 0
 
                         break
