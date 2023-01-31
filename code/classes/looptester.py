@@ -62,8 +62,10 @@ def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
                 totalwirecount += wire_count
         # if sorted option
         else:
+
             for sorted_list in sorted_lists:
                 for connection in sorted_list:
+
                     start, stop = connection
 
                     start_coord = board_obj.gates_dict[start]
@@ -86,7 +88,8 @@ def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
                         connection_counter = 0
 
                         break
-                break
+                if returns == "crashed":
+                    break
 
         if returns != "crashed":
             writetofile(board_obj.netlist, routes, totalwirecount)

@@ -1,4 +1,5 @@
 import csv
+import os
 
 
 def intersect_count(routes, gates):
@@ -28,6 +29,7 @@ def cost_calc(routes, gates, wirecount):
     cost = wirecount + 300 * intersections
     return cost
 
+
 def writetofile(netlist, routes, wirecount, path, nr):
     """write the results to a csv file (currently "output.csv"). The file contains netlist and corresponding route,
     as well as the total wire count to calculate costs.
@@ -37,6 +39,9 @@ def writetofile(netlist, routes, wirecount, path, nr):
         routes (list): list containing the routes taken for every connection
         wirecount (int): total number of wires used
     """
+    if not os.path.exists(f"results/{path}/"):
+        os.mkdir(f"results/{path}/")
+
     with open(f"results/{path}/output{nr}.csv", "w", newline="") as file:
         writer = csv.writer(file)
 
@@ -46,3 +51,13 @@ def writetofile(netlist, routes, wirecount, path, nr):
             writer.writerow((netlist[i], routes[i]))
 
         writer.writerow(("wirecount", wirecount))
+
+
+def writecoststofile(costs, path):
+    if not os.path.exists(f"results/{path}/"):
+        os.mkdir(f"results/{path}/")
+
+    with open(f"results/{path}/costs.csv", "w", newline="") as file:
+        writer = csv.writer(file)
+
+        writer.writerow(costs)
