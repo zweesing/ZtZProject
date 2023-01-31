@@ -5,7 +5,7 @@ import random
 import copy
 
 
-def looptest(algoritme, gatesfilepath, netlistpath, sorted = False):
+def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
     """tests a chosen algoritme until it has a solution to the problem.
 
     Args:
@@ -24,7 +24,7 @@ def looptest(algoritme, gatesfilepath, netlistpath, sorted = False):
     board_og = board_obj.get_board()
 
     if sorted:
-        board_obj.netlist = sorting(board_obj.netlist, board_obj.gates_dict)
+        sorted_lists = sorting(board_obj.netlist, board_obj.gates_dict)
 
     print("LOOPTEST")
     while True:
@@ -34,34 +34,61 @@ def looptest(algoritme, gatesfilepath, netlistpath, sorted = False):
 
         board = copy.deepcopy(board_og)
 
+        # if shuffle
         if not sorted:
             random.shuffle(board_obj.netlist)
 
-        for connection in board_obj.netlist:
-            start, stop = connection
+            for connection in board_obj.netlist:
+                start, stop = connection
 
-            start_coord = board_obj.gates_dict[start]
-            stop_coord = board_obj.gates_dict[stop]
+                start_coord = board_obj.gates_dict[start]
+                stop_coord = board_obj.gates_dict[stop]
 
-            path = algoritme(start_coord, stop_coord, board, board_obj.size)
+                path = algoritme(start_coord, stop_coord, board, board_obj.size)
 
-            returns = path.find()
+                returns = path.find()
 
-            connection_counter += 1
+                connection_counter += 1
 
-            if returns == "crashed":
-                crash_counter += 1
-                print(crash_counter, connection_counter)
-                connection_counter = 0
+                if returns == "crashed":
+                    crash_counter += 1
+                    print(crash_counter, connection_counter)
+                    connection_counter = 0
 
+                    break
+
+                route, wire_count, board = returns
+                routes.append(route)
+                totalwirecount += wire_count
+        # if sorted option
+        else:
+            for sorted_list in sorted_lists:
+                for connection in sorted_list:
+                    start, stop = connection
+
+                    start_coord = board_obj.gates_dict[start]
+                    stop_coord = board_obj.gates_dict[stop]
+
+                    path = algoritme(start_coord, stop_coord, board, board_obj.size)
+
+                    returns = path.find()
+
+                    connection_counter += 1
+
+                    if returns != "crashed":
+                        route, wire_count, board = returns
+                        routes.append(route)
+                        totalwirecount += wire_count
+
+                    if returns == "crashed":
+                        crash_counter += 1
+                        print(crash_counter, connection_counter)
+                        connection_counter = 0
+
+                        break
                 break
-
-            route, wire_count, board = returns
-            routes.append(route)
-            totalwirecount += wire_count
 
         if returns != "crashed":
             writetofile(board_obj.netlist, routes, totalwirecount)
 
             return path, routes, totalwirecount, crash_counter, board_obj.netlist
-
