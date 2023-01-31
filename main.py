@@ -4,7 +4,7 @@ from code.algorithms.constructive import Constructive
 from code.algorithms.greedy import Pathfind
 from code.classes.looptester import looptest, looptestgreedy
 from code.visualisation.visualisation3D import visualize
-from code.classes.helper_funcs import intersect_count, cost_calc
+from code.classes.helper_funcs import intersect_count, cost_calc, writetofile
 from code.classes.grid import Grid
 
 """
@@ -18,12 +18,12 @@ chip = 0
 netlist = 2
 gatesfilepath = f"data/chip_{chip}/print_{chip}.csv"
 netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlist}.csv"
-total_counter = 0
 
-results = looptestgreedy(Pathfind, gatesfilepath, netlistpath)
 
-path, routes, totalwirecount, crash_counter = results
-total_counter += crash_counter
+for i in range(100):
+    results = looptestgreedy(Pathfind, gatesfilepath, netlistpath)
+    path, routes, totalwirecount, crash_counter, netlist = results
+    writetofile(netlist, routes, totalwirecount, "greedyrandom_chip1_netlist4", i)
 
 
 # print(path)
