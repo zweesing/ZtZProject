@@ -1,4 +1,5 @@
 from code.algorithms.constructive import Constructive
+from code.algorithms.constructive_extended import ConstructiveExtended
 from code.algorithms.greedy import Pathfind
 from code.classes.looptester import looptest
 from code.visualisation.visualisation3D import visualize
@@ -12,6 +13,7 @@ from code.classes.helper_funcs import (
 from code.classes.grid import Grid
 import argparse
 import time
+
 
 """
 Runs the tests of a chosen algoritme a chosen amount of times. With the chosen netlist and gate csv files. 
@@ -86,6 +88,8 @@ for i in range(args.iteration):
         results = looptest(Constructive, gatesfilepath, netlistpath, sorted)
     if algorithm == "random":
         results = looptest(Pathfindrandom, gatesfilepath, netlistpath, sorted)
+    if algorithm == "breadthext":
+        results = looptest(ConstructiveExtended, gatesfilepath, netlistpath, sorted)
     path, routes, totalwirecount, crash_counter, netlist, runtime = results
 
     writetofile(
