@@ -14,8 +14,8 @@ It returns the last board, last route and the total wire count. In looptest an o
 data in a csv file.
 """
 
-chip = 1
-netlist = 1
+chip = 0
+netlist = 2
 gatesfilepath = f"data/chip_{chip}/print_{chip}.csv"
 netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlist}.csv"
 total_counter = 0
