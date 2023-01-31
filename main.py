@@ -27,7 +27,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--algorithm",
     "-a",
-    help='Choose between "greedy", "breadth" or "breadthext" for respectively a greedy/random algoritm, a breadth first  or an extended breadth first algoritm',
+    help='Choose between "greedy", "random" "breadth" or "breadthext" for respectively a greedy/random algoritm, random algorithm, a breadth first  or an extended breadth first algoritm',
 )
 parser.add_argument(
     "--chip",
