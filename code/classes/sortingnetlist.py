@@ -25,7 +25,7 @@ def sorting(netlist, gates_dict):
         netlist_distance[connection] = distance
 
     sorted_netlist = dict(sorted(netlist_distance.items(), key=lambda item: item[1]))
-    sorted_netlist_keys = sorted_netlist.keys()
+    sorted_netlist_keys = list(sorted_netlist.keys())
     first_half_sorted_netlist = []
 
     halfs = int(len(sorted_netlist_keys) / 2)
