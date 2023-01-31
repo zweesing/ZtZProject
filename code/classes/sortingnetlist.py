@@ -28,7 +28,7 @@ def sorting(netlist, gates_dict):
     sorted_netlist_keys = sorted_netlist.keys()
     first_half_sorted_netlist = []
 
-    halfs = len(sorted_netlist_keys) / 2
+    halfs = int(len(sorted_netlist_keys) / 2)
     for i in halfs:
         first_half_sorted_netlist = sorted_netlist_keys.pop(0)
 
