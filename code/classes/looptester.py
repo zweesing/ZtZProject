@@ -72,6 +72,7 @@ def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
         else:
 
             for sorted_list in sorted_lists:
+                random.shuffle(sorted_list)
                 for connection in sorted_list:
 
                     start, stop = connection
