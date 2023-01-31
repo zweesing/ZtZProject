@@ -45,11 +45,11 @@ parser.add_argument(
     help="Choose a netlist in range 1-3, default netlist is 1",
 )
 parser.add_argument(
-    "--iteration",
-    "-i",
-    type=int,
-    help="Choose the amount of solutions you want returned",
-    default=1,
+    "--time",
+    "-t",
+    type=float,
+    help="Choose if you want to run for a number of minutes (can be decimal). If left out, it will stop after it has found one solution.",
+    default=999.999,
 )
 parser.add_argument(
     "--sorted",
@@ -60,7 +60,7 @@ parser.add_argument(
 )
 
 # time in seconds for cutoff. change the one to 30 etc if you want longer
-cutoff = 60 * 0.1
+
 
 # Unpack arguments
 args = parser.parse_args()
@@ -68,6 +68,7 @@ chip = args.chip
 netlistnr = args.netlist
 algorithm = args.algorithm
 sorted = args.sorted
+cutoff = 60 * args.time
 
 # Load correct gates file and correct netlist file
 gatesfilepath = f"data/chip_{chip}/print_{chip}.csv"
@@ -113,10 +114,12 @@ while end - start < cutoff:
     writecoststofile(cost, runtime, savefolder)
 
     end = time.time()
+    if args.time == 999.999:
+        break
 
 print(f"time: {end-start}s")
 
 
 # Visualize the outputfile
-if args.iteration == 1:
+if args.time == 999.999:
     visualize("output.csv", gatesfilepath)
