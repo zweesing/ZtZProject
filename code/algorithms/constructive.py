@@ -15,7 +15,7 @@ class Constructive(Pathfinder):
             level (int): z coordinate
         """
         self.size = size
-        super().__init__(start, end, board)
+        super().__init__(start, end, board, size)
 
     def find(self):
         """
@@ -26,21 +26,21 @@ class Constructive(Pathfinder):
         start = [(self.start_gate_x, self.start_gate_y, 0)]
         explored = []
         queue = [start]
+        counter = 0
         intersections = 0
 
         # implementations of depth and or breth search for determining route. Implement 3D part.
         while queue:
             # Next cell in the route is taken and a temporary node is made
-            print(queue)
-            route = queue.pop(0)
 
+            route = queue.pop(0)
+            counter += 1
             node = [route[-1]]
 
             # Check if node has been explored already
             if node not in explored:
-                print(node)
+
                 neighbours = self.find_neighbours(node)
-                # print(neighbours)
 
                 # The neighbours are checked and added to the route
                 for neighbour in neighbours:
@@ -50,18 +50,20 @@ class Constructive(Pathfinder):
                     neighbour_y = neighbour[1]
                     neighbour_z = neighbour[2]
                     node_x, node_y, node_z = node[0]
+                    # print('eerst ben ik hier')
 
                     if (
-                        self.board[neighbour_z][neighbour_y][neighbour_x] != "0"
-                        and self.board[neighbour_z][neighbour_y][neighbour_x] != "X"
+                            self.board[neighbour_z][neighbour_y][neighbour_x] != "0"
+                            and self.board[neighbour_z][neighbour_y][neighbour_x] != "X"
                     ):
                         if (
-                            node_x - 1 == neighbour_x
-                            and node_y == neighbour_y
-                            and node_z == neighbour_z
+                                node_x - 1 == neighbour_x
+                                and node_y == neighbour_y
+                                and node_z == neighbour_z
+                                and counter > 1
                         ):
                             if self.is_valid(
-                                (neighbour_x - 1), neighbour_y, neighbour_z
+                                    (neighbour_x - 1), neighbour_y, neighbour_z
                             ):
                                 after_intersection = (
                                     (neighbour_x - 1),
@@ -71,15 +73,17 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
+
                         if (
-                            node_x + 1 == neighbour_x
-                            and node_y == neighbour_y
-                            and node_z == neighbour_z
+                                node_x + 1 == neighbour_x
+                                and node_y == neighbour_y
+                                and node_z == neighbour_z
+                                and counter > 1
                         ):
                             if self.is_valid(
-                                (neighbour_x + 1), neighbour_y, neighbour_z
+                                    (neighbour_x + 1), neighbour_y, neighbour_z
                             ):
                                 after_intersection = (
                                     (neighbour_x + 1),
@@ -89,16 +93,17 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
 
                         if (
-                            node_x == neighbour_x
-                            and node_y - 1 == neighbour_y
-                            and node_z == neighbour_z
+                                node_x == neighbour_x
+                                and node_y - 1 == neighbour_y
+                                and node_z == neighbour_z
+                                and counter > 1
                         ):
                             if self.is_valid(
-                                neighbour_x, (neighbour_y - 1), neighbour_z
+                                    neighbour_x, (neighbour_y - 1), neighbour_z
                             ):
                                 after_intersection = (
                                     neighbour_x,
@@ -108,15 +113,17 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
+
                         if (
-                            node_x == neighbour_x
-                            and node_y + 1 == neighbour_y
-                            and node_z == neighbour_z
+                                node_x == neighbour_x
+                                and node_y + 1 == neighbour_y
+                                and node_z == neighbour_z
+                                and counter > 1
                         ):
                             if self.is_valid(
-                                neighbour_x, (neighbour_y + 1), neighbour_z
+                                    neighbour_x, (neighbour_y + 1), neighbour_z
                             ):
                                 after_intersection = (
                                     neighbour_x,
@@ -126,16 +133,17 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
 
                         if (
-                            node_x == neighbour_x
-                            and node_y == neighbour_y
-                            and node_z - 1 == neighbour_z
+                                node_x == neighbour_x
+                                and node_y == neighbour_y
+                                and node_z - 1 == neighbour_z
+                                and counter > 1
                         ):
                             if self.is_valid(
-                                neighbour_x, neighbour_y, (neighbour_z - 1)
+                                    neighbour_x, neighbour_y, (neighbour_z - 1)
                             ):
                                 after_intersection = (
                                     neighbour_x,
@@ -145,15 +153,17 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
+
                         if (
-                            node_x == neighbour_x
-                            and node_y == neighbour_y
-                            and node_z + 1 == neighbour_z
+                                node_x == neighbour_x
+                                and node_y == neighbour_y
+                                and node_z + 1 == neighbour_z
+                                and counter > 1
                         ):
                             if self.is_valid(
-                                neighbour_x, neighbour_y, (neighbour_z - 1)
+                                    neighbour_x, neighbour_y, (neighbour_z - 1)
                             ):
                                 after_intersection = (
                                     neighbour_x,
@@ -163,7 +173,7 @@ class Constructive(Pathfinder):
                                 new_route = list(route)
                                 new_route.append(neighbour)
                                 new_route.append(after_intersection)
-                                queue.append([after_intersection])
+                                queue.append(new_route)
                                 intersections += 1
                         else:
                             explored.append(node)
@@ -177,9 +187,7 @@ class Constructive(Pathfinder):
 
                     # Check if the end point has been reached
                     if (
-                        neighbour_x == self.end_gate_x
-                        and neighbour_y == self.end_gate_y
-                        and neighbour_z == 0
+                        self.end_point(neighbour_x, neighbour_y, neighbour_z)
                     ):
 
                         # Write down the route with "1" expect the gates, that must stay X.
@@ -202,8 +210,7 @@ class Constructive(Pathfinder):
                             else:
                                 self.board[coord_z][coord_y][coord_x] = "1"
 
-                            # print(new_route)
-                            return new_route, wire_count, self.board
+                        return new_route, wire_count, self.board
 
                 explored.append(node)
 
@@ -219,7 +226,6 @@ class Constructive(Pathfinder):
             list of tuples, where the tuples are the coordinates of the neighbours of the node
         """
         x, y, z = node[0]
-        # print(x, y)
 
         neighbours = [
             (x + 1, y, z),
@@ -229,28 +235,24 @@ class Constructive(Pathfinder):
             (x, y, z + 1),
             (x, y, z - 1),
         ]
-        counter = 0
-        while counter < len(neighbours):
+        neighbour_counter = 0
+        while neighbour_counter < len(neighbours):
 
             for (
                 i,
                 j,
                 k,
             ) in neighbours:
-                # print(i)
-                # print(j)
-                # print(counter)
                 # get size from grid board instead of static 7.
                 if (
-                    (self.size <= j or j < 0)
-                    or (self.size <= i or i < 0)
+                    (self.size <= j or j <= 0)
+                    or (self.size <= i or i <= 0)
                     or (self.size < k or k < -self.size)
                 ):
-                    neighbours[counter] = None
-                    # print(neighbours)
-                    counter += 1
+                    neighbours[neighbour_counter] = None
+                    neighbour_counter += 1
                 else:
-                    counter += 1
+                    neighbour_counter += 1
                     continue
 
         return [i for i in neighbours if i is not None]
