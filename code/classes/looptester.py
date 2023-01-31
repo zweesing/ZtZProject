@@ -3,6 +3,7 @@ from code.classes.grid import writetofile, Grid
 from code.classes.sortingnetlist import sorting
 import random
 import copy
+import time
 
 
 def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
@@ -27,7 +28,12 @@ def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
         sorted_lists = sorting(board_obj.netlist, board_obj.gates_dict)
 
     print("LOOPTEST")
+
+    # timings
+
     while True:
+        starttime_single_solution = time.time()
+
         routes = []
         totalwirecount = 0
         total_intersections = 0
@@ -97,5 +103,14 @@ def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
 
         if returns != "crashed":
             writetofile(board_obj.netlist, routes, totalwirecount)
+            endtime_single_solution = time.time()
+            single_runtime = endtime_single_solution - starttime_single_solution
 
-            return path, routes, totalwirecount, crash_counter, board_obj.netlist
+            return (
+                path,
+                routes,
+                totalwirecount,
+                crash_counter,
+                board_obj.netlist,
+                single_runtime,
+            )
