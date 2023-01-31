@@ -2,7 +2,12 @@ from code.algorithms.constructive import Constructive
 from code.algorithms.greedy import Pathfind
 from code.classes.looptester import looptest
 from code.visualisation.visualisation3D import visualize
-from code.classes.helper_funcs import intersect_count, cost_calc, writetofile
+from code.classes.helper_funcs import (
+    intersect_count,
+    cost_calc,
+    writetofile,
+    writecoststofile,
+)
 from code.classes.grid import Grid
 import argparse
 
@@ -44,13 +49,17 @@ parser.add_argument(
 # Unpack arguments
 args = parser.parse_args()
 chip = args.chip
-netlist = args.netlist
+netlistnr = args.netlist
 algorithm = args.algorithm
 
 # Load correct gates file and correct netlist file
 gatesfilepath = f"data/chip_{chip}/print_{chip}.csv"
-netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlist}.csv"
+netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlistnr}.csv"
 
+savefolder = f"{algorithm}_chip{chip}_netlist{3 * chip + netlistnr}"
+
+gates, _ = Grid.read_gates(1, gatesfilepath)
+cost_list = []
 # Iterate the correct amount of times, during iteration run the chosen algoritm until it finds a solution
 for i in range(args.iteration):
     if algorithm == "greedy":
@@ -58,19 +67,18 @@ for i in range(args.iteration):
     if algorithm == "breadth":
         results = looptest(Constructive, gatesfilepath, netlistpath, sorted=True)
     path, routes, totalwirecount, crash_counter, netlist = results
-    writetofile(netlist, routes, totalwirecount, "greedyrandom_chip1_netlist4", i)
+    writetofile(
+        netlist,
+        routes,
+        totalwirecount,
+        savefolder,
+        i,
+    )
 
-print(f"total wire count: {totalwirecount}")
+    cost = cost_calc(routes, gates, totalwirecount)
+    cost_list.append(cost)
 
-# Read gates for intersection calculator
-gates, _ = Grid.read_gates(1, gatesfilepath)
-
-# Calculate the amount of intersections
-intersections = intersect_count(routes, gates)
-
-# Calculate and print the total cost of placing the wires
-cost = cost_calc(routes, gates, totalwirecount)
-print(f"costs: {cost}, intersections: {intersections}")
-
+print(cost_list)
+writecoststofile(cost_list, savefolder)
 # Visualize the outputfile
-visualize("output.csv", gatesfilepath)
+# visualize("output.csv", gatesfilepath)
