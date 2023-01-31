@@ -5,7 +5,7 @@ import random
 import copy
 
 
-def looptest(algoritme, gatesfilepath, netlistpath):
+def looptest(algoritme, gatesfilepath, netlistpath, sorted = False):
     """tests a chosen algoritme until it has a solution to the problem.
 
     Args:
@@ -23,7 +23,9 @@ def looptest(algoritme, gatesfilepath, netlistpath):
     board_obj = Grid(gatesfilepath, netlistpath)
     board_og = board_obj.get_board()
 
-    # board_obj.netlist = sorting(board_obj.netlist, board_obj.gates_dict)
+    if sorted:
+        board_obj.netlist = sorting(board_obj.netlist, board_obj.gates_dict)
+
     print("LOOPTEST")
     while True:
         routes = []
@@ -32,7 +34,8 @@ def looptest(algoritme, gatesfilepath, netlistpath):
 
         board = copy.deepcopy(board_og)
 
-        random.shuffle(board_obj.netlist)
+        if not sorted:
+            random.shuffle(board_obj.netlist)
 
         for connection in board_obj.netlist:
             start, stop = connection
