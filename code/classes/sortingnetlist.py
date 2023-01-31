@@ -10,7 +10,7 @@ def sorting(netlist, gates_dict):
             netlist: list with connections to be made
 
         Returns:
-            list of sorted connections, where the connections are represented in a tuple of start and end gate.
+            list of compartmentalized sorted netlist.
     """
     netlist_distance = {}
 
@@ -25,7 +25,15 @@ def sorting(netlist, gates_dict):
         netlist_distance[connection] = distance
 
     sorted_netlist = dict(sorted(netlist_distance.items(), key=lambda item: item[1]))
+    sorted_netlist_keys = sorted_netlist.keys()
+    first_half_sorted_netlist = []
 
-    return sorted_netlist.keys()
+    halfs = len(sorted_netlist_keys) / 2
+    for i in halfs:
+        first_half_sorted_netlist = sorted_netlist_keys.pop(0)
+
+    second_half_sorted_netlist = sorted_netlist_keys
+
+    return [first_half_sorted_netlist, second_half_sorted_netlist]
 
 
