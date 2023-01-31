@@ -59,6 +59,8 @@ parser.add_argument(
     default=False,
 )
 
+# time in seconds for cutoff. change the one to 30 etc if you want longer
+cutoff = 60 * 0.1
 
 # Unpack arguments
 args = parser.parse_args()
@@ -84,8 +86,10 @@ gates, _ = Grid.read_gates(1, gatesfilepath)
 makecostfile(savefolder)
 
 start = time.time()
+end = time.time()
 # Iterate the correct amount of times, during iteration run the chosen algoritm until it finds a solution
-for i in range(args.iteration):
+i = 0
+while end - start < cutoff:
     if algorithm == "greedy":
         results = looptest(Pathfind, gatesfilepath, netlistpath, sorted)
     if algorithm == "breadth":
@@ -103,12 +107,13 @@ for i in range(args.iteration):
         savefolder,
         i,
     )
-
+    i += 1
     cost = cost_calc(routes, gates, totalwirecount)
 
     writecoststofile(cost, runtime, savefolder)
 
-end = time.time()
+    end = time.time()
+
 print(f"time: {end-start}s")
 
 
