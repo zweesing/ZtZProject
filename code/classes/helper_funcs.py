@@ -11,7 +11,6 @@ def intersect_count(routes, gates):
         x, y = gate
         gates_list.append((x, y, 0))
 
-    print(gates_list)
     seen = set()
     intersect_counter = 0
     for route in routes:

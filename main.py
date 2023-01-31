@@ -59,8 +59,6 @@ parser.add_argument(
     default=False,
 )
 
-# time in seconds for cutoff. change the one to 30 etc if you want longer
-
 
 # Unpack arguments
 args = parser.parse_args()
