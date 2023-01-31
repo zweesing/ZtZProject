@@ -16,8 +16,8 @@ data in a csv file.
 # Create arguments for algorithm, chip, netlist, iteration
 parser = argparse.ArgumentParser()
 parser.add_argument("--algorithm", "-a", help="Choose between greedy and breadth for respectively a greedy/random algoritm or a breadth first algoritm")
-parser.add_argument("--chip", "-c", type=int, default=0, help="Choose a chip in range 0-2")
-parser.add_argument("--netlist", "-n", type=int, default=1, help="Choose a chip in range 1-3")
+parser.add_argument("--chip", "-c", type=int, default=0, help="Choose a chip in range 0-2, default chip is 0")
+parser.add_argument("--netlist", "-n", type=int, default=1, help="Choose a chip in range 1-3, default netlist is 1")
 parser.add_argument("--iteration", "-i", type=int, help="Choose the amount of solutions you want returned")
 
 # Unpack arguments
