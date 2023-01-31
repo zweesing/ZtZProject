@@ -69,8 +69,12 @@ sorted = args.sorted
 # Load correct gates file and correct netlist file
 gatesfilepath = f"data/chip_{chip}/print_{chip}.csv"
 netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlistnr}.csv"
+if sorted:
+    folderstr = "sorted"
+else:
+    folderstr = "shuffled"
 
-savefolder = f"{algorithm}_chip{chip}_netlist{3 * chip + netlistnr}"
+savefolder = f"{algorithm}_{folderstr}_chip{chip}_netlist{3 * chip + netlistnr}"
 
 # needed for cost calculator
 gates, _ = Grid.read_gates(1, gatesfilepath)
