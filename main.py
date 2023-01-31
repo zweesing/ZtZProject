@@ -9,6 +9,7 @@ from code.classes.helper_funcs import (
     cost_calc,
     writetofile,
     writecoststofile,
+    makecostfile,
 )
 from code.classes.grid import Grid
 import argparse
@@ -79,9 +80,8 @@ savefolder = f"{algorithm}_{folderstr}_chip{chip}_netlist{3 * chip + netlistnr}"
 # needed for cost calculator
 gates, _ = Grid.read_gates(1, gatesfilepath)
 
-# data saving lists
-cost_list = []
-runtimes = []
+
+makecostfile(savefolder)
 
 start = time.time()
 # Iterate the correct amount of times, during iteration run the chosen algoritm until it finds a solution
@@ -105,12 +105,12 @@ for i in range(args.iteration):
     )
 
     cost = cost_calc(routes, gates, totalwirecount)
-    cost_list.append(cost)
-    runtimes.append(runtime)
+
+    writecoststofile(cost, runtime, savefolder)
 
 end = time.time()
 print(f"time: {end-start}s")
-writecoststofile(cost_list, runtimes, savefolder)
+
 
 # Visualize the outputfile
 if args.iteration == 1:
