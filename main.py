@@ -15,10 +15,31 @@ data in a csv file.
 
 # Create arguments for algorithm, chip, netlist, iteration
 parser = argparse.ArgumentParser()
-parser.add_argument("--algorithm", "-a", help="Choose between greedy and breadth for respectively a greedy/random algoritm or a breadth first algoritm")
-parser.add_argument("--chip", "-c", type=int, default=0, help="Choose a chip in range 0-2, default chip is 0")
-parser.add_argument("--netlist", "-n", type=int, default=1, help="Choose a chip in range 1-3, default netlist is 1")
-parser.add_argument("--iteration", "-i", type=int, help="Choose the amount of solutions you want returned")
+parser.add_argument(
+    "--algorithm",
+    "-a",
+    help="Choose between greedy and breadth for respectively a greedy/random algoritm or a breadth first algoritm",
+)
+parser.add_argument(
+    "--chip",
+    "-c",
+    type=int,
+    default=0,
+    help="Choose a chip in range 0-2, default chip is 0",
+)
+parser.add_argument(
+    "--netlist",
+    "-n",
+    type=int,
+    default=1,
+    help="Choose a chip in range 1-3, default netlist is 1",
+)
+parser.add_argument(
+    "--iteration",
+    "-i",
+    type=int,
+    help="Choose the amount of solutions you want returned",
+)
 
 # Unpack arguments
 args = parser.parse_args()
@@ -33,9 +54,9 @@ netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlist}.csv"
 # Iterate the correct amount of times, during iteration run the chosen algoritm until it finds a solution
 for i in range(args.iteration):
     if algorithm == "greedy":
-        results = looptest(Pathfind, gatesfilepath, netlistpath)
+        results = looptest(Pathfind, gatesfilepath, netlistpath, sorted=True)
     if algorithm == "breadth":
-        results = looptest(Constructive, gatesfilepath, netlistpath)
+        results = looptest(Constructive, gatesfilepath, netlistpath, sorted=True)
     path, routes, totalwirecount, crash_counter, netlist = results
     writetofile(netlist, routes, totalwirecount, "greedyrandom_chip1_netlist4", i)
 
