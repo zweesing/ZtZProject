@@ -2,6 +2,7 @@ from code.algorithms.constructive import Constructive
 from code.algorithms.greedy import Pathfind
 from code.classes.looptester import looptest
 from code.visualisation.visualisation3D import visualize
+from code.algorithms.random import Pathfindrandom
 from code.classes.helper_funcs import (
     intersect_count,
     cost_calc,
@@ -23,7 +24,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--algorithm",
     "-a",
-    help="Choose between greedy and breadth for respectively a greedy/random algoritm or a breadth first algoritm",
+    help="Choose between \"greedy\", \"breadth\" or \"breadthext\" for respectively a greedy/random algoritm, a breadth first  or an extended breadth first algoritm",
 )
 parser.add_argument(
     "--chip",
@@ -37,13 +38,21 @@ parser.add_argument(
     "-n",
     type=int,
     default=1,
-    help="Choose a chip in range 1-3, default netlist is 1",
+    help="Choose a netlist in range 1-3, default netlist is 1",
 )
 parser.add_argument(
     "--iteration",
     "-i",
     type=int,
     help="Choose the amount of solutions you want returned",
+    default = 1,
+)
+parser.add_argument(
+    "--sorted",
+    "-s",
+    type=bool,
+    help="Choose between sorted False or True, if false it wil be random. Default is False. ",
+    default = False,
 )
 
 # Unpack arguments
@@ -66,6 +75,8 @@ for i in range(args.iteration):
         results = looptest(Pathfind, gatesfilepath, netlistpath, sorted=True)
     if algorithm == "breadth":
         results = looptest(Constructive, gatesfilepath, netlistpath, sorted=True)
+    if algorithm == "random":
+        results = looptest(Pathfindrandom, gatesfilepath, netlistpath, sorted=True)
     path, routes, totalwirecount, crash_counter, netlist = results
     writetofile(
         netlist,
@@ -80,5 +91,6 @@ for i in range(args.iteration):
 
 print(cost_list)
 writecoststofile(cost_list, savefolder)
+
 # Visualize the outputfile
-# visualize("output.csv", gatesfilepath)
+visualize("output.csv", gatesfilepath)
