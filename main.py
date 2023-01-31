@@ -11,6 +11,7 @@ from code.classes.helper_funcs import (
 )
 from code.classes.grid import Grid
 import argparse
+import time
 
 """
 Runs the tests of a chosen algoritme a chosen amount of times. With the chosen netlist and gate csv files. 
@@ -55,11 +56,13 @@ parser.add_argument(
     default=False,
 )
 
+
 # Unpack arguments
 args = parser.parse_args()
 chip = args.chip
 netlistnr = args.netlist
 algorithm = args.algorithm
+sorted = args.sorted
 
 # Load correct gates file and correct netlist file
 gatesfilepath = f"data/chip_{chip}/print_{chip}.csv"
@@ -67,8 +70,14 @@ netlistpath = f"data/chip_{chip}/netlist_{3 * chip + netlistnr}.csv"
 
 savefolder = f"{algorithm}_chip{chip}_netlist{3 * chip + netlistnr}"
 
+# needed for cost calculator
 gates, _ = Grid.read_gates(1, gatesfilepath)
+
+# data saving lists
 cost_list = []
+runtimes = []
+
+start = time.time()
 # Iterate the correct amount of times, during iteration run the chosen algoritm until it finds a solution
 for i in range(args.iteration):
     if algorithm == "greedy":
@@ -77,7 +86,8 @@ for i in range(args.iteration):
         results = looptest(Constructive, gatesfilepath, netlistpath, sorted)
     if algorithm == "random":
         results = looptest(Pathfindrandom, gatesfilepath, netlistpath, sorted)
-    path, routes, totalwirecount, crash_counter, netlist = results
+    path, routes, totalwirecount, crash_counter, netlist, runtime = results
+
     writetofile(
         netlist,
         routes,
@@ -88,9 +98,11 @@ for i in range(args.iteration):
 
     cost = cost_calc(routes, gates, totalwirecount)
     cost_list.append(cost)
+    runtimes.append(runtime)
 
-print(cost_list)
-writecoststofile(cost_list, savefolder)
+end = time.time()
+print(f"time: {end-start}s")
+writecoststofile(cost_list, runtimes, savefolder)
 
 # Visualize the outputfile
 if args.iteration == 1:

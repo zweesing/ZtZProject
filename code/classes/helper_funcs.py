@@ -53,11 +53,14 @@ def writetofile(netlist, routes, wirecount, path, nr):
         writer.writerow(("wirecount", wirecount))
 
 
-def writecoststofile(costs, path):
+def writecoststofile(costs, runtimes, path):
     if not os.path.exists(f"results/{path}/"):
         os.mkdir(f"results/{path}/")
 
     with open(f"results/{path}/costs.csv", "w", newline="") as file:
         writer = csv.writer(file)
 
-        writer.writerow(costs)
+        writer.writerow(("cost", "runtime"))
+
+        for i in range(len(costs)):
+            writer.writerow((costs[i], runtimes[i]))
