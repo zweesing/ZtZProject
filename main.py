@@ -24,7 +24,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--algorithm",
     "-a",
-    help="Choose between \"greedy\", \"breadth\" or \"breadthext\" for respectively a greedy/random algoritm, a breadth first  or an extended breadth first algoritm",
+    help='Choose between "greedy", "breadth" or "breadthext" for respectively a greedy/random algoritm, a breadth first  or an extended breadth first algoritm',
 )
 parser.add_argument(
     "--chip",
@@ -45,14 +45,14 @@ parser.add_argument(
     "-i",
     type=int,
     help="Choose the amount of solutions you want returned",
-    default = 1,
+    default=1,
 )
 parser.add_argument(
     "--sorted",
     "-s",
     type=bool,
-    help="Choose between sorted False or True, if false it wil be random. Default is False. ",
-    default = False,
+    help="Choose between sorted False or True, if False it wil be random. Default is False. ",
+    default=False,
 )
 
 # Unpack arguments
@@ -72,11 +72,11 @@ cost_list = []
 # Iterate the correct amount of times, during iteration run the chosen algoritm until it finds a solution
 for i in range(args.iteration):
     if algorithm == "greedy":
-        results = looptest(Pathfind, gatesfilepath, netlistpath, sorted=True)
+        results = looptest(Pathfind, gatesfilepath, netlistpath, sorted)
     if algorithm == "breadth":
-        results = looptest(Constructive, gatesfilepath, netlistpath, sorted=True)
+        results = looptest(Constructive, gatesfilepath, netlistpath, sorted)
     if algorithm == "random":
-        results = looptest(Pathfindrandom, gatesfilepath, netlistpath, sorted=True)
+        results = looptest(Pathfindrandom, gatesfilepath, netlistpath, sorted)
     path, routes, totalwirecount, crash_counter, netlist = results
     writetofile(
         netlist,
@@ -93,4 +93,5 @@ print(cost_list)
 writecoststofile(cost_list, savefolder)
 
 # Visualize the outputfile
-visualize("output.csv", gatesfilepath)
+if args.iteration == 1:
+    visualize("output.csv", gatesfilepath)
