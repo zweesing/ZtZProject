@@ -1,8 +1,6 @@
 from ..classes.pathfinder import Pathfinder
 import random
 
-# Random algoritme maken die een random kant kiest om op te gaan
-
 
 class Pathfindrandom(Pathfinder):
     """subclass of pathfinder class. this uses a completely random algorithm to find a route."""
@@ -28,53 +26,50 @@ class Pathfindrandom(Pathfinder):
 
         crash_counter = 0
 
-        # maak een lijst aan met x en y
+        # Make a list with x and y
         random_direction = ["x", "y"]
 
-        # maak een lijst aan met 1 en -1 (of hij naar links, rechts of boven of beneden moet)
+        # Make a list with 1 and -1
         random_direction2 = [1, -1]
 
         while True:
-            # hier moet hij dus een random kant kiezen om op te gaan
-
-            # kies random uit x of y
+            # Choose randomly between x, y
             current_gate_x_or_y = random.choice(random_direction)
 
-            # kies random -1 of 1
+            # Choose randomly between -1 or 1
             left_or_right = random.choice(random_direction2)
 
-            # hier heeft hij dus random uitgekozen of hij naar x of y gaat en of hij plus 1 of min 1 doet.
-            # Hier wordt dat geimplementeerd.
+            # Move to the chosen random direction
             if current_gate_x_or_y == "x":
                 current_gate_x += left_or_right
             else:
                 current_gate_y += left_or_right
 
-            # na de random kant gekozen te hebben veranderd de current position hier
+            # Change the current position 
             current_position = (current_gate_x, current_gate_y, 0)
 
-            # als hij bij de gate is moet hij wel nog stoppen
+            # Check if end gate has been reached
             if self.end_point(current_gate_x, current_gate_y, 0):
                 route.append(current_position)
                 wire_count += 1
                 break
 
-            # Als de kant die hij kiest niet valid is moet hij wel nog een andere kant op.
-            # Deze nieuwe kant moet dan ook random zijn.
-            # Dit moet hij blijven doen tot hij een positie vindt die wel valid is. Daarom dus een while loop.
+            # Check if new position is valid
             if not self.is_valid(current_gate_x, current_gate_y, 0):
 
-                # Als hij niet de juiste kant op is gegaan moet hij dus terug op de juiste random as.
-                # We weten welke as dit is omdat we het hebben opgeslagen in current_gate_x_or_y.
-                # Door daarna left_or_right om te draaien kunnen we dus een stap terug.
+                # If not valid move a back
                 if current_gate_x_or_y == "x":
                     current_gate_x += -1 * left_or_right
                 else:
                     current_gate_y += -1 * left_or_right
-
+                
+                # Change the position back
                 current_position = (current_gate_x, current_gate_y, 0)
 
+                # Add crash
                 crash_counter += 1
+
+            # If it was valid, append the current position to the route and set crash counter back to 0
             else:
                 route.append(current_position)
                 wire_count += 1
@@ -82,6 +77,7 @@ class Pathfindrandom(Pathfinder):
 
                 crash_counter == 0
 
+            # If the crash counter is more than 20 the algorithm should crash
             if crash_counter > 20:
                 return "crashed"
 
