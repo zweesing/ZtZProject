@@ -4,7 +4,7 @@ from code.algorithms.greedy import Pathfind
 from code.classes.looptester import looptest
 from code.visualisation.visualisation3D import visualize
 from code.algorithms.random import Pathfindrandom
-from code.classes.helper_funcs import (
+from code.classes.helper_functions import (
     intersect_count,
     cost_calc,
     writetofile,
