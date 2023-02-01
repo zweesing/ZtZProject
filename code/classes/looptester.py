@@ -1,4 +1,4 @@
-#  loop for random
+
 from code.classes.grid import writetofile, Grid
 from code.classes.sortingnetlist import sorting
 import random
@@ -7,7 +7,8 @@ import time
 
 
 def looptest(algoritme, gatesfilepath, netlistpath, sorted=False):
-    """tests a chosen algoritme until it has a solution to the problem.
+    """
+    Tests a chosen algoritme until it has a solution to the problem.
 
     Args:
         algoritme: the algoritme that needs to be tested and is called upon to run.
