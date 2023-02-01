@@ -117,10 +117,30 @@ class Grid:
         Places a gate at the correct coordinates found in the file.
 
         Args:
-            coords (tuple): x,y position of the gate, z coordinate for the gates is always 0
+            coords (tuple): x,y position of the gate, z coordinate is always 0
         """
 
         column, row = coords
         self.board[0][row][column] = "X"
 
 
+def writetofile(netlist, routes, wirecount):
+    """
+    Write the results to a csv file (currently "output.csv"). The file contains netlist and corresponding route,
+    as well as the total wire count to calculate costs.
+
+    Args:
+        netlist (list): the netlist with tuples of the gate connections
+        routes (list): list containing the routes taken for every connection
+        wirecount (int): total number of wires used
+    """
+
+    with open(f"output.csv", "w", newline="") as file:
+        writer = csv.writer(file)
+
+        writer.writerow(("net", "wires"))
+
+        for i in range(len(routes)):
+            writer.writerow((netlist[i], routes[i]))
+
+        writer.writerow(("wirecount", wirecount))
