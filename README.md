@@ -22,9 +22,13 @@ Het greedy/random algoritme probeert in eerste instantie de best mogelijke stapp
 Om de algoritmen aan te roepen kan je onze main.py gebruiken. Door python main.py --help als commando in te typen, zie je precies welke commando's je kan geven om resultaten te verkrijgen. Hier ook nog een kleine samenvatting:
 
 --algorithm + het algoritme dat je wil aanroepen. Type greedy voor greedy/random, random, type breadth voor het breadth first algoritme en type breadthext voor het extended breath first algoritme. 
+
 --chip + de chip die je wil proberen op te lossen. Dit kan een chip zijn tussen de 0 en 2. Default staat hij op chip 0.
+
 --netlist + de netlist die je wil proberen op te lossen. Dit kan een netlist zijn tussen de 1 en 3. Default staat hij op 1.
+
 --iteration + de hoeveelheid oplossingen die je wil genereren. Default laat hij je 1 oplossing zien.
+
 --sorted + True of False, of je wil dat de netlist gesorteerd is of niet. Default staat sorted op False. 
 
 Een voorbeeld:
