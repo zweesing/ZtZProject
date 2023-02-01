@@ -13,10 +13,10 @@ Wij zijn begonnen met het maken van een random algoritme. Dit algoritme kiest ra
 Het greedy/random algoritme probeert in eerste instantie de best mogelijke stappen (greedy) te zetten om bij de juiste gate te komen. Als hij vast komt te zitten, zal hij proberen een random kant op te gaan om verder te komen. Als dit ook niet lukt zal hij proberen een intersection te maken. Als dat ook niet lukt dan stopt het programma. 
 
 **Breadth first**
-
+Het Breadth first algoritme zoekt de kortste route om bij het eindpunt te komen. Vanuit het startpunt wordt alle omliggende paden gecontroleerd. Alleen als een stap kan wordt deze meegenomen in de volgende controle. In dit algoritme worden alle paden telkens één stap verlengd en daarna wordt er pas weer één laag dieper gekeken per pad. Een pad kan ook een intersectie maken als hij haaks op een andere connectie afkomt. Een intersectie wordt niet voorkomen in dit algoritme. 
 
 **Breadth first extended**
-
+Het Breadth first extended algoritme zoekt net als de breadth first algoritme naar de kortste route. Alleen daarnaast blijft dit algoritme doorzoeken tot het maximaal 5 oplossingen heeft gevonden. Vervolgens wordt er gekeken welke connectie de minste kosten heeft en deze wordt dan gebruikt.
 
 ### Reproductie
 Om de algoritmen aan te roepen kan je onze main.py gebruiken. Door python main.py --help als commando in te typen, zie je precies welke commando's je kan geven om resultaten te verkrijgen. Hier ook nog een kleine samenvatting:
