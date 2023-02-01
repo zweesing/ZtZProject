@@ -1,5 +1,5 @@
 # ZtZProject - Chips & Circuits
-### Project door Ziggy, Thomas en Zoe
+### Project door Ziggy Weesing, Thomas Glansdorp en Zoe Davidson
 ### De case
 Onze case is Chips & Circuits. Er zijn verschillende chips waarop verschillende gates te vinden zijn. De gates op een chip moeten verbonden worden via kabels. De gates liggen op een rooster. De verbindingen tussen gates die gelegd moeten worden heten "nets". Elke chip heeft verschillende lijsten met verbindingen die gelegd moeten worden tussen gates, "netlists". Elke chip heeft ook een lijst met daarin de coördinaten van elke gate. 
 
