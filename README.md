@@ -1,5 +1,5 @@
 # ZtZProject - Chips & Circuits
-### Project door Ziggy, Thomas en Zoe
+### Project door Ziggy Weesing, Thomas Glansdorp en Zoe Davidson
 ### De case
 Onze case is Chips & Circuits. Er zijn verschillende chips waarop verschillende gates te vinden zijn. De gates op een chip moeten verbonden worden via kabels. De gates liggen op een rooster. De verbindingen tussen gates die gelegd moeten worden heten "nets". Elke chip heeft verschillende lijsten met verbindingen die gelegd moeten worden tussen gates, "netlists". Elke chip heeft ook een lijst met daarin de coördinaten van elke gate. 
 
@@ -13,18 +13,22 @@ Wij zijn begonnen met het maken van een random algoritme. Dit algoritme kiest ra
 Het greedy/random algoritme probeert in eerste instantie de best mogelijke stappen (greedy) te zetten om bij de juiste gate te komen. Als hij vast komt te zitten, zal hij proberen een random kant op te gaan om verder te komen. Als dit ook niet lukt zal hij proberen een intersection te maken. Als dat ook niet lukt dan stopt het programma. 
 
 **Breadth first**
-
+Het Breadth first algoritme zoekt de kortste route om bij het eindpunt te komen. Vanuit het startpunt wordt alle omliggende paden gecontroleerd. Alleen als een stap kan worden genomen wordt deze meegenomen in de volgende controle. In dit algoritme worden alle paden telkens één stap verlengd en daarna wordt er pas weer één laag dieper gekeken per pad. Een pad kan ook een intersectie maken als hij haaks op een andere connectie afkomt. Een intersectie wordt niet voorkomen in dit algoritme. 
 
 **Breadth first extended**
-
+Het Breadth first extended algoritme zoekt net als de breadth first algoritme naar de kortste route. Alleen daarnaast blijft dit algoritme doorzoeken tot het maximaal 5 oplossingen heeft gevonden. Vervolgens wordt er gekeken welke connectie de minste kosten heeft en deze wordt dan gebruikt.
 
 ### Reproductie
 Om de algoritmen aan te roepen kan je onze main.py gebruiken. Door python main.py --help als commando in te typen, zie je precies welke commando's je kan geven om resultaten te verkrijgen. Hier ook nog een kleine samenvatting:
 
 --algorithm + het algoritme dat je wil aanroepen. Type greedy voor greedy/random, random, type breadth voor het breadth first algoritme en type breadthext voor het extended breath first algoritme. 
+
 --chip + de chip die je wil proberen op te lossen. Dit kan een chip zijn tussen de 0 en 2. Default staat hij op chip 0.
+
 --netlist + de netlist die je wil proberen op te lossen. Dit kan een netlist zijn tussen de 1 en 3. Default staat hij op 1.
+
 --iteration + de hoeveelheid oplossingen die je wil genereren. Default laat hij je 1 oplossing zien.
+
 --sorted + True of False, of je wil dat de netlist gesorteerd is of niet. Default staat sorted op False. 
 
 Een voorbeeld:
