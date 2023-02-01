@@ -3,22 +3,31 @@ import random
 
 
 class Pathfindrandom(Pathfinder):
-    """subclass of pathfinder class. this uses a completely random algorithm to find a route."""
+    """
+    Subclass of pathfinder class. this uses a completely random algorithm to find a route.
+    """
 
     def __init__(self, start, end, board, size):
-        """Runs the init of pathfinder, which creates the nessecary class atributes.
+        """
+        Runs the init of pathfinder, which creates the nessecary class atributes.
+
         Args:
             start (tuple): tuple with start gate x and y
             end (tuple): tuple with end gate x and y
             board (list): nested list which contains the board with the gates
+            size (int): size of the board
         """
+
         super().__init__(start, end, board, size)
 
     def find(self):
-        """The algorithm itself.
+        """
+        The algorithm itself. Finds a random route for each connection.
+
         Returns:
             list with tuples of path taken, total wire count and the board, in that order.
         """
+
         route = [(self.start_gate_x, self.start_gate_y, 0)]
         wire_count = 0
         current_gate_x = self.start_gate_x
