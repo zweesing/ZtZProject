@@ -4,30 +4,32 @@ import random
 
 class Pathfind(Pathfinder):
     """
-    subclass of pathfinder class. This algorithm uses a sort of greedy algorithm to find the shortest self.route.
+    Subclass of pathfinder class. This algorithm uses a greedy/random algorithm to find the shortest self.route. 
     """
 
     def __init__(self, start, end, board, size):
         """
-        runs the init of pathfinder, which creates the nessecary class atributes.
+        Runs the init of pathfinder, which creates the nessecary class atributes.
 
         Args:
             start (tuple): tuple with start gate x and y
             end (tuple): tuple with end gate x and y
             board (list): nested list which contains the board with the gates
-            level (int): z coordinate
+            size (int): size of board
         """
+
         super().__init__(start, end, board, size)
 
     def find(self):
         """
-        the algorithm finds the shortest path between two gates by checking the relative position.
+        The algorithm finds the shortest path between two gates by checking the relative position.
         If the path is blocked in one direction, it picks a new direction randomly.
         This new direction could also be up or down to a new layer.
 
         Returns:
-            list with tuples of path taken, total wire count and the board, in that order.
+            List with tuples of path taken, total wire count and the board, in that order.
         """
+
         self.route = [(self.start_gate_x, self.start_gate_y, 0)]
 
         self.wire_count = 0
@@ -58,9 +60,8 @@ class Pathfind(Pathfinder):
 
                     # Try a random step
                     if not self.go_random_direction():
-                        # If no random step can be found, try a greedy intersection
-                        # If not self.greedy_intersection():
-                        # Then try a random intersection, otherwise crash
+                        # If no random step can be found, try a random intersection
+                        # If no random intersection can be found, crash
                         if not self.go_random_intersection():
                             return "crashed"
 
@@ -89,9 +90,8 @@ class Pathfind(Pathfinder):
 
                     # Try a random step
                     if not self.go_random_direction():
-                        # If no random step can be found, try a greedy intersection
-                        # If not self.greedy_intersection():
-                        # Then try a rondom intersection, otherwise crash
+                        # If no random step can be found, try a random intersection
+                        # If no random intersection can be found, crash
                         if not self.go_random_intersection():
                             return "crashed"
 
@@ -120,9 +120,8 @@ class Pathfind(Pathfinder):
 
                     # Try a random step
                     if not self.go_random_direction():
-                        # If no random step can be found, try a greedy intersection
-                        # If not self.greedy_intersection():
-                        # Then try a random intersection, otherwise crash
+                        # If no random step can be found, try a random intersection
+                        # If no random intersection can be found, crash
                         if not self.go_random_intersection():
                             return "crashed"
 
@@ -151,9 +150,8 @@ class Pathfind(Pathfinder):
 
                     # Try a random step
                     if not self.go_random_direction():
-                        # If no random step can be found, try a greedy intersection
-                        # If not self.greedy_intersection():
-                        # Then try a random intersection, otherwise crash
+                        # If no random step can be found, try a random intersection
+                        # If no random intersection can be found, crash
                         if not self.go_random_intersection():
                             return "crashed"
 
@@ -183,9 +181,8 @@ class Pathfind(Pathfinder):
 
                     # Try a random step
                     if not self.go_random_direction():
-                        # If no random step can be found, try a greedy intersection
-                        # If not self.greedy_intersection():
-                        # Then try a random intersection, otherwise crash
+                        # If no random step can be found, try a random intersection
+                        # If no random intersection can be found, crash
                         if not self.go_random_intersection():
                             return "crashed"
 
@@ -214,9 +211,8 @@ class Pathfind(Pathfinder):
                     # Try a random step
 
                     if not self.go_random_direction():
-                        # If no random step can be found, try a greedy intersection
-                        # If not self.greedy_intersection():
-                        # Then try a random intersection, otherwise crash
+                        # If no random step can be found, try a random intersection
+                        # If no random intersection can be found, crash
                         if not self.go_random_intersection():
                             return "crashed"
 
@@ -228,11 +224,14 @@ class Pathfind(Pathfinder):
 
     def go_random_direction(self):
         """
-        loop through all possible directions and see if you can go in any of those.
+        Loop through all possible directions and see if you can go in any of those.
         update coordinates and return True if a valid random step has been found
         """
+
         for xyz in self.random_direction:
             for left_right in self.random_direction2:
+
+                # X
                 if xyz == "x" and self.is_valid(
                     self.current_x + left_right,
                     self.current_y,
@@ -241,6 +240,7 @@ class Pathfind(Pathfinder):
                     self.current_x += left_right
                     return True
 
+                # Y
                 if xyz == "y" and self.is_valid(
                     self.current_x,
                     self.current_y + left_right,
@@ -249,6 +249,7 @@ class Pathfind(Pathfinder):
                     self.current_y += left_right
                     return True
 
+                # Z
                 if xyz == "z" and self.is_valid(
                     self.current_x,
                     self.current_y,
@@ -260,8 +261,9 @@ class Pathfind(Pathfinder):
     def go_random_intersection(self):
         """
         Search through all directions to see if a random intersection step can be made.
-        updates the route to include the intersection and update coordinatesif a valid path is found, and return True
+        Updates the route to include the intersection and update coordinatesif a valid path is found, and return True
         """
+
         for xyz in self.random_direction:
             for left_right in self.random_direction2:
                 # X
@@ -303,6 +305,7 @@ class Pathfind(Pathfinder):
         """
         Check all directions to see if a greedy intersection can be made, and then make it and return True.
         """
+
         # Positive x
         if self.current_x < self.end_gate_x and self.is_valid(
             self.current_x + 2,
@@ -371,8 +374,9 @@ class Pathfind(Pathfinder):
 
     def update_pos_and_route(self):
         """
-        append the current position to the route
+        Append the current position to the route
         """
+
         current_position = (
             self.current_x,
             self.current_y,
