@@ -1,4 +1,3 @@
-
 from code.classes.grid import writetofile, Grid
 from code.classes.sortingnetlist import sorting
 import random
