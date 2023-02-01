@@ -10,7 +10,8 @@ class Constructive(Pathfinder):
 
     def __init__(self, start, end, board, size):
         """
-        runs the init of pathfinder, which creates the necessary class attributes.
+        Runs the init of pathfinder, which creates the necessary class attributes.
+        
         Args:
             start (tuple): tuple with start gate x and y
             end (tuple): tuple with end gate x and y
@@ -247,7 +248,8 @@ class Constructive(Pathfinder):
 
     def find_neighbours(self, node):
         """
-        checks for the neighbours of a node and if they are inside the board.
+        Checks for the neighbours of a node and if they are inside the board.
+        
         Args:
             node (tuple): tuple with coordinates x, y and z
         Returns:
