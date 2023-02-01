@@ -212,6 +212,7 @@ class ConstructiveExtended(Pathfinder):
 
         # Write down the route with "1" expect the gates, that must stay X.
         if solutions_counter >= 1:
+            wire_count = (len(best_solution_route) - 1)
             for coord in best_solution_route:
                 coord_x = coord[0]
                 coord_y = coord[1]
